@@ -1,101 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Siri Gowda</title>
-<link rel="icon" type="image/png" href="https://gowdasiri.wordpress.com/wp-content/uploads/2020/06/cropped-screen-shot-2020-06-06-at-11.36.03-pm-1.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GowdaSiri</title>
+<link rel="icon" href="https://gowdasiri.wordpress.com/wp-content/uploads/2020/06/cropped-screen-shot-2020-06-06-at-11.36.03-pm-1.png?w=362&h=362">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: black;
+    margin: 0;
+  }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: white;
-      color: black;
-      line-height: 1.6;
-    }
+  /* Top menu */
+  .menu {
+    display: flex;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 20px;
+  }
 
-    /* Navigation bar */
-    nav {
-      border-bottom: 1px solid #ddd;
-      padding: 15px 30px;
-      position: sticky;
-      top: 0;
-      background: white;
-    }
+  .menu-item {
+    position: relative;
+    margin-right: 20px;
+    cursor: pointer;
+  }
 
-    nav a {
-      margin-right: 20px;
-      text-decoration: none;
-      color: black;
-      font-weight: bold;
-    }
+  .menu-item a {
+    text-decoration: none;
+    color: black;
+    padding: 5px 0;
+  }
 
-    nav a:hover {
-      text-decoration: underline;
-    }
+  /* Dropdown */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: 1px solid #ccc;
+    z-index: 1;
+  }
 
-    /* Main content */
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
+  .dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+  }
 
-    section {
-  margin-bottom: 100px;
-}
+  .dropdown-content a:hover {
+    background-color: #f0f0f0;
+  }
 
-    h1 {
-  letter-spacing: 2px;
-  margin-bottom: 25px;
-}
-
-h2 {
-  letter-spacing: 1.5px;
-  margin-bottom: 20px;
-}
-  </style>
+  /* Show dropdown on hover */
+  .menu-item:hover .dropdown-content {
+    display: block;
+  }
+</style>
 </head>
-
 <body>
 
-  <!-- Menu -->
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#about">About Me</a>
-    <li class="dropdown">
-    <a href="#" class="dropbtn">Hobbies</a>
+<!-- Menu -->
+<nav class="menu">
+  <div class="menu-item"><a href="#">Home</a></div>
+  <div class="menu-item">
+    <a href="#">Hobbies</a>
     <div class="dropdown-content">
-        <a href="iceland.html">Iceland Travel</a>
+      <a href="#">Iceland</a>
     </div>
-</li>
-    <a href="#projects">Projects</a>
-  </nav>
-
-  <!-- Content -->
-  <div class="container">
-
-    <section id="home">
-      <h1>Your Name</h1>
-      <p>Welcome to my personal website.</p>
-      <p>This space documents my long-term work and interests.</p>
-    </section>
-
-    <section id="about">
-      <h2>About Me</h2>
-      <p>Write a short introduction about yourself.</p>
-    </section>
-
-    <section id="hobbies">
-      <h2>Hobbies</h2>
-      <p>Describe your hobbies here.</p>
-    </section>
-
-    <section id="projects">
-      <h2>Projects</h2>
-      <p>Describe your long-term projects.</p>
-    </section>
-
   </div>
+  <div class="menu-item"><a href="#">About</a></div>
+  <div class="menu-item"><a href="#">Contact</a></div>
+</nav>
+
+<!-- Page content -->
+<div style="padding: 20px;">
+  <h1>Welcome to GowdaSiri</h1>
+  <p>This is a minimalist demo site.</p>
+</div>
 
 </body>
 </html>
