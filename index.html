@@ -1,26 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <link rel="stylesheet" href="styles.css">
+  <title>Siri Gowda</title>
+<link rel="icon" type="image/png" href="https://gowdasiri.wordpress.com/wp-content/uploads/2020/06/cropped-screen-shot-2020-06-06-at-11.36.03-pm-1.png">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: white;
+      color: black;
+      line-height: 1.6;
+    }
+
+    /* Navigation bar */
+    nav {
+      border-bottom: 1px solid #ddd;
+      padding: 15px 30px;
+      position: sticky;
+      top: 0;
+      background: white;
+    }
+
+    nav a {
+      margin-right: 20px;
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main content */
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    section {
+  margin-bottom: 100px;
+}
+
+    h1 {
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+}
+
+h2 {
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+}
+  </style>
 </head>
+
 <body>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li>
-                <a href="#">Travel</a>
-                <ul>
-                    <li><a href="iceland.html">Iceland</a></li>
-                </ul>
-            </li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
-    <h1>Welcome to My Website</h1>
-    <p>This is a website about my travels and experiences.</p>
+
+  <!-- Menu -->
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About Me</a>
+    <a href="#hobbies">Hobbies</a>
+    <a href="#projects">Projects</a>
+  </nav>
+
+  <!-- Content -->
+  <div class="container">
+
+    <section id="home">
+      <h1>Your Name</h1>
+      <p>Welcome to my personal website.</p>
+      <p>This space documents my long-term work and interests.</p>
+    </section>
+
+    <section id="about">
+      <h2>About Me</h2>
+      <p>Write a short introduction about yourself.</p>
+    </section>
+
+    <section id="hobbies">
+      <h2>Hobbies</h2>
+      <p>Describe your hobbies here.</p>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <p>Describe your long-term projects.</p>
+    </section>
+
+  </div>
+
 </body>
 </html>
