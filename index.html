@@ -6,50 +6,57 @@
 <title>Siri Gowda</title>
 <link rel="icon" href="https://gowdasiri.wordpress.com/wp-content/uploads/2020/06/cropped-screen-shot-2020-06-06-at-11.36.03-pm-1.png?w=362&h=362">
 <style>
+  /* Basic page setup */
   body {
-    font-family: Arial, sans-serif;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
     background-color: white;
     color: black;
-    margin: 0;
   }
 
-  /* Top menu */
-  .menu {
+  /* Top menu container */
+  nav.menu {
     display: flex;
+    justify-content: space-evenly; /* Evenly spaced across the page */
+    align-items: center;
     background-color: white;
     border-bottom: 1px solid #ccc;
-    padding: 10px 20px;
+    padding: 15px 0;
   }
 
+  /* Menu items */
   .menu-item {
     position: relative;
-    margin-right: 20px;
-    cursor: pointer;
   }
 
   .menu-item a {
     text-decoration: none;
     color: black;
-    padding: 5px 0;
+    font-weight: 500;
+    padding: 5px 10px;
+    transition: color 0.2s;
   }
 
-  /* Dropdown */
+  .menu-item a:hover {
+    color: #555; /* subtle hover effect */
+  }
+
+  /* Dropdown container */
   .dropdown-content {
     display: none;
     position: absolute;
-    top: 100%;
+    top: 100%; 
     left: 0;
     background-color: white;
     min-width: 150px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     z-index: 1;
   }
 
   .dropdown-content a {
     display: block;
-    padding: 10px;
-    text-decoration: none;
+    padding: 10px 15px;
     color: black;
   }
 
@@ -61,6 +68,24 @@
   .menu-item:hover .dropdown-content {
     display: block;
   }
+
+  /* Page content styling */
+  .content {
+    padding: 50px 20px;
+    text-align: center;
+  }
+
+  .content h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+
+  .content p {
+    font-size: 1.2em;
+    max-width: 700px;
+    margin: auto;
+    line-height: 1.6;
+  }
 </style>
 </head>
 <body>
@@ -69,19 +94,19 @@
 <nav class="menu">
   <div class="menu-item"><a href="#">Home</a></div>
   <div class="menu-item">
-    <a href="#">Travel</a>
+    <a href="#">Hobbies</a>
     <div class="dropdown-content">
       <a href="iceland.html">Iceland</a>
     </div>
   </div>
   <div class="menu-item"><a href="#">About</a></div>
-  <div class="menu-item"><a href="#">Projects</a></div>
+  <div class="menu-item"><a href="#">Contact</a></div>
 </nav>
 
 <!-- Page content -->
-<div style="padding: 20px;">
+<div class="content">
   <h1>Welcome to GowdaSiri</h1>
-  <p>This is a minimalist demo site.</p>
+  <p>Explore hobbies, travel destinations, and more in a clean and minimalist style. Use the menu above to navigate.</p>
 </div>
 
 </body>
