@@ -264,6 +264,74 @@
     }
     .footer-copy { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; color: var(--muted); }
 
+    /* ── Nav dropdown ── */
+    .nav-dropdown-wrap { position: relative; }
+    .nav-dropdown-trigger {
+      font-family: var(--mono); font-size: .68rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      transition: color .2s; display: flex; align-items: center; gap: 5px;
+      cursor: none;
+    }
+    .nav-dropdown-trigger:hover { color: var(--ink); }
+    .nav-caret { font-size: .55rem; transition: transform .2s; display: inline-block; }
+    .nav-dropdown-wrap:hover .nav-caret { transform: rotate(180deg); }
+    .nav-dropdown {
+      position: absolute; top: calc(100% + 14px); left: 50%;
+      transform: translateX(-50%);
+      background: var(--white); border: 1px solid var(--rule);
+      list-style: none; min-width: 140px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .2s, transform .2s;
+      transform: translateX(-50%) translateY(-6px);
+      z-index: 200;
+    }
+    .nav-dropdown-wrap:hover .nav-dropdown {
+      opacity: 1; pointer-events: all;
+      transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown li a {
+      display: block; padding: 12px 18px;
+      font-family: var(--mono); font-size: .66rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      transition: color .15s, background .15s;
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-dropdown li:last-child a { border-bottom: none; }
+    .nav-dropdown li a:hover { color: var(--ink); background: #fafafa; }
+
+    
+    .travel-grid { display: flex; flex-direction: column; gap: 2px; }
+    .travel-card {
+      display: grid; grid-template-columns: 400px 1fr;
+      border: 1px solid var(--rule); text-decoration: none; color: var(--ink);
+      transition: border-color .2s; cursor: none; overflow: hidden;
+    }
+    .travel-card:hover { border-color: var(--ink); }
+    .travel-card-img { overflow: hidden; height: 340px; }
+    .travel-card-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .5s ease;
+    }
+    .travel-card:hover .travel-card-img img { transform: scale(1.03); }
+    .travel-card-body {
+      padding: 40px 48px; display: flex; flex-direction: column; justify-content: center;
+    }
+    .travel-card-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .travel-card-region { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
+    .travel-card-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
+    .travel-card-date { font-family: var(--mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .travel-card-title { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 300; line-height: 1.1; margin-bottom: 16px; }
+    .travel-card-desc { font-size: .88rem; line-height: 1.8; color: #555; margin-bottom: 24px; max-width: 420px; }
+    .travel-card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 28px; }
+    .travel-tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .04em; border: 1px solid var(--rule); padding: 4px 10px; border-radius: 2px; color: var(--muted); }
+    .travel-card-cta { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 2px; align-self: flex-start; }
+
+    @media (max-width: 780px) {
+      .travel-card { grid-template-columns: 1fr; }
+      .travel-card-img { height: 240px; }
+      .travel-card-body { padding: 28px 24px; }
+    }
+
     /* ── Reveal ── */
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
@@ -301,7 +369,12 @@
       <li><a href="#contact">Contact</a></li>
       <li><span class="nav-divider"></span></li>
       <li><a href="#blog">Blog</a></li>
-      <li><a href="#travel">Travel</a></li>
+      <li class="nav-dropdown-wrap">
+        <a href="#travel" class="nav-dropdown-trigger">Travel <span class="nav-caret">▾</span></a>
+        <ul class="nav-dropdown">
+          <li><a href="iceland.html">Iceland</a></li>
+        </ul>
+      </li>
       <li><a href="#books">Books</a></li>
     </ul>
   </nav>
@@ -504,10 +577,28 @@
         <div class="section-line"></div>
         <span class="section-num">05</span>
       </div>
-      <div class="placeholder-inner reveal">
-        <div class="placeholder-icon">◎</div>
-        <h2 class="placeholder-title">Places &amp; Journeys</h2>
-        <p class="placeholder-sub">Coming soon — destinations, stories &amp; reflections from the road</p>
+      <div class="travel-grid reveal">
+        <a href="iceland.html" class="travel-card">
+          <div class="travel-card-img">
+            <img src="https://gowdasiri.files.wordpress.com/2024/02/img_3131.jpg" alt="Iceland Glacier Lagoon" />
+          </div>
+          <div class="travel-card-body">
+            <div class="travel-card-meta">
+              <span class="travel-card-region">Iceland</span>
+              <span class="travel-card-dot"></span>
+              <span class="travel-card-date">Feb — Mar 2024</span>
+            </div>
+            <h3 class="travel-card-title">Winter Girls Trip<br />to Iceland</h3>
+            <p class="travel-card-desc">4 days of glaciers, ice caves, active volcanoes, northern lights, black sand beaches, and an evacuation warning. The land of fire and ice did not disappoint.</p>
+            <div class="travel-card-tags">
+              <span class="travel-tag">Golden Circle</span>
+              <span class="travel-tag">Aurora Borealis</span>
+              <span class="travel-tag">Glacier Hike</span>
+              <span class="travel-tag">South Coast</span>
+            </div>
+            <span class="travel-card-cta">Read the full guide →</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -533,7 +624,7 @@
     <p class="contact-eyebrow">Get in touch</p>
     <h2 class="contact-headline">Let's build something<br /><em>worth building</em></h2>
     <div class="contact-links">
-      <a href="mailto:hello@sirigowda.com" class="contact-link">Email</a>
+      <a href="/cdn-cgi/l/email-protection#c7afa2ababa887b4aeb5aea0a8b0a3a6e9a4a8aa" class="contact-link">Email</a>
       <a href="https://linkedin.com/in/gowdasiri" target="_blank" class="contact-link">LinkedIn</a>
       <a href="https://github.com/gowdasiri" target="_blank" class="contact-link">GitHub</a>
     </div>
@@ -545,7 +636,7 @@
     <span class="footer-copy">Data Engineering · FinTech</span>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Custom cursor
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
@@ -581,10 +672,4 @@
       sections.forEach(s => {
         if (window.scrollY >= s.offsetTop - 120) current = s.id;
       });
-      navLinks.forEach(a => {
-        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--ink)' : '';
-      });
-    });
-  </script>
-</body>
-</html>
+      navLin
