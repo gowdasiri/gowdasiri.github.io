@@ -107,7 +107,11 @@
 
   </style>
 </head>
-
+<script>
+document.querySelectorAll("img").forEach(img => {
+  img.loading = "lazy";
+});
+</script>
 <body>
   <div class="page-container">
 
