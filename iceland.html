@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winter Girls Trip to Iceland — Siri Gowda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    #111111;
+      --white:  #ffffff;
+      --muted:  #888888;
+      --rule:   rgba(0,0,0,.10);
+      --mono:   'DM Mono', monospace;
+      --serif:  'Cormorant Garamond', serif;
+      --sans:   'Instrument Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      cursor: none;
+    }
+
+    /* ── Cursor ── */
+    #cursor {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 10px; height: 10px; background: var(--ink);
+      border-radius: 50%; pointer-events: none;
+      transform: translate(-50%,-50%);
+      transition: width .2s, height .2s, opacity .2s;
+    }
+    #cursor.expand { width: 30px; height: 30px; opacity: .12; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 52px;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-back {
+      font-family: var(--mono); font-size: .68rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 8px; transition: color .2s;
+    }
+    .nav-back:hover { color: var(--ink); }
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.2rem; font-weight: 400;
+      letter-spacing: .04em; color: var(--ink); text-decoration: none;
+    }
+    .nav-tag {
+      font-family: var(--mono); font-size: .64rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ── Hero ── */
+    .post-hero {
+      padding-top: 100px;
+      max-width: 820px; margin: 0 auto;
+      padding-left: 52px; padding-right: 52px;
+      padding-bottom: 64px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .post-category {
+      font-family: var(--mono); font-size: .66rem; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .post-category::before {
+      content: ''; width: 24px; height: 1px; background: var(--rule);
+    }
+    .post-title {
+      font-family: var(--serif); font-weight: 300;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      line-height: 1.05; letter-spacing: -.01em;
+      margin-bottom: 28px;
+    }
+    .post-title em { font-style: italic; }
+    .post-meta {
+      display: flex; gap: 32px; align-items: center;
+    }
+    .post-meta-item {
+      font-family: var(--mono); font-size: .64rem;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+    }
+    .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
+
+    /* ── Hero image ── */
+    .hero-image {
+      width: 100%; max-width: 820px; margin: 0 auto;
+      display: block;
+    }
+    .hero-image img {
+      width: 100%; height: 480px; object-fit: cover; display: block;
+    }
+    .hero-image figcaption {
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted);
+      padding: 10px 52px; border-bottom: 1px solid var(--rule);
+      max-width: 820px; margin: 0 auto;
+    }
+
+    /* ── Table of Contents ── */
+    .toc-wrapper {
+      max-width: 820px; margin: 0 auto;
+      padding: 48px 52px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .toc-label {
+      font-family: var(--mono); font-size: .64rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+    }
+    .toc-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4px 40px;
+    }
+    .toc-item {
+      font-family: var(--mono); font-size: .7rem; letter-spacing: .06em;
+      color: var(--muted); text-decoration: none;
+      padding: 6px 0; border-bottom: 1px solid var(--rule);
+      transition: color .2s; display: flex; align-items: center; gap: 8px;
+    }
+    .toc-item:hover { color: var(--ink); }
+    .toc-item::before { content: '→'; font-size: .6rem; opacity: .4; }
+    .toc-sub { padding-left: 16px; font-size: .66rem; }
+
+    /* ── Article body ── */
+    .article-body {
+      max-width: 820px; margin: 0 auto;
+      padding: 0 52px;
+    }
+
+    /* ── Sections ── */
+    .post-section { padding: 64px 0; border-bottom: 1px solid var(--rule); }
+    .post-section:last-child { border-bottom: none; }
+
+    .section-label {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 36px;
+    }
+    .section-label-tag {
+      font-family: var(--mono); font-size: .64rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--ink);
+    }
+    .section-label-line { flex: 1; height: 1px; background: var(--rule); }
+
+    h2.post-h2 {
+      font-family: var(--serif); font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 300; line-height: 1.2; margin-bottom: 24px;
+    }
+    h3.post-h3 {
+      font-family: var(--serif); font-size: 1.3rem; font-weight: 400;
+      margin-bottom: 16px; margin-top: 36px;
+    }
+    h4.post-h4 {
+      font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 12px; margin-top: 28px;
+    }
+
+    .post-p {
+      font-size: .93rem; line-height: 1.85; color: #333;
+      margin-bottom: 18px;
+    }
+    .post-p a {
+      color: var(--ink); text-underline-offset: 3px;
+    }
+    .post-p a:hover { opacity: .6; }
+
+    /* ── Lists ── */
+    .post-ol, .post-ul {
+      margin: 0 0 20px 0; padding-left: 0; list-style: none;
+    }
+    .post-ol { counter-reset: item; }
+    .post-ol li { counter-increment: item; }
+    .post-ol li::before {
+      content: counter(item, decimal-leading-zero);
+      font-family: var(--mono); font-size: .65rem; letter-spacing: .08em;
+      color: var(--muted); margin-right: 14px; vertical-align: middle;
+    }
+    .post-ul li::before {
+      content: '—';
+      font-family: var(--mono); color: var(--muted);
+      margin-right: 12px; font-size: .75rem;
+    }
+    .post-ol li, .post-ul li {
+      font-size: .91rem; line-height: 1.8; color: #333;
+      padding: 10px 0; border-bottom: 1px solid var(--rule);
+      display: flex; align-items: baseline;
+    }
+    .post-ol li:last-child, .post-ul li:last-child { border-bottom: none; }
+    .post-ol li span, .post-ul li span { flex: 1; }
+    .post-ol li a, .post-ul li a { color: var(--ink); }
+
+    /* ── Images ── */
+    .post-img {
+      margin: 40px 0; width: 100%;
+    }
+    .post-img img {
+      width: 100%; display: block;
+      border: 1px solid var(--rule);
+    }
+    .post-img figcaption {
+      font-family: var(--mono); font-size: .62rem;
+      letter-spacing: .08em; color: var(--muted);
+      margin-top: 10px; text-align: center;
+    }
+
+    .post-img-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 40px 0;
+    }
+    .post-img-grid .post-img { margin: 0; }
+
+    .post-img-trio {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin: 40px 0;
+    }
+    .post-img-trio .post-img { margin: 0; }
+    .post-img-trio .post-img img { height: 220px; object-fit: cover; }
+
+    /* ── Video embed ── */
+    .post-video {
+      margin: 40px 0; position: relative;
+      padding-bottom: 56.25%; height: 0; overflow: hidden;
+    }
+    .post-video iframe {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      border: 1px solid var(--rule);
+    }
+
+    /* ── Day cards ── */
+    .day-card {
+      border: 1px solid var(--rule);
+      padding: 32px; margin-bottom: 48px; border-radius: 2px;
+    }
+    .day-number {
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+    }
+    .day-title {
+      font-family: var(--serif); font-size: 1.5rem; font-weight: 400;
+      margin-bottom: 20px;
+    }
+    .day-stops {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;
+    }
+    .day-stop {
+      font-family: var(--mono); font-size: .64rem; letter-spacing: .06em;
+      border: 1px solid var(--rule); padding: 4px 10px; border-radius: 2px;
+      color: var(--ink);
+    }
+    .day-body { font-size: .91rem; line-height: 1.85; color: #333; }
+    .day-body p { margin-bottom: 14px; }
+    .day-body strong { font-weight: 500; }
+
+    /* ── Highlight callout ── */
+    .callout {
+      border-left: 2px solid var(--ink);
+      padding: 20px 24px; margin: 32px 0;
+      background: #fafafa;
+    }
+    .callout p { font-size: .91rem; line-height: 1.8; color: #333; margin: 0; }
+
+    /* ── Tips numbered ── */
+    .tips-list { display: flex; flex-direction: column; gap: 0; }
+    .tip-item {
+      display: grid; grid-template-columns: 48px 1fr;
+      gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--rule);
+      align-items: start;
+    }
+    .tip-item:last-child { border-bottom: none; }
+    .tip-num {
+      font-family: var(--serif); font-size: 2rem; font-weight: 300;
+      color: #ddd; line-height: 1;
+    }
+    .tip-content {}
+    .tip-title { font-weight: 500; margin-bottom: 6px; font-size: .93rem; }
+    .tip-body { font-size: .88rem; line-height: 1.8; color: #555; }
+    .tip-body a { color: var(--ink); }
+
+    /* ── Food grid ── */
+    .food-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); margin: 24px 0; }
+    .food-item { background: white; padding: 24px; }
+    .food-name { font-weight: 500; font-size: .93rem; margin-bottom: 6px; }
+    .food-desc { font-size: .85rem; line-height: 1.7; color: #555; }
+
+    /* ── Highlights list ── */
+    .highlight-item {
+      display: grid; grid-template-columns: 32px 1fr;
+      gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--rule);
+      align-items: start;
+    }
+    .highlight-item:last-child { border-bottom: none; }
+    .highlight-num {
+      font-family: var(--mono); font-size: .62rem; color: #ccc;
+      letter-spacing: .08em; padding-top: 3px;
+    }
+    .highlight-body { font-size: .91rem; line-height: 1.8; color: #333; }
+    .highlight-body strong { font-weight: 500; }
+
+    /* ── Useful links ── */
+    .links-grid { display: flex; flex-direction: column; gap: 0; }
+    .link-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 0; border-bottom: 1px solid var(--rule);
+    }
+    .link-label { font-size: .91rem; color: var(--ink); }
+    .link-arrow {
+      font-family: var(--mono); font-size: .68rem; color: var(--muted);
+      text-decoration: none; transition: color .2s;
+    }
+    .link-arrow:hover { color: var(--ink); }
+
+    /* ── Conclusion ── */
+    .post-conclusion {
+      max-width: 820px; margin: 0 auto;
+      padding: 64px 52px;
+      border-top: 1px solid var(--rule);
+    }
+    .conclusion-text {
+      font-family: var(--serif); font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 300; line-height: 1.6; color: #333;
+      font-style: italic;
+    }
+
+    /* ── Back nav ── */
+    .post-footer {
+      max-width: 820px; margin: 0 auto;
+      padding: 40px 52px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--rule);
+    }
+    .back-link {
+      font-family: var(--mono); font-size: .68rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 8px; transition: color .2s;
+    }
+    .back-link:hover { color: var(--ink); }
+    .post-footer-tag {
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .1em;
+      color: var(--muted); text-transform: uppercase;
+    }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .post-hero, .toc-wrapper, .article-body, .post-conclusion, .post-footer { padding-left: 24px; padding-right: 24px; }
+      .hero-image figcaption { padding-left: 24px; padding-right: 24px; }
+      .toc-grid { grid-template-columns: 1fr; }
+      .post-img-trio { grid-template-columns: 1fr; }
+      .post-img-grid { grid-template-columns: 1fr; }
+      .food-grid { grid-template-columns: 1fr; }
+      .tip-item { grid-template-columns: 36px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html#travel" class="nav-back">← Travel</a>
+    <a href="index.html" class="nav-logo">Siri Gowda</a>
+    <span class="nav-tag">June 2024</span>
+  </nav>
+
+  <!-- POST HERO -->
+  <div class="post-hero">
+    <p class="post-category">Travel · Iceland</p>
+    <h1 class="post-title">Winter Girls Trip<br />to <em>Iceland</em></h1>
+    <div class="post-meta">
+      <span class="post-meta-item">February — March</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">4 Days</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">Reykjavik &amp; South Coast</span>
+    </div>
+  </div>
+
+  <!-- HERO IMAGE -->
+  <figure class="hero-image">
+    <img src="https://gowdasiri.files.wordpress.com/2024/02/img_3131.jpg" alt="Glacier Lagoon, Iceland" />
+  </figure>
+  <figcaption style="font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#888;padding:10px 52px;border-bottom:1px solid rgba(0,0,0,.1);max-width:820px;margin:0 auto;">Jökulsárlón Glacier Lagoon</figcaption>
+
+  <!-- INTRO -->
+  <div class="article-body">
+    <div class="post-section">
+      <p class="post-p" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;line-height:1.75;font-style:italic;">
+        Iceland was created about 70 million years ago, by lava that rose to the ocean's surface and cooled. Popularly known as the land of fire and ice — only 20–25% of the island is inhabitable. A place unlike anywhere else on Earth.
+      </p>
+    </div>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc-wrapper reveal">
+    <p class="toc-label">In this post</p>
+    <nav class="toc-grid">
+      <a href="#transportation" class="toc-item"><span>How to get around</span></a>
+      <a href="#where-to-stay" class="toc-item"><span>Where to stay</span></a>
+      <a href="#daylight" class="toc-item"><span>Hours of daylight</span></a>
+      <a href="#packing" class="toc-item"><span>Packing list</span></a>
+      <a href="#weather" class="toc-item"><span>Weather</span></a>
+      <a href="#itinerary" class="toc-item"><span>4-day itinerary</span></a>
+      <a href="#northern-lights" class="toc-item"><span>Northern Lights guide</span></a>
+      <a href="#food" class="toc-item"><span>Food guide</span></a>
+      <a href="#safety" class="toc-item"><span>Safety</span></a>
+      <a href="#highlights" class="toc-item"><span>Trip highlights</span></a>
+      <a href="#links" class="toc-item"><span>Useful links</span></a>
+    </nav>
+  </div>
+
+  <!-- ARTICLE -->
+  <div class="article-body">
+
+    <!-- TRANSPORTATION -->
+    <div class="post-section reveal" id="transportation">
+      <div class="section-label">
+        <span class="section-label-tag">Getting around</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">How to get around?</h2>
+      <p class="post-p">When you fly into Iceland, you land at Keflavik Airport in the western part of the island. Keflavik to Downtown Reykjavik (DTR) takes about an hour — here are your options:</p>
+      <ol class="post-ol">
+        <li><span><strong>Taxi</strong> — Convenient and cost effective (fixed rate) for larger groups of 4–8. No need to book in advance — grab one at the airport or use the Hopp app. About ISK 4000 for 15–20 mins.</span></li>
+        <li><span><strong>FlyBus</strong> — Scheduled every 30–60 mins, city centre and back. Most cost effective for smaller groups of 1–4. Book tickets in the arrival hall or on the FlyBus app.</span></li>
+        <li><span><strong>Rental car</strong> — Iceland's roads are impeccably maintained, but winter driving means ice, blizzards, and near-zero visibility. We chose to skip it — but if you go for it, go prepared.</span></li>
+      </ol>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2024/03/img_4569-1.jpg?w=1024" alt="Downtown Reykjavik" />
+        <figcaption>Downtown Reykjavik</figcaption>
+      </figure>
+      <div class="post-img-trio">
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2024/02/img_0455.jpg?w=981" alt="Hallgrimskirkja church" />
+          <figcaption>Hallgrimskirkja</figcaption>
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2024/03/img_4495-1.jpg?w=1024" alt="Sun Voyager" />
+          <figcaption>Sun Voyager</figcaption>
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2024/03/img_4488-1.jpg?w=1024" alt="Harpa Concert Hall" />
+          <figcaption>Harpa Concert Hall</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- WHERE TO STAY -->
+    <div class="post-section reveal" id="where-to-stay">
+      <div class="section-label">
+        <span class="section-label-tag">Accommodation</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Where to stay?</h2>
+      <p class="post-p">Highly recommend staying in downtown Reykjavik on arrival — walkable distance from restaurants, bars, and tour pick-up points. Reykjavik was officially established in 1786 and is home to two-thirds of all Icelanders.</p>
+      <div class="callout">
+        <p>Pro tip: When booking accommodation, check the walking distance to Harpa Concert Hall on Maps. Anything under 15 minutes is centrally located. Some listings say "downtown" but are actually a 25–30 minute walk.</p>
+      </div>
+    </div>
+
+    <!-- DAYLIGHT -->
+    <div class="post-section reveal" id="daylight">
+      <div class="section-label">
+        <span class="section-label-tag">Planning</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Hours of daylight</h2>
+      <p class="post-p">We visited at the end of February / beginning of March when days were getting noticeably longer. Sunrise on March 1st was around 8:30am and sunset around 6:40pm — about 10 hours of daylight. Really important to factor in before planning a trip to the land of midnight sun!</p>
+    </div>
+
+    <!-- PACKING -->
+    <div class="post-section reveal" id="packing">
+      <div class="section-label">
+        <span class="section-label-tag">Preparation</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Packing list</h2>
+      <p class="post-p">It is always better to be over-prepared than under. The golden rule: layers, waterproof everything, and hand warmers (yes, multiple).</p>
+      <ul class="post-ul">
+        <li><span><strong>Outer layer</strong> — Water-resistant and windproof outer pants + waterproof jacket</span></li>
+        <li><span><strong>Thermals</strong> — Fast-drying thermals so you're not stuck waiting for them to dry overnight</span></li>
+        <li><span><strong>Hiking boots</strong> — Ankle support, waterproof, and breathable. (I wore Merrel Moab 3 Mid WP)</span></li>
+        <li><span><strong>Socks</strong> — Merino wool hiking socks; multiple pairs</span></li>
+        <li><span><strong>Gloves</strong> — Waterproof and windproof with a pocket for hand warmers</span></li>
+        <li><span><strong>Hand warmers</strong> — Non-negotiable for the aurora hunts</span></li>
+        <li><span><strong>Fleece, sweaters, winter parka</strong> — Stack the layers</span></li>
+        <li><span><strong>Bathing suit</strong> — For the geothermal pools</span></li>
+        <li><span><strong>Power bank</strong> — Cold drains batteries fast</span></li>
+        <li><span><strong>SPF &amp; sunglasses</strong> — On rare sunny days, the sun sits low and is extremely bright</span></li>
+        <li><span><strong>Adapter + SIM card</strong> — European Type F socket</span></li>
+        <li><span><strong>Snacks</strong> — Nut butter packets, protein bars for long driving days</span></li>
+      </ul>
+    </div>
+
+    <!-- WEATHER -->
+    <div class="post-section reveal" id="weather">
+      <div class="section-label">
+        <span class="section-label-tag">Conditions</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Weather</h2>
+      <p class="post-p">Expect rain and wind in winter — but we were blessed with clear skies all week, and were repeatedly reminded how incredibly lucky we were. Even with sunshine, it was extremely cold — especially standing in open fields watching aurora borealis for hours.</p>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2024/02/img_2626.jpg" alt="Seljalandsfoss waterfall" />
+        <figcaption>Seljalandsfoss waterfall</figcaption>
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2024/02/img_3720.jpg?w=768" alt="Skogafoss waterfall" />
+        <figcaption>Skógafoss waterfall</figcaption>
+      </figure>
+    </div>
+
+    <!-- ITINERARY -->
+    <div class="post-section reveal" id="itinerary">
+      <div class="section-label">
+        <span class="section-label-tag">Day by day</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">4-Day Itinerary</h2>
+
+      <!-- Day 1 -->
+      <div class="day-card">
+        <p class="day-number">Day 01</p>
+        <h3 class="day-title">The Golden Circle</h3>
+        <div class="day-stops">
+          <span class="day-stop">Thingvellir National Park</span>
+          <span class="day-stop">Geysir Geothermal Area</span>
+          <span class="day-stop">Gullfoss Waterfall</span>
+          <span class="day-stop">Seljalandsfoss</span>
+        </div>
+        <div class="day-body">
+          <p><strong>Thingvellir National Park</strong> is a UNESCO World Heritage Site — the location of Althingi, where Viking nobles founded Iceland's first Parliament in 930 AD. It also hosts a seismic rift valley with an ever-expanding gap between the Eurasian and North American tectonic plates — the only visible land border between two continents.</p>
+          <p>Next was the <strong>Geysir Geothermal Area</strong>, home to Strokkur — the most active geyser, firing boiling water up to 30 meters every few minutes — and the now-dormant Great Geysir, which gave all geysers their name.</p>
+          <p><strong>Gullfoss</strong> ("Golden Falls") is a stunning two-stage waterfall that gets its name from the golden hue its water takes cascading over dark brown rock. On the drive south to Seljalandsfoss, we caught a clear view of Hekla Volcano. We stayed at Hotel Geirland that night.</p>
+        </div>
+      </div>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2024/02/img_0842.jpg?w=768" alt="Gullfoss waterfall" />
+        <figcaption>Gullfoss waterfall</figcaption>
+      </figure>
+
+      <!-- Day 2 -->
+      <div class="day-card">
+        <p class="day-number">Day 02</p>
+        <h3 class="day-title">Glacier Lagoon &amp; Ice Cave</h3>
+        <div class="day-stops">
+          <span class="day-stop">Jökulsárlón Glacier Lagoon</span>
+          <span class="day-stop">Diamond Beach</span>
+          <span class="day-stop">Vatnajökull Glacier</span>
+          <span class="day-stop">Natural Ice Cave</span>
+        </div>
+        <div class="day-body">
+          <p>We passed moss-carpeted lava fields, volcanically scarred deserts, and rock formations standing as vivid reminders of eruptions past. <strong>Jökulsárlón Glacier Lagoon</strong> lies in the shadow of the largest glacier in Europe — famed for glittering icebergs floating across its icy-blue surface.</p>
+          <p>Many icebergs wash up on <strong>Diamond Beach</strong>, shining like beautiful diamonds against the black sands. We even saw seals here! At Skaftafell Nature Reserve, a guide took us on a hike to a <strong>natural ice cave</strong> with both blue and black ice — Iceland's ice caves form each winter as summer meltwaters refreeze into spectacular sapphire pockets.</p>
+        </div>
+      </div>
+      <div class="post-img-grid">
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2024/02/img_3298.jpg?w=768" alt="Vatnajokull glacier hike" />
+          <figcaption>Vatnajökull glacier hike</figcaption>
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2024/02/img_1532.jpg?w=768" alt="Inside the ice cave" />
+          <figcaption>Inside the natural ice cave</figcaption>
+        </figure>
+      </div>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2024/02/img_3163.jpg?w=1024" alt="Diamond beach" />
+        <figcaption>Diamond Beach — melted icebergs sparkling like crystals</figcaption>
+      </figure>
+
+      <!-- Day 3 -->
+      <div class="day-card">
+        <p class="day-number">Day 03</p>
+        <h3 class="day-title">South Coast</h3>
+        <div class="day-stops">
+          <span class="day-stop">Fjaðrárgljúfur Canyon</span>
+          <span class="day-stop">Reynisfjara Black Sand Beach</span>
+          <span class="day-stop">Skógafoss Waterfall</span>
+          <span class="day-stop">Northern Lights Hunt</span>
+        </div>
+        <div class="day-body">
+          <p>We started with a short detour to <strong>Fjaðrárgljúfur Canyon</strong> — a beautiful hike up the mountain with stunning canyon views. Then the iconic <strong>Reynisfjara Black Sand Beach</strong> — the stark contrast of white-crested Atlantic waves against jet-black sands is both stunning and intimidating. A danger signal indicates safety levels: green (rare), yellow (stay behind markers), red (evacuate). It was yellow when we visited.</p>
+          <p><strong>Skógafoss</strong> cascades 60 meters wide. We climbed the path beside the falls — extremely windy, but worth it. Folklore says a Viking settler hid a treasure chest beneath the falls. The famous Eyjafjallajökull stands above it. That night we returned to Reykjavik and went aurora hunting — more on that below!</p>
+        </div>
+      </div>
+      <div class="post-img-grid">
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2024/02/img_1913-1.jpg?w=768" alt="Black sand beach" />
+          <figcaption>Reynisfjara Black Sand Beach</figcaption>
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2024/02/img_3692.jpg?w=1024" alt="Skogafoss waterfall" />
+          <figcaption>Skógafoss waterfall</figcaption>
+        </figure>
+      </div>
+      <div class="post-video">
+        <iframe src="https://www.youtube.com/embed/xIShQc_keiQ" title="Black Sand Beach Iceland" allowfullscreen></iframe>
+      </div>
+
+      <!-- Day 4 -->
+      <div class="day-card">
+        <p class="day-number">Day 04</p>
+        <h3 class="day-title">Active Volcano &amp; Northern Lights Tour</h3>
+        <div class="day-stops">
+          <span class="day-stop">Volcano Hike</span>
+          <span class="day-stop">Evacuation Alert</span>
+          <span class="day-stop">Northern Lights Tour</span>
+        </div>
+        <div class="day-body">
+          <p>While the main crater was dormant, we saw fresh lava surrounding the area with fumes rising from the surface — and molten lava up close. Then, right at the end of the hike, we received an <strong>evacuation warning</strong> predicting another eruption in the Grindavík area within 30 minutes. We evacuated. On the drive back, we noticed a large crack in a frozen lake caused by one of the 40+ earthquakes that day.</p>
+          <p>That evening we joined a <strong>Northern Lights tour</strong> — available only September through April — to escape light pollution. We were blessed with the most spectacular aurora borealis two nights in a row.</p>
+        </div>
+      </div>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2024/02/img_1749.jpg" alt="Fjaðrárgljúfur canyon" />
+        <figcaption>Fjaðrárgljúfur canyon</figcaption>
+      </figure>
+      <div class="post-video">
+        <iframe src="https://www.youtube.com/embed/BNQdaKuq1JY" title="Volcano Iceland" allowfullscreen></iframe>
+      </div>
+      <div class="post-img-grid">
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2024/02/copy-of-dsc08983.jpg?w=1024" alt="Aurora borealis" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2024/03/copy-of-dsc08976-copy-2-1.jpg?w=1024" alt="Northern lights" />
+        </figure>
+      </div>
+    </div>
+
+    <!-- NORTHERN LIGHTS GUIDE -->
+    <div class="post-section reveal" id="northern-lights">
+      <div class="section-label">
+        <span class="section-label-tag">Aurora guide</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Northern Lights Guide</h2>
+
+      <h3 class="post-h3">Tips to hunt Aurora Borealis</h3>
+      <div class="tips-list">
+        <div class="tip-item">
+          <div class="tip-num">01</div>
+          <div class="tip-content">
+            <p class="tip-title">Clear night skies</p>
+            <p class="tip-body">Aurora appears in the thermosphere — above clouds. If you can spot stars easily, you'll be able to see the lights. <a href="https://en.vedur.is/weather/forecasts/aurora/">Check cloud cover here</a>.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">02</div>
+          <div class="tip-content">
+            <p class="tip-title">Check the forecast</p>
+            <p class="tip-body">The <a href="https://www.swpc.noaa.gov/products/aurora-30-minute-forecast">Aurora forecast</a> shows probability every 30 minutes. 2–3 is a good probability — we saw the lights with that score. <a href="http://cygnus.rhi.hi.is/~halo/leirvogur.html">This site</a> shows live activity — flat lines = no activity, haphazard lines = go!</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">03</div>
+          <div class="tip-content">
+            <p class="tip-title">Escape light pollution</p>
+            <p class="tip-body">Get as far from city lights as possible. The moon is also your enemy — check moonrise times. On a clear night with low city lights, you're usually in for a show.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">04</div>
+          <div class="tip-content">
+            <p class="tip-title">Dress impossibly warm</p>
+            <p class="tip-body">Layers, double socks, warmest gloves, hot hands. You're in for a long wait in open cold fields. We couldn't feel our fingers after a while.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">05</div>
+          <div class="tip-content">
+            <p class="tip-title">Manifest (but also: check the forecast)</p>
+            <p class="tip-body">Northern lights don't run on a schedule. You can have perfect conditions and see nothing — or low probability and witness the most spectacular show of your life.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="post-h3" style="margin-top:48px;">Photography tips</h3>
+      <div class="tips-list">
+        <div class="tip-item">
+          <div class="tip-num">01</div>
+          <div class="tip-content">
+            <p class="tip-title">Bring a tripod</p>
+            <p class="tip-body">Absolutely essential. Long exposure + any hand shake = blurry images.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">02</div>
+          <div class="tip-content">
+            <p class="tip-title">Exposure time</p>
+            <p class="tip-body">Start at 5 seconds and adjust. Longer exposure captures more light from the moving particles.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">03</div>
+          <div class="tip-content">
+            <p class="tip-title">Low aperture</p>
+            <p class="tip-body">Set aperture as low as possible (bigger opening). Smaller numbers = more light in.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">04</div>
+          <div class="tip-content">
+            <p class="tip-title">ISO 800</p>
+            <p class="tip-body">Start at 800 and adjust as needed. Higher ISO = more light sensitivity, but can cause grain.</p>
+          </div>
+        </div>
+      </div>
+      <figure class="post-img" style="margin-top:40px;">
+        <img src="https://gowdasiri.files.wordpress.com/2024/02/img_4769.jpg" alt="Northern lights Iceland" />
+      </figure>
+    </div>
+
+    <!-- FOOD GUIDE -->
+    <div class="post-section reveal" id="food">
+      <div class="section-label">
+        <span class="section-label-tag">Eating &amp; drinking</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Food Guide</h2>
+      <p class="post-p">The food scene in Reykjavik is popping — Michelin starred restaurants, food halls, fine dining, cafes, bars. Traditional Icelandic food centers around fish and lamb, with smoked, salted, and fermented preparations.</p>
+
+      <h3 class="post-h3">What to eat</h3>
+      <div class="food-grid">
+        <div class="food-item">
+          <p class="food-name">Seafood</p>
+          <p class="food-desc">Arctic char, cod, fish &amp; chips, soups — we had it almost every day and it was absolutely delicious every single time.</p>
+        </div>
+        <div class="food-item">
+          <p class="food-name">Rye bread</p>
+          <p class="food-desc">Freshly baked, soft with a cake-like texture and slightly sweet. Worth going out of your way for — one friend made an hour-long trip for the geothermal underground-baked version.</p>
+        </div>
+        <div class="food-item">
+          <p class="food-name">Skyr</p>
+          <p class="food-desc">Icelandic cultured dairy product with the consistency of strained yogurt. Try the Ornu plain-flavored one.</p>
+        </div>
+        <div class="food-item">
+          <p class="food-name">Vegan options</p>
+          <p class="food-desc">Every restaurant has at least one vegan dish. Apparently this is the norm across most Scandinavian countries.</p>
+        </div>
+      </div>
+
+      <h3 class="post-h3">Where to eat</h3>
+      <ul class="post-ul">
+        <li><span><strong>Skal! at Hlemmur Food Hall</strong> — Michelin starred, modern Icelandic food. The Icelandic scallops with red currant granita and the dessert "some kind of pie" were unforgettable.</span></li>
+        <li><span><strong>Kaffi Loki</strong> — Opposite Hallgrimskirkja, homemade rye bread topped with fresh fish. Get the rye bread ice cream (it tastes like butterscotch!).</span></li>
+        <li><span><strong>Bread &amp; Co.</strong> — The best cinnamon roll you'll ever have.</span></li>
+        <li><span><strong>Cafe Babalu</strong> — Quirky, central, great for brunch. We recommend the berry mix crepes.</span></li>
+        <li><span><strong>Hraðlestin</strong> — North Indian food cooked to perfection. Reasonably priced for Iceland.</span></li>
+      </ul>
+
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2024/03/img_2374.jpg?w=768" alt="Scallops at Skal!" />
+        <figcaption>Scallops at Skal!</figcaption>
+      </figure>
+
+      <h4 class="post-h4">Coffee culture</h4>
+      <p class="post-p">Icelanders receive only four hours of sunlight on the darkest day of the year. To cope, they love their coffee — Reykjavik boasts a remarkable café culture, and time of day is irrelevant. Our guide Hilmar summed it up: to deal with the lack of sun, Icelanders rely on coffee, Vitamin D supplements, and Prozac.</p>
+
+      <h4 class="post-h4">Restaurant etiquette</h4>
+      <p class="post-p">Tap water is not only safe but tastes better than bottled. Tipping is not customary — but welcome for exceptional service. Dinner is typically 7–8pm; reservations recommended for fine dining.</p>
+
+      <h4 class="post-h4">Nightlife</h4>
+      <p class="post-p">We returned from a northern lights hunt at 1am to find the streets of Reykjavik more alive than ever. DTR has a reputation as one of the hottest nightlife spots in the world. Weekdays till 1am, weekends till 4:20am. Stop by Kaldi Bar for local beers.</p>
+
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2024/03/img_4684-1.jpg?w=1008" alt="Reykjavik streets" />
+      </figure>
+    </div>
+
+    <!-- SAFETY -->
+    <div class="post-section reveal" id="safety">
+      <div class="section-label">
+        <span class="section-label-tag">Safety</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Safety</h2>
+      <p class="post-p">Iceland consistently ranks #1 on the Global Peace Index with one of the world's lowest crime rates and no dangerous animal predators. As a girls' group visiting remote spots for aurora hunting, we never felt unsafe — but always remain cautious.</p>
+      <div class="callout">
+        <p>For safety tips, renting a Personal Location Beacon (PLB), weather and road conditions, and live weather warnings, visit <a href="http://www.safetravel.is">www.safetravel.is</a>. Check the weather regularly before any drive, hike, or sailing — it is famous for changing in a moment's notice.</p>
+      </div>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2024/02/img_0045-3599500481-e1709728311693.jpg?w=1024" alt="Sky Lagoon" />
+        <figcaption>Sky Lagoon</figcaption>
+      </figure>
+    </div>
+
+    <!-- HIGHLIGHTS -->
+    <div class="post-section reveal" id="highlights">
+      <div class="section-label">
+        <span class="section-label-tag">Looking back</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Highlights from our trip</h2>
+      <div>
+        <div class="highlight-item">
+          <span class="highlight-num">01</span>
+          <p class="highlight-body"><strong>The waterfalls.</strong> So many, each stunning in their own way.</p>
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-num">02</span>
+          <p class="highlight-body"><strong>Northern Lights.</strong> Nothing beats the aurora hunt. Night one: we thought we'd found a spot, didn't see it, got followed by a cat for an hour, then booked a cab to a remote golf course parking lot near a lighthouse. Saw it the moment we arrived. Froze for an hour and a half. Absolutely awestruck. Night two was a breeze by comparison. Two consecutive nights of the most magical thing I've ever seen.</p>
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-num">03</span>
+          <p class="highlight-body"><strong>Glacier Lagoon and Diamond Beach.</strong> Icebergs, seals, and melted ice crystals on black sand that look like museum glass. Beautiful and one of a kind.</p>
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-num">04</span>
+          <p class="highlight-body"><strong>Glacier and ice cave hike.</strong> Surreal blue and black ice you have to see to believe.</p>
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-num">05</span>
+          <p class="highlight-body"><strong>Ice water plunge and thermal bath.</strong> 25 geothermal pools in the Reykjavik area. I was surprised to discover I loved the cold plunge (for 20 seconds only). Love that this is how they socialize.</p>
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-num">06</span>
+          <p class="highlight-body"><strong>Volcano hike and evacuation alert.</strong> 40 earthquakes that morning, an evacuation warning predicting eruption within 30 minutes, and a freshly cracked frozen lake on the drive back. Iceland keeps you on your toes.</p>
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-num">07</span>
+          <p class="highlight-body"><strong>Reynisfjara Black Sand Beach.</strong> Watching waves rise tens of feet in seconds makes you understand why the warning signal is almost always yellow. Stunning and humbling.</p>
+        </div>
+      </div>
+      <figure class="post-img" style="margin-top:40px;">
+        <img src="https://gowdasiri.files.wordpress.com/2024/02/img_3121.jpg?w=1024" alt="Iceland trip" />
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2024/03/img_4317-edited.jpg?w=768" alt="Evacuation warning" />
+        <figcaption>Evacuation warning received on the volcano hike</figcaption>
+      </figure>
+    </div>
+
+    <!-- USEFUL LINKS -->
+    <div class="post-section reveal" id="links">
+      <div class="section-label">
+        <span class="section-label-tag">Resources</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Useful links</h2>
+      <div class="links-grid">
+        <div class="link-item">
+          <span class="link-label">4-day Golden Circle South Coast Tour</span>
+          <a href="https://adventures.is/iceland/multiday-tours/4-day-tours/golden-circle-south-coast-ice-cave-blue-lagoon/" target="_blank" class="link-arrow">adventures.is →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Aurora cloud cover forecast</span>
+          <a href="https://en.vedur.is/weather/forecasts/aurora/" target="_blank" class="link-arrow">vedur.is →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Aurora 30-minute forecast</span>
+          <a href="https://www.swpc.noaa.gov/products/aurora-30-minute-forecast" target="_blank" class="link-arrow">noaa.gov →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Safe Travel Iceland</span>
+          <a href="http://www.safetravel.is" target="_blank" class="link-arrow">safetravel.is →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Iceland Schengen Visa</span>
+          <a href="https://www.government.is/diplomatic-missions/consulate-general-of-iceland-in-new-york/visa-to-iceland/" target="_blank" class="link-arrow">government.is →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">FlyBus airport transfers</span>
+          <a href="https://www.re.is/flybus/" target="_blank" class="link-arrow">re.is →</a>
+        </div>
+      </div>
+      <figure class="post-img" style="margin-top:40px;">
+        <img src="https://gowdasiri.files.wordpress.com/2024/02/img_4644.jpg?w=579" alt="Cafe Babalu" />
+        <figcaption>Cafe Babalu, Reykjavik</figcaption>
+      </figure>
+    </div>
+
+  </div>
+
+  <!-- CONCLUSION -->
+  <div class="post-conclusion reveal">
+    <p class="conclusion-text">"This trip has been epic for many reasons — most of all, my heart is full of gratitude for the time spent with my best friends, and Iceland has been the most incredible setting for our trip. I have great admiration for the resilience and resourcefulness of the Icelandic people — and I can't wait to go back, hopefully in the summer next time."</p>
+  </div>
+
+  <!-- POST FOOTER -->
+  <div class="post-footer">
+    <a href="index.html#travel" class="back-link">← Back to Travel</a>
+    <span class="post-footer-tag">Iceland · February 2024</span>
+  </div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
