@@ -276,18 +276,22 @@
     .nav-caret { font-size: .55rem; transition: transform .2s; display: inline-block; }
     .nav-dropdown-wrap:hover .nav-caret { transform: rotate(180deg); }
     .nav-dropdown {
-      position: absolute; top: calc(100% + 14px); left: 50%;
+      position: absolute; top: 100%; left: 50%;
       transform: translateX(-50%);
-      background: var(--white); border: 1px solid var(--rule);
+      padding-top: 14px; /* creates invisible hover bridge */
+      background: transparent;
       list-style: none; min-width: 140px;
       opacity: 0; pointer-events: none;
-      transition: opacity .2s, transform .2s;
-      transform: translateX(-50%) translateY(-6px);
+      transition: opacity .15s;
       z-index: 200;
     }
     .nav-dropdown-wrap:hover .nav-dropdown {
       opacity: 1; pointer-events: all;
-      transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown-inner {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      box-shadow: 0 8px 24px rgba(0,0,0,.06);
     }
     .nav-dropdown li a {
       display: block; padding: 12px 18px;
@@ -295,6 +299,7 @@
       text-transform: uppercase; color: var(--muted); text-decoration: none;
       transition: color .15s, background .15s;
       border-bottom: 1px solid var(--rule);
+      white-space: nowrap;
     }
     .nav-dropdown li:last-child a { border-bottom: none; }
     .nav-dropdown li a:hover { color: var(--ink); background: #fafafa; }
@@ -372,7 +377,9 @@
       <li class="nav-dropdown-wrap">
         <a href="#travel" class="nav-dropdown-trigger">Travel <span class="nav-caret">▾</span></a>
         <ul class="nav-dropdown">
-          <li><a href="iceland.html">Iceland</a></li>
+          <div class="nav-dropdown-inner">
+            <li><a href="iceland.html">Iceland</a></li>
+          </div>
         </ul>
       </li>
       <li><a href="#books">Books</a></li>
