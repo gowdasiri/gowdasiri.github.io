@@ -11,351 +11,226 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink:    #111111;
-      --white:  #ffffff;
-      --muted:  #888888;
-      --rule:   rgba(0,0,0,.10);
-      --mono:   'DM Mono', monospace;
-      --serif:  'Cormorant Garamond', serif;
-      --sans:   'Instrument Sans', sans-serif;
+      --ink:   #111111;
+      --white: #ffffff;
+      --muted: #888888;
+      --rule:  rgba(0,0,0,.10);
+      --mono:  'DM Mono', monospace;
+      --serif: 'Cormorant Garamond', serif;
+      --sans:  'Instrument Sans', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--white);
-      color: var(--ink);
-      font-family: var(--sans);
+      background: #fff;
+      color: #111;
+      font-family: 'Instrument Sans', sans-serif;
       font-size: 15px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       cursor: none;
     }
 
-    /* ── Custom cursor ── */
+    /* cursor */
     #cursor {
       position: fixed; top: 0; left: 0; z-index: 9999;
-      width: 10px; height: 10px;
-      background: var(--ink);
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      transition: width .2s ease, height .2s ease, opacity .2s ease;
+      width: 10px; height: 10px; background: #111;
+      border-radius: 50%; pointer-events: none;
+      transform: translate(-50%,-50%);
+      transition: width .2s, height .2s, opacity .2s;
     }
-    #cursor.expand { width: 32px; height: 32px; opacity: .15; }
+    #cursor.expand { width: 30px; height: 30px; opacity: .12; }
 
-    /* ── Nav ── */
+    /* nav */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 20px 52px;
       background: rgba(255,255,255,.96);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 1px solid rgba(0,0,0,.08);
     }
     .nav-logo {
-      font-family: var(--serif); font-size: 1.2rem; font-weight: 400;
-      letter-spacing: .04em; color: var(--ink); text-decoration: none;
-      flex-shrink: 0;
+      font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400;
+      letter-spacing: .04em; color: #111; text-decoration: none; flex-shrink: 0;
     }
     .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
-    .nav-links a {
-      font-family: var(--mono); font-size: .68rem; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--muted); text-decoration: none;
-      transition: color .2s;
+    .nav-links > li > a {
+      font-family: 'DM Mono', monospace; font-size: .68rem; letter-spacing: .12em;
+      text-transform: uppercase; color: #888; text-decoration: none; transition: color .2s;
     }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-divider {
-      width: 1px; height: 14px; background: var(--rule); display: block;
-    }
+    .nav-links > li > a:hover { color: #111; }
+    .nav-divider { width: 1px; height: 14px; background: rgba(0,0,0,.1); display: block; }
 
-    /* ── Sections ── */
-    section { padding: 120px 52px; background: var(--white); }
-    .container { max-width: 1080px; margin: 0 auto; }
-
-    /* ── Hero ── */
-    #hero {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      padding-top: 140px;
-      background: var(--white);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 64px; align-items: end;
-      max-width: 1080px; margin: 0 auto; width: 100%;
-    }
-    .hero-label {
-      font-family: var(--mono); font-size: .68rem;
-      letter-spacing: .16em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 24px;
-    }
-    .hero-name {
-      font-family: var(--serif); font-weight: 300;
-      font-size: clamp(3.5rem, 7vw, 6.5rem);
-      line-height: 1.0; letter-spacing: -.01em;
-      color: var(--ink);
-    }
-    .hero-name em { font-style: italic; }
-    .hero-right { padding-bottom: 8px; }
-    .hero-role {
-      font-family: var(--mono); font-size: .72rem;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 20px;
-    }
-    .hero-desc {
-      font-size: .93rem; line-height: 1.8;
-      color: #555; max-width: 380px; margin-bottom: 40px;
-    }
-    .hero-cta {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: var(--mono); font-size: .7rem;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: var(--ink); text-decoration: none;
-      border-bottom: 1px solid var(--ink);
-      padding-bottom: 2px; transition: gap .2s;
-    }
-    .hero-cta:hover { gap: 16px; }
-    .hero-bg-text {
-      position: absolute; bottom: -40px; left: 50%;
-      transform: translateX(-50%);
-      font-family: var(--serif); font-size: clamp(7rem, 20vw, 18rem);
-      font-weight: 300; color: rgba(0,0,0,.03);
-      white-space: nowrap; pointer-events: none; user-select: none;
-      letter-spacing: -.02em;
-    }
-    .stat-row {
-      display: flex; gap: 48px; margin-top: 64px;
-      border-top: 1px solid var(--rule); padding-top: 40px;
-    }
-    .stat-number {
-      font-family: var(--serif); font-size: 2.4rem;
-      font-weight: 300; color: var(--ink); line-height: 1;
-    }
-    .stat-label {
-      font-family: var(--mono); font-size: .63rem;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: var(--muted); margin-top: 4px;
-    }
-
-    /* ── Section header ── */
-    .section-header {
-      display: flex; align-items: center; gap: 20px; margin-bottom: 64px;
-    }
-    .section-tag {
-      font-family: var(--mono); font-size: .66rem;
-      letter-spacing: .18em; text-transform: uppercase; color: var(--ink);
-    }
-    .section-line { flex: 1; height: 1px; background: var(--rule); }
-    .section-num { font-family: var(--mono); font-size: .66rem; color: var(--muted); }
-
-    /* ── About ── */
-    .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 80px; align-items: start; }
-    .about-headline {
-      font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 300; line-height: 1.2; margin-bottom: 28px;
-    }
-    .about-headline em { font-style: italic; }
-    .about-body { font-size: .91rem; line-height: 1.85; color: #444; margin-bottom: 20px; }
-    .skills-title {
-      font-family: var(--mono); font-size: .63rem; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 16px; margin-top: 32px;
-    }
-    .skills-list { display: flex; flex-wrap: wrap; gap: 8px; }
-    .skill-tag {
-      font-family: var(--mono); font-size: .66rem; letter-spacing: .04em;
-      color: var(--ink); border: 1px solid var(--rule);
-      padding: 5px 12px; border-radius: 2px;
-    }
-    .sidebar-card {
-      border: 1px solid var(--rule);
-      padding: 28px; border-radius: 2px; margin-bottom: 14px;
-    }
-    .sidebar-card-label {
-      font-family: var(--mono); font-size: .6rem;
-      letter-spacing: .16em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 10px;
-    }
-    .sidebar-card-val {
-      font-family: var(--serif); font-size: 1.05rem;
-      font-weight: 300; line-height: 1.5; color: var(--ink);
-    }
-
-    /* ── Projects ── */
-    .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--rule); }
-    .project-card {
-      background: var(--white); padding: 40px 36px;
-      position: relative; overflow: hidden;
-      transition: background .2s; cursor: none;
-    }
-    .project-card::after {
-      content: ''; position: absolute;
-      bottom: 0; left: 0; right: 0; height: 1px;
-      background: var(--ink);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform .3s ease;
-    }
-    .project-card:hover { background: #fafafa; }
-    .project-card:hover::after { transform: scaleX(1); }
-    .project-num {
-      font-family: var(--mono); font-size: .62rem; color: #ccc;
-      letter-spacing: .1em; margin-bottom: 28px; display: block;
-    }
-    .project-title {
-      font-family: var(--serif); font-size: 1.4rem;
-      font-weight: 400; line-height: 1.2;
-      margin-bottom: 14px; color: var(--ink);
-    }
-    .project-desc { font-size: .84rem; line-height: 1.75; color: var(--muted); margin-bottom: 24px; }
-    .project-tech { font-family: var(--mono); font-size: .62rem; letter-spacing: .06em; color: #aaa; }
-
-    /* ── Experience ── */
-    .exp-item {
-      display: grid; grid-template-columns: 200px 1fr;
-      gap: 48px; padding: 40px 0;
-      border-bottom: 1px solid var(--rule);
-      opacity: 0; transform: translateY(20px);
-      transition: opacity .5s ease, transform .5s ease;
-    }
-    .exp-item.visible { opacity: 1; transform: none; }
-    .exp-period { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; color: var(--muted); padding-top: 4px; }
-    .exp-company { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; margin-bottom: 4px; }
-    .exp-title { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
-    .exp-desc { font-size: .88rem; line-height: 1.8; color: #444; }
-
-    /* ── Placeholder sections (Blog / Travel / Books) ── */
-    .placeholder-inner {
-      text-align: center;
-      padding: 80px 0;
-      border: 1px solid var(--rule);
-      border-radius: 2px;
-    }
-    .placeholder-icon { font-size: 1.8rem; opacity: .2; margin-bottom: 20px; }
-    .placeholder-title {
-      font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 300; margin-bottom: 12px; color: var(--ink);
-    }
-    .placeholder-sub {
-      font-family: var(--mono); font-size: .66rem;
-      letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
-    }
-
-    /* ── Contact ── */
-    #contact { text-align: center; border-top: 1px solid var(--rule); }
-    .contact-eyebrow { font-family: var(--mono); font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
-    .contact-headline {
-      font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 300; line-height: 1.05; margin-bottom: 40px;
-      max-width: 700px; margin-inline: auto;
-    }
-    .contact-headline em { font-style: italic; }
-    .contact-links { display: flex; justify-content: center; gap: 36px; flex-wrap: wrap; }
-    .contact-link { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
-    .contact-link:hover { color: var(--ink); }
-
-    /* ── Footer ── */
-    footer {
-      padding: 24px 52px;
-      display: flex; justify-content: space-between; align-items: center;
-      border-top: 1px solid var(--rule);
-      background: var(--white);
-    }
-    .footer-copy { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; color: var(--muted); }
-
-    /* ── Nav dropdown ── */
+    /* dropdown */
     .nav-dropdown-wrap { position: relative; }
     .nav-dropdown-trigger {
-      font-family: var(--mono); font-size: .68rem; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--muted); text-decoration: none;
-      transition: color .2s; display: flex; align-items: center; gap: 5px;
-      cursor: none;
+      font-family: 'DM Mono', monospace; font-size: .68rem; letter-spacing: .12em;
+      text-transform: uppercase; color: #888; text-decoration: none;
+      transition: color .2s; display: flex; align-items: center; gap: 5px; cursor: none;
     }
-    .nav-dropdown-trigger:hover { color: var(--ink); }
-    .nav-caret { font-size: .55rem; transition: transform .2s; display: inline-block; }
+    .nav-dropdown-trigger:hover { color: #111; }
+    .nav-caret { font-size: .5rem; transition: transform .2s; display: inline-block; }
     .nav-dropdown-wrap:hover .nav-caret { transform: rotate(180deg); }
     .nav-dropdown {
       position: absolute; top: 100%; left: 50%;
       transform: translateX(-50%);
-      padding-top: 14px; /* creates invisible hover bridge */
-      background: transparent;
+      padding-top: 12px;
       list-style: none; min-width: 140px;
       opacity: 0; pointer-events: none;
-      transition: opacity .15s;
-      z-index: 200;
+      transition: opacity .15s; z-index: 200;
     }
-    .nav-dropdown-wrap:hover .nav-dropdown {
-      opacity: 1; pointer-events: all;
-    }
-    .nav-dropdown-inner {
-      background: var(--white);
-      border: 1px solid var(--rule);
-      box-shadow: 0 8px 24px rgba(0,0,0,.06);
-    }
+    .nav-dropdown-wrap:hover .nav-dropdown { opacity: 1; pointer-events: all; }
+    .nav-dropdown-inner { background: #fff; border: 1px solid rgba(0,0,0,.1); box-shadow: 0 8px 24px rgba(0,0,0,.06); }
     .nav-dropdown li a {
       display: block; padding: 12px 18px;
-      font-family: var(--mono); font-size: .66rem; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      font-family: 'DM Mono', monospace; font-size: .66rem; letter-spacing: .1em;
+      text-transform: uppercase; color: #888; text-decoration: none;
       transition: color .15s, background .15s;
-      border-bottom: 1px solid var(--rule);
-      white-space: nowrap;
+      border-bottom: 1px solid rgba(0,0,0,.06); white-space: nowrap;
     }
     .nav-dropdown li:last-child a { border-bottom: none; }
-    .nav-dropdown li a:hover { color: var(--ink); background: #fafafa; }
+    .nav-dropdown li a:hover { color: #111; background: #fafafa; }
 
-    
-    .travel-grid { display: flex; flex-direction: column; gap: 2px; }
+    /* sections */
+    section { padding: 120px 52px; background: #fff; }
+    .container { max-width: 1080px; margin: 0 auto; }
+
+    /* hero */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 140px; background: #fff; position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end;
+      max-width: 1080px; margin: 0 auto; width: 100%;
+    }
+    .hero-label {
+      font-family: 'DM Mono', monospace; font-size: .68rem;
+      letter-spacing: .16em; text-transform: uppercase; color: #888; margin-bottom: 24px;
+    }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(3.5rem, 7vw, 6.5rem); line-height: 1.0; letter-spacing: -.01em; color: #111;
+    }
+    .hero-name em { font-style: italic; }
+    .hero-right { padding-bottom: 8px; }
+    .hero-role {
+      font-family: 'DM Mono', monospace; font-size: .72rem;
+      letter-spacing: .1em; text-transform: uppercase; color: #888; margin-bottom: 20px;
+    }
+    .hero-desc { font-size: .93rem; line-height: 1.8; color: #555; max-width: 380px; margin-bottom: 40px; }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: 'DM Mono', monospace; font-size: .7rem; letter-spacing: .12em;
+      text-transform: uppercase; color: #111; text-decoration: none;
+      border-bottom: 1px solid #111; padding-bottom: 2px; transition: gap .2s;
+    }
+    .hero-cta:hover { gap: 16px; }
+    .hero-bg-text {
+      position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%);
+      font-family: 'Cormorant Garamond', serif; font-size: clamp(7rem, 20vw, 18rem);
+      font-weight: 300; color: rgba(0,0,0,.03);
+      white-space: nowrap; pointer-events: none; user-select: none; letter-spacing: -.02em;
+    }
+    .stat-row { display: flex; gap: 48px; margin-top: 64px; border-top: 1px solid rgba(0,0,0,.1); padding-top: 40px; }
+    .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; color: #111; line-height: 1; }
+    .stat-label { font-family: 'DM Mono', monospace; font-size: .63rem; letter-spacing: .14em; text-transform: uppercase; color: #888; margin-top: 4px; }
+
+    /* section header */
+    .section-header { display: flex; align-items: center; gap: 20px; margin-bottom: 64px; }
+    .section-tag { font-family: 'DM Mono', monospace; font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: #111; }
+    .section-line { flex: 1; height: 1px; background: rgba(0,0,0,.1); }
+    .section-num { font-family: 'DM Mono', monospace; font-size: .66rem; color: #888; }
+
+    /* about */
+    .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 80px; align-items: start; }
+    .about-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.2; margin-bottom: 28px; }
+    .about-headline em { font-style: italic; }
+    .about-body { font-size: .91rem; line-height: 1.85; color: #444; margin-bottom: 20px; }
+    .skills-title { font-family: 'DM Mono', monospace; font-size: .63rem; letter-spacing: .14em; text-transform: uppercase; color: #888; margin-bottom: 16px; margin-top: 32px; }
+    .skills-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag { font-family: 'DM Mono', monospace; font-size: .66rem; letter-spacing: .04em; color: #111; border: 1px solid rgba(0,0,0,.1); padding: 5px 12px; border-radius: 2px; }
+    .sidebar-card { border: 1px solid rgba(0,0,0,.1); padding: 28px; border-radius: 2px; margin-bottom: 14px; }
+    .sidebar-card-label { font-family: 'DM Mono', monospace; font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: #888; margin-bottom: 10px; }
+    .sidebar-card-val { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 300; line-height: 1.5; color: #111; }
+
+    /* projects */
+    .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(0,0,0,.08); }
+    .project-card { background: #fff; padding: 40px 36px; position: relative; overflow: hidden; transition: background .2s; cursor: none; }
+    .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: #111; transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+    .project-card:hover { background: #fafafa; }
+    .project-card:hover::after { transform: scaleX(1); }
+    .project-num { font-family: 'DM Mono', monospace; font-size: .62rem; color: #ccc; letter-spacing: .1em; margin-bottom: 28px; display: block; }
+    .project-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; line-height: 1.2; margin-bottom: 14px; color: #111; }
+    .project-desc { font-size: .84rem; line-height: 1.75; color: #888; margin-bottom: 24px; }
+    .project-tech { font-family: 'DM Mono', monospace; font-size: .62rem; letter-spacing: .06em; color: #aaa; }
+
+    /* experience */
+    .exp-item { display: grid; grid-template-columns: 200px 1fr; gap: 48px; padding: 40px 0; border-bottom: 1px solid rgba(0,0,0,.1); }
+    .exp-period { font-family: 'DM Mono', monospace; font-size: .68rem; letter-spacing: .1em; color: #888; padding-top: 4px; }
+    .exp-company { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; margin-bottom: 4px; }
+    .exp-title { font-family: 'DM Mono', monospace; font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: #888; margin-bottom: 14px; }
+    .exp-desc { font-size: .88rem; line-height: 1.8; color: #444; }
+
+    /* placeholder */
+    .placeholder-inner { text-align: center; padding: 80px 0; border: 1px solid rgba(0,0,0,.1); border-radius: 2px; }
+    .placeholder-icon { font-size: 1.8rem; opacity: .2; margin-bottom: 20px; }
+    .placeholder-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; margin-bottom: 12px; color: #111; }
+    .placeholder-sub { font-family: 'DM Mono', monospace; font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: #888; }
+
+    /* travel card */
     .travel-card {
       display: grid; grid-template-columns: 400px 1fr;
-      border: 1px solid var(--rule); text-decoration: none; color: var(--ink);
+      border: 1px solid rgba(0,0,0,.1); text-decoration: none; color: #111;
       transition: border-color .2s; cursor: none; overflow: hidden;
     }
-    .travel-card:hover { border-color: var(--ink); }
+    .travel-card:hover { border-color: #111; }
     .travel-card-img { overflow: hidden; height: 340px; }
-    .travel-card-img img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform .5s ease;
-    }
+    .travel-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
     .travel-card:hover .travel-card-img img { transform: scale(1.03); }
-    .travel-card-body {
-      padding: 40px 48px; display: flex; flex-direction: column; justify-content: center;
-    }
+    .travel-card-body { padding: 40px 48px; display: flex; flex-direction: column; justify-content: center; }
     .travel-card-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-    .travel-card-region { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
+    .travel-card-region { font-family: 'DM Mono', monospace; font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: #111; }
     .travel-card-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
-    .travel-card-date { font-family: var(--mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-    .travel-card-title { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 300; line-height: 1.1; margin-bottom: 16px; }
+    .travel-card-date { font-family: 'DM Mono', monospace; font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: #888; }
+    .travel-card-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 300; line-height: 1.1; margin-bottom: 16px; }
     .travel-card-desc { font-size: .88rem; line-height: 1.8; color: #555; margin-bottom: 24px; max-width: 420px; }
     .travel-card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 28px; }
-    .travel-tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .04em; border: 1px solid var(--rule); padding: 4px 10px; border-radius: 2px; color: var(--muted); }
-    .travel-card-cta { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 2px; align-self: flex-start; }
+    .travel-tag { font-family: 'DM Mono', monospace; font-size: .62rem; letter-spacing: .04em; border: 1px solid rgba(0,0,0,.1); padding: 4px 10px; border-radius: 2px; color: #888; }
+    .travel-card-cta { font-family: 'DM Mono', monospace; font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: #111; border-bottom: 1px solid #111; padding-bottom: 2px; align-self: flex-start; }
 
-    @media (max-width: 780px) {
-      .travel-card { grid-template-columns: 1fr; }
-      .travel-card-img { height: 240px; }
-      .travel-card-body { padding: 28px 24px; }
-    }
+    /* contact */
+    #contact { text-align: center; border-top: 1px solid rgba(0,0,0,.1); }
+    .contact-eyebrow { font-family: 'DM Mono', monospace; font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: #888; margin-bottom: 28px; }
+    .contact-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 300; line-height: 1.05; margin-bottom: 40px; max-width: 700px; margin-inline: auto; }
+    .contact-headline em { font-style: italic; }
+    .contact-links { display: flex; justify-content: center; gap: 36px; flex-wrap: wrap; }
+    .contact-link { font-family: 'DM Mono', monospace; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: #888; text-decoration: none; transition: color .2s; }
+    .contact-link:hover { color: #111; }
 
-    /* ── Reveal ── */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
+    /* footer */
+    footer { padding: 24px 52px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(0,0,0,.1); background: #fff; }
+    .footer-copy { font-family: 'DM Mono', monospace; font-size: .6rem; letter-spacing: .1em; color: #888; }
 
-    /* ── Scrollbar ── */
+    /* scrollbar */
     ::-webkit-scrollbar { width: 3px; }
-    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-track { background: #fff; }
     ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
 
-    /* ── Responsive ── */
+    /* responsive */
     @media (max-width: 960px) {
-      nav { padding: 16px 20px; gap: 12px; }
+      nav { padding: 16px 20px; }
       .nav-links { gap: 16px; }
-      .nav-links a { font-size: .62rem; }
       section { padding: 80px 24px; }
       .hero-grid { grid-template-columns: 1fr; gap: 40px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .projects-grid { grid-template-columns: 1fr; }
       .exp-item { grid-template-columns: 1fr; gap: 6px; }
+      .travel-card { grid-template-columns: 1fr; }
+      .travel-card-img { height: 240px; }
+      .travel-card-body { padding: 28px 24px; }
       footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
@@ -409,12 +284,7 @@
       </div>
       <div class="hero-right">
         <p class="hero-role">Building data infrastructure<br />that moves markets</p>
-        <p class="hero-desc">
-          I architect and lead high-performance data engineering teams
-          at the intersection of finance and technology — turning raw
-          data into reliable, scalable systems that power critical
-          business decisions.
-        </p>
+        <p class="hero-desc">I architect and lead high-performance data engineering teams at the intersection of finance and technology — turning raw data into reliable, scalable systems that power critical business decisions.</p>
         <a href="#projects" class="hero-cta">View work &rarr;</a>
       </div>
     </div>
@@ -430,18 +300,10 @@
         <span class="section-num">01</span>
       </div>
       <div class="about-grid">
-        <div class="reveal">
+        <div>
           <h2 class="about-headline">Engineering clarity<br />from <em>complex data</em></h2>
-          <p class="about-body">
-            I'm a Data Engineering VP with deep expertise in FinTech — building the
-            infrastructure that financial institutions rely on to process transactions,
-            manage risk, and deliver real-time insights at scale.
-          </p>
-          <p class="about-body">
-            My work spans the full data stack: from designing resilient ingestion
-            pipelines and lakehouse architectures to leading cross-functional
-            engineering teams and aligning data strategy with business outcomes.
-          </p>
+          <p class="about-body">I'm a Data Engineering VP with deep expertise in FinTech — building the infrastructure that financial institutions rely on to process transactions, manage risk, and deliver real-time insights at scale.</p>
+          <p class="about-body">My work spans the full data stack: from designing resilient ingestion pipelines and lakehouse architectures to leading cross-functional engineering teams and aligning data strategy with business outcomes.</p>
           <p class="skills-title">Core technologies</p>
           <div class="skills-list">
             <span class="skill-tag">Apache Spark</span>
@@ -456,7 +318,7 @@
             <span class="skill-tag">SQL</span>
           </div>
         </div>
-        <div class="reveal">
+        <div>
           <div class="sidebar-card">
             <p class="sidebar-card-label">Current focus</p>
             <p class="sidebar-card-val">Real-time data platforms &amp; AI-ready data infrastructure in financial services</p>
@@ -477,44 +339,44 @@
   <!-- PROJECTS -->
   <section id="projects" style="padding-left:0;padding-right:0;">
     <div class="container" style="padding:0 52px;">
-      <div class="section-header reveal">
+      <div class="section-header">
         <span class="section-tag">Projects</span>
         <div class="section-line"></div>
         <span class="section-num">02</span>
       </div>
     </div>
     <div class="projects-grid">
-      <div class="project-card reveal">
+      <div class="project-card">
         <span class="project-num">001</span>
         <h3 class="project-title">Real-Time Transaction Pipeline</h3>
         <p class="project-desc">Sub-100ms end-to-end streaming pipeline processing millions of financial transactions daily with full auditability and fraud signal enrichment.</p>
         <p class="project-tech">Kafka · Flink · Snowflake · Terraform</p>
       </div>
-      <div class="project-card reveal">
+      <div class="project-card">
         <span class="project-num">002</span>
         <h3 class="project-title">Lakehouse Migration</h3>
         <p class="project-desc">Led enterprise migration from a legacy data warehouse to a modern Databricks lakehouse, reducing query costs by 60% and cutting pipeline latency in half.</p>
         <p class="project-tech">Databricks · Delta Lake · dbt · Spark</p>
       </div>
-      <div class="project-card reveal">
+      <div class="project-card">
         <span class="project-num">003</span>
         <h3 class="project-title">Regulatory Reporting Platform</h3>
         <p class="project-desc">Built a compliance-grade data platform for automated regulatory reporting (FINRA, SEC), eliminating manual reconciliation and reducing audit prep time by 80%.</p>
         <p class="project-tech">Python · Airflow · PostgreSQL · AWS</p>
       </div>
-      <div class="project-card reveal">
+      <div class="project-card">
         <span class="project-num">004</span>
         <h3 class="project-title">ML Feature Store</h3>
         <p class="project-desc">Designed a centralised feature store enabling data science teams to ship production ML models 3× faster with consistent, governance-approved feature definitions.</p>
         <p class="project-tech">Feast · Redis · Spark · GCP</p>
       </div>
-      <div class="project-card reveal">
+      <div class="project-card">
         <span class="project-num">005</span>
         <h3 class="project-title">Data Mesh Implementation</h3>
         <p class="project-desc">Architected a federated data mesh across 8 business domains, establishing domain ownership, data contracts, and self-serve infrastructure patterns.</p>
         <p class="project-tech">dbt · Terraform · DataHub · Backstage</p>
       </div>
-      <div class="project-card reveal">
+      <div class="project-card">
         <span class="project-num">006</span>
         <h3 class="project-title">Observability Framework</h3>
         <p class="project-desc">Built a data quality and pipeline observability layer with automated anomaly detection, SLA alerting, and lineage tracking across the entire data stack.</p>
@@ -526,7 +388,7 @@
   <!-- EXPERIENCE -->
   <section id="experience">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="section-header">
         <span class="section-tag">Experience</span>
         <div class="section-line"></div>
         <span class="section-num">03</span>
@@ -563,12 +425,12 @@
   <!-- BLOG -->
   <section id="blog">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="section-header">
         <span class="section-tag">Blog</span>
         <div class="section-line"></div>
         <span class="section-num">04</span>
       </div>
-      <div class="placeholder-inner reveal">
+      <div class="placeholder-inner">
         <div class="placeholder-icon">✦</div>
         <h2 class="placeholder-title">Writing &amp; Thoughts</h2>
         <p class="placeholder-sub">Coming soon — essays on data engineering, leadership &amp; technology</p>
@@ -579,46 +441,44 @@
   <!-- TRAVEL -->
   <section id="travel">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="section-header">
         <span class="section-tag">Travel</span>
         <div class="section-line"></div>
         <span class="section-num">05</span>
       </div>
-      <div class="travel-grid reveal">
-        <a href="iceland.html" class="travel-card">
-          <div class="travel-card-img">
-            <img src="https://gowdasiri.files.wordpress.com/2024/02/img_3131.jpg" alt="Iceland Glacier Lagoon" />
+      <a href="iceland.html" class="travel-card">
+        <div class="travel-card-img">
+          <img src="https://gowdasiri.files.wordpress.com/2024/02/img_3131.jpg" alt="Iceland Glacier Lagoon" />
+        </div>
+        <div class="travel-card-body">
+          <div class="travel-card-meta">
+            <span class="travel-card-region">Iceland</span>
+            <span class="travel-card-dot"></span>
+            <span class="travel-card-date">Feb — Mar 2024</span>
           </div>
-          <div class="travel-card-body">
-            <div class="travel-card-meta">
-              <span class="travel-card-region">Iceland</span>
-              <span class="travel-card-dot"></span>
-              <span class="travel-card-date">Feb — Mar 2024</span>
-            </div>
-            <h3 class="travel-card-title">Winter Girls Trip<br />to Iceland</h3>
-            <p class="travel-card-desc">4 days of glaciers, ice caves, active volcanoes, northern lights, black sand beaches, and an evacuation warning. The land of fire and ice did not disappoint.</p>
-            <div class="travel-card-tags">
-              <span class="travel-tag">Golden Circle</span>
-              <span class="travel-tag">Aurora Borealis</span>
-              <span class="travel-tag">Glacier Hike</span>
-              <span class="travel-tag">South Coast</span>
-            </div>
-            <span class="travel-card-cta">Read the full guide →</span>
+          <h3 class="travel-card-title">Winter Girls Trip<br />to Iceland</h3>
+          <p class="travel-card-desc">4 days of glaciers, ice caves, active volcanoes, northern lights, black sand beaches, and an evacuation warning. The land of fire and ice did not disappoint.</p>
+          <div class="travel-card-tags">
+            <span class="travel-tag">Golden Circle</span>
+            <span class="travel-tag">Aurora Borealis</span>
+            <span class="travel-tag">Glacier Hike</span>
+            <span class="travel-tag">South Coast</span>
           </div>
-        </a>
-      </div>
+          <span class="travel-card-cta">Read the full guide →</span>
+        </div>
+      </a>
     </div>
   </section>
 
   <!-- BOOKS -->
   <section id="books">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="section-header">
         <span class="section-tag">Books</span>
         <div class="section-line"></div>
         <span class="section-num">06</span>
       </div>
-      <div class="placeholder-inner reveal">
+      <div class="placeholder-inner">
         <div class="placeholder-icon">◻</div>
         <h2 class="placeholder-title">Reading List</h2>
         <p class="placeholder-sub">Coming soon — books that shaped how I think about data, systems &amp; the world</p>
@@ -631,7 +491,7 @@
     <p class="contact-eyebrow">Get in touch</p>
     <h2 class="contact-headline">Let's build something<br /><em>worth building</em></h2>
     <div class="contact-links">
-      <a href="/cdn-cgi/l/email-protection#c7afa2ababa887b4aeb5aea0a8b0a3a6e9a4a8aa" class="contact-link">Email</a>
+      <a href="mailto:hello@sirigowda.com" class="contact-link">Email</a>
       <a href="https://linkedin.com/in/gowdasiri" target="_blank" class="contact-link">LinkedIn</a>
       <a href="https://github.com/gowdasiri" target="_blank" class="contact-link">GitHub</a>
     </div>
@@ -643,35 +503,19 @@
     <span class="footer-copy">Data Engineering · FinTech</span>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // Custom cursor
+  <script>
+    // cursor
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
       cursor.style.left = e.clientX + 'px';
-      cursor.style.top  = e.clientY + 'px';
+      cursor.style.top = e.clientY + 'px';
     });
     document.querySelectorAll('a, .project-card, button').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
     });
 
-    // Scroll reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 70);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal, .exp-item').forEach(el => observer.observe(el));
-
-    // Stagger project cards
-    document.querySelectorAll('.project-card').forEach((card, i) => {
-      card.style.transitionDelay = (i * 55) + 'ms';
-    });
-
-    // Active nav on scroll
+    // active nav link on scroll
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
     window.addEventListener('scroll', () => {
@@ -679,4 +523,10 @@
       sections.forEach(s => {
         if (window.scrollY >= s.offsetTop - 120) current = s.id;
       });
-      navLin
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? '#111' : '';
+      });
+    });
+  </script>
+</body>
+</html>
