@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel — Siri Gowda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --surface: #fafafa;
+      --border: #e5e2dd;
+      --text: #1a1814;
+      --muted: #8a8580;
+      --accent: #9a6f3a;
+      --accent-dim: rgba(154,111,58,0.08);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      padding: 80px 40px;
+    }
+
+    /* ── Section Header ── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+
+    .section-label .num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+    }
+
+    .section-label h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .section-label h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      margin-left: 8px;
+    }
+
+    /* ── Grid ── */
+    .travel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2px;
+    }
+
+    /* ── Card ── */
+    .travel-card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: border-color 0.35s ease;
+    }
+
+    .travel-card:hover {
+      border-color: var(--accent);
+    }
+
+    .travel-card:hover .card-img img {
+      transform: scale(1.04);
+    }
+
+    .travel-card:hover .arrow {
+      transform: translateX(4px);
+      color: var(--accent);
+    }
+
+    /* Image */
+    .card-img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      filter: brightness(0.88) saturate(0.9);
+    }
+
+    /* Overlay shimmer */
+    .card-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0,0,0,0.45) 100%
+      );
+    }
+
+    /* Date badge */
+    .date-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      color: rgba(232,226,217,0.75);
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(6px);
+      padding: 5px 10px;
+      border: 1px solid rgba(200,169,110,0.2);
+      z-index: 2;
+    }
+
+    /* Country label on image */
+    .country-label {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      z-index: 2;
+    }
+
+    /* Body */
+    .card-body {
+      padding: 28px 28px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .card-body p {
+      font-size: 11.5px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .tag {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(200,169,110,0.3);
+      background: var(--accent-dim);
+      padding: 4px 10px;
+    }
+
+    /* CTA */
+    .card-cta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.25s;
+    }
+
+    .travel-card:hover .card-cta {
+      color: var(--accent);
+    }
+
+    .arrow {
+      transition: transform 0.25s ease, color 0.25s;
+      font-size: 14px;
+    }
+
+    /* Divider line */
+    .card-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 28px 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Section Header -->
+  <div class="section-label">
+    <span class="num">Travel — 05</span>
+    <h2>Places I've <em>wandered</em></h2>
+  </div>
+
+  <!-- Grid -->
+  <div class="travel-grid">
+
+    <!-- Iceland -->
+    <a class="travel-card" href="iceland.html">
+      <div class="card-img">
+        <span class="date-badge">Feb — Mar 2024</span>
+        <span class="country-label">Iceland</span>
+        <img
+          src="https://gowdasiri.files.wordpress.com/2024/02/img_3131.jpg"
+          alt="Iceland Glacier Lagoon"
+        />
+      </div>
+      <div class="card-body">
+        <h3>Winter Girls Trip to Iceland</h3>
+        <p>
+          4 days of glaciers, ice caves, active volcanoes, northern lights,
+          black sand beaches, and an evacuation warning. The land of fire and
+          ice did not disappoint.
+        </p>
+        <div class="tags">
+          <span class="tag">Golden Circle</span>
+          <span class="tag">Aurora Borealis</span>
+          <span class="tag">Glacier Hike</span>
+          <span class="tag">South Coast</span>
+        </div>
+        <div class="card-divider"></div>
+        <span class="card-cta">Read the full guide <span class="arrow">→</span></span>
+      </div>
+    </a>
+
+    <!-- Quebec -->
+    <a class="travel-card" href="quebec.html">
+      <div class="card-img">
+        <span class="date-badge">Winter 2025</span>
+        <span class="country-label">Canada</span>
+        <img
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+          alt="Old Quebec City in Winter"
+        />
+      </div>
+      <div class="card-body">
+        <h3>Solo Trip to Quebec</h3>
+        <p>
+          A solo winter escape to one of North America's most European cities —
+          cobblestone streets dusted in snow, French patisseries, ice sculpture
+          festivals, and the kind of quiet that only cold air brings.
+        </p>
+        <div class="tags">
+          <span class="tag">Old Quebec</span>
+          <span class="tag">Winter Carnival</span>
+          <span class="tag">Château Frontenac</span>
+          <span class="tag">Solo Travel</span>
+        </div>
+        <div class="card-divider"></div>
+        <span class="card-cta">Read the full guide <span class="arrow">→</span></span>
+      </div>
+    </a>
+
+  </div>
+
+</body>
+</html>
