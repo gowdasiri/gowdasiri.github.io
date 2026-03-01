@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rohtang Pass, Himachal Pradesh — Siri Gowda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #111111; --white: #ffffff; --muted: #888888; --rule: rgba(0,0,0,.10);
+      --mono: 'DM Mono', monospace; --serif: 'Cormorant Garamond', serif; --sans: 'Instrument Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; cursor: none; }
+    #cursor { position: fixed; top: 0; left: 0; z-index: 9999; width: 10px; height: 10px; background: var(--ink); border-radius: 50%; pointer-events: none; transform: translate(-50%,-50%); transition: width .2s, height .2s, opacity .2s; }
+    #cursor.expand { width: 30px; height: 30px; opacity: .12; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 52px; background: rgba(255,255,255,.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+    .nav-back { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .nav-back:hover { color: var(--ink); }
+    .nav-logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; letter-spacing: .04em; color: var(--ink); text-decoration: none; }
+    .nav-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+    .post-hero { padding-top: 100px; max-width: 820px; margin: 0 auto; padding-left: 52px; padding-right: 52px; padding-bottom: 64px; border-bottom: 1px solid var(--rule); }
+    .post-category { font-family: var(--mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .post-category::before { content: ''; width: 24px; height: 1px; background: var(--rule); }
+    .post-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.05; letter-spacing: -.01em; margin-bottom: 28px; }
+    .post-title em { font-style: italic; }
+    .post-meta { display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
+    .post-meta-item { font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
+
+    .hero-image { width: 100%; max-width: 820px; margin: 0 auto; display: block; }
+    .hero-image img { width: 100%; height: 520px; object-fit: cover; object-position: center; display: block; }
+    .hero-caption { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 10px 52px; border-bottom: 1px solid var(--rule); max-width: 820px; margin: 0 auto; }
+
+    .article-body { max-width: 820px; margin: 0 auto; padding: 0 52px; }
+    .post-section { padding: 64px 0; border-bottom: 1px solid var(--rule); }
+    .post-section:last-child { border-bottom: none; }
+
+    .section-label { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
+    .section-label-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); }
+    .section-label-line { flex: 1; height: 1px; background: var(--rule); }
+
+    .post-p { font-size: .93rem; line-height: 1.95; color: #333; margin-bottom: 22px; }
+    .post-p:last-child { margin-bottom: 0; }
+
+    .post-img { margin: 40px 0; width: 100%; }
+    .post-img img { width: 100%; display: block; border: 1px solid var(--rule); }
+    .post-img figcaption { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--muted); margin-top: 10px; text-align: center; }
+
+    .post-img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 48px 0; }
+    .post-img-grid .post-img { margin: 0; }
+    .post-img-grid .post-img img { height: 320px; object-fit: cover; }
+
+    .post-img-trio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin: 48px 0; }
+    .post-img-trio .post-img { margin: 0; }
+    .post-img-trio .post-img img { height: 240px; object-fit: cover; }
+
+    /* Pull quote */
+    .pull-quote { margin: 48px 0; padding: 36px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .pull-quote p { font-family: var(--serif); font-size: clamp(1.2rem, 2.8vw, 1.65rem); font-weight: 300; line-height: 1.55; color: #222; font-style: italic; }
+
+    .callout { border-left: 2px solid var(--ink); padding: 20px 24px; margin: 32px 0; background: #fafafa; }
+    .callout p { font-size: .91rem; line-height: 1.8; color: #333; margin: 0; }
+
+    .post-conclusion { max-width: 820px; margin: 0 auto; padding: 64px 52px; border-top: 1px solid var(--rule); }
+    .conclusion-text { font-family: var(--serif); font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 300; line-height: 1.6; color: #333; font-style: italic; }
+
+    .post-footer { max-width: 820px; margin: 0 auto; padding: 40px 52px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rule); }
+    .back-link { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .back-link:hover { color: var(--ink); }
+    .post-footer-tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .post-hero, .article-body, .post-conclusion, .post-footer { padding-left: 24px; padding-right: 24px; }
+      .hero-caption { padding-left: 24px; padding-right: 24px; }
+      .post-img-grid, .post-img-trio { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <nav>
+    <a href="index.html#travel" class="nav-back">← Travel</a>
+    <a href="index.html" class="nav-logo">Siri Gowda</a>
+    <span class="nav-tag">Himachal Pradesh</span>
+  </nav>
+
+  <div class="post-hero">
+    <p class="post-category">Travel · India</p>
+    <h1 class="post-title">Rohtang Pass<br /><em>Himachal Pradesh</em></h1>
+    <div class="post-meta">
+      <span class="post-meta-item">Himachal Pradesh</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">Kullu Valley</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">3,978 m elevation</span>
+    </div>
+  </div>
+
+  <figure class="hero-image">
+    <img src="https://gowdasiri.files.wordpress.com/2019/06/img_2926-1.jpg" alt="Rohtang Pass, Himachal Pradesh" />
+  </figure>
+  <div class="hero-caption">Rohtang Pass — Kullu Valley, Himachal Pradesh</div>
+
+  <div class="article-body">
+
+    <div class="post-section reveal">
+      <p class="post-p" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;line-height:1.75;font-style:italic;">
+        With a 4 a.m. wake-up call, a lingering fever, and barely any sleep — we went anyway. Some trips are like that.
+      </p>
+
+      <p class="post-p">My friends and I were sick from something we'd had the last evening (read: special hot chocolate) and had barely slept. Since we'd looked forward to going here for ages, we decided to push through. The pass had opened to tourists that very day for the season — which meant we got the first glimpse of untouched snow, clear roads, and the best weather since summer had just begun.</p>
+
+      <div class="pull-quote">
+        <p>The beauty we were surrounded by had a medicinal effect on us — the remnants of the fever simply evaporated.</p>
+      </div>
+
+      <p class="post-p">The drive to the pass was one of the most scenic I've ever been on. Winding hilly roads, through streams (loved this part), snow-capped mountains on the horizon, and a full view of the beautiful Kullu valley spread out below. It was postcard-perfect everywhere we looked. Cameras out, snapping away, old Hindi songs playing in the background — our three-hour drive to the pass was a road trip to remember.</p>
+
+      <p class="post-p">If you've been to Ladakh or Kashmir, you probably know what to expect. For me and my friends, this was our first trip to the North. We arrived exhausted from the lack of sleep, famished from skipping breakfast, and severely dehydrated — but none of that mattered as we reached the magnificent Rohtang valley. Worth noting: the government has banned snow activities like skiing, and being the first day the pass was open, there were crowds. But the views alone are reason enough.</p>
+
+      <div class="callout">
+        <p>A trip to Himachal is incomplete without at least a few of the many breathtaking valleys the state has to offer. This is one you shouldn't miss.</p>
+      </div>
+    </div>
+
+    <!-- PHOTOS -->
+    <div class="post-section reveal">
+      <div class="section-label">
+        <span class="section-label-tag">From the road</span>
+        <div class="section-label-line"></div>
+      </div>
+
+      <!-- 
+        Photo gallery (WordPress IDs 177–181).
+        Replace the src values below with the actual filenames once retrieved from your WordPress media library.
+        Go to: WordPress Dashboard → Media → and find IDs 177, 178, 179, 180, 181 to get their filenames.
+      -->
+      <div class="post-img-grid">
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2019/REPLACE-177.jpg" alt="Rohtang Pass" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2019/REPLACE-178.jpg" alt="Kullu valley road" />
+        </figure>
+      </div>
+      <div class="post-img-trio">
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2019/REPLACE-179.jpg" alt="Snow at Rohtang" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2019/REPLACE-180.jpg" alt="Mountain drive Himachal" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2019/REPLACE-181.jpg" alt="Rohtang valley" />
+        </figure>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="post-conclusion reveal">
+    <p class="conclusion-text">"We arrived sick, sleep-deprived, and starving. We left completely changed. That's the thing about the mountains — they have a way of making everything else irrelevant."</p>
+  </div>
+
+  <div class="post-footer">
+    <a href="index.html#travel" class="back-link">← Back to Travel</a>
+    <span class="post-footer-tag">Rohtang Pass · Himachal Pradesh</span>
+  </div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 60); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
