@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Havasupai Falls — Siri Gowda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    #111111;
+      --white:  #ffffff;
+      --muted:  #888888;
+      --rule:   rgba(0,0,0,.10);
+      --mono:   'DM Mono', monospace;
+      --serif:  'Cormorant Garamond', serif;
+      --sans:   'Instrument Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      cursor: none;
+    }
+
+    #cursor {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 10px; height: 10px; background: var(--ink);
+      border-radius: 50%; pointer-events: none;
+      transform: translate(-50%,-50%);
+      transition: width .2s, height .2s, opacity .2s;
+    }
+    #cursor.expand { width: 30px; height: 30px; opacity: .12; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 52px;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-back {
+      font-family: var(--mono); font-size: .68rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 8px; transition: color .2s;
+    }
+    .nav-back:hover { color: var(--ink); }
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.2rem; font-weight: 400;
+      letter-spacing: .04em; color: var(--ink); text-decoration: none;
+    }
+    .nav-tag {
+      font-family: var(--mono); font-size: .64rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    .post-hero {
+      padding-top: 100px; max-width: 820px; margin: 0 auto;
+      padding-left: 52px; padding-right: 52px; padding-bottom: 64px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .post-category {
+      font-family: var(--mono); font-size: .66rem; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .post-category::before { content: ''; width: 24px; height: 1px; background: var(--rule); }
+    .post-title {
+      font-family: var(--serif); font-weight: 300;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      line-height: 1.05; letter-spacing: -.01em; margin-bottom: 28px;
+    }
+    .post-title em { font-style: italic; }
+    .post-meta { display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
+    .post-meta-item {
+      font-family: var(--mono); font-size: .64rem;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+    }
+    .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
+
+    .hero-image { width: 100%; max-width: 820px; margin: 0 auto; display: block; }
+    .hero-image img { width: 100%; height: 480px; object-fit: cover; display: block; }
+    .hero-caption {
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted);
+      padding: 10px 52px; border-bottom: 1px solid var(--rule);
+      max-width: 820px; margin: 0 auto;
+    }
+
+    .toc-wrapper {
+      max-width: 820px; margin: 0 auto;
+      padding: 48px 52px; border-bottom: 1px solid var(--rule);
+    }
+    .toc-label {
+      font-family: var(--mono); font-size: .64rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+    }
+    .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 40px; }
+    .toc-item {
+      font-family: var(--mono); font-size: .7rem; letter-spacing: .06em;
+      color: var(--muted); text-decoration: none;
+      padding: 6px 0; border-bottom: 1px solid var(--rule);
+      transition: color .2s; display: flex; align-items: center; gap: 8px;
+    }
+    .toc-item:hover { color: var(--ink); }
+    .toc-item::before { content: '→'; font-size: .6rem; opacity: .4; }
+
+    .article-body { max-width: 820px; margin: 0 auto; padding: 0 52px; }
+
+    .post-section { padding: 64px 0; border-bottom: 1px solid var(--rule); }
+    .post-section:last-child { border-bottom: none; }
+
+    .section-label { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
+    .section-label-tag {
+      font-family: var(--mono); font-size: .64rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--ink);
+    }
+    .section-label-line { flex: 1; height: 1px; background: var(--rule); }
+
+    h2.post-h2 {
+      font-family: var(--serif); font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 300; line-height: 1.2; margin-bottom: 24px;
+    }
+    h3.post-h3 {
+      font-family: var(--serif); font-size: 1.3rem; font-weight: 400;
+      margin-bottom: 16px; margin-top: 36px;
+    }
+    h4.post-h4 {
+      font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 12px; margin-top: 28px;
+    }
+    .post-p { font-size: .93rem; line-height: 1.85; color: #333; margin-bottom: 18px; }
+    .post-p a { color: var(--ink); text-underline-offset: 3px; }
+    .post-p a:hover { opacity: .6; }
+
+    .post-ol, .post-ul { margin: 0 0 20px 0; padding-left: 0; list-style: none; }
+    .post-ol { counter-reset: item; }
+    .post-ol li { counter-increment: item; }
+    .post-ol li::before {
+      content: counter(item, decimal-leading-zero);
+      font-family: var(--mono); font-size: .65rem; letter-spacing: .08em;
+      color: var(--muted); margin-right: 14px; vertical-align: middle;
+    }
+    .post-ul li::before {
+      content: '—'; font-family: var(--mono); color: var(--muted);
+      margin-right: 12px; font-size: .75rem;
+    }
+    .post-ol li, .post-ul li {
+      font-size: .91rem; line-height: 1.8; color: #333;
+      padding: 10px 0; border-bottom: 1px solid var(--rule);
+      display: flex; align-items: baseline;
+    }
+    .post-ol li:last-child, .post-ul li:last-child { border-bottom: none; }
+    .post-ol li span, .post-ul li span { flex: 1; }
+    .post-ol li a, .post-ul li a { color: var(--ink); }
+
+    .post-img { margin: 40px 0; width: 100%; }
+    .post-img img { width: 100%; display: block; border: 1px solid var(--rule); }
+    .post-img figcaption {
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .08em;
+      color: var(--muted); margin-top: 10px; text-align: center;
+    }
+
+    .post-img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 40px 0; }
+    .post-img-grid .post-img { margin: 0; }
+    .post-img-grid .post-img img { height: 300px; object-fit: cover; }
+
+    .post-img-trio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin: 40px 0; }
+    .post-img-trio .post-img { margin: 0; }
+    .post-img-trio .post-img img { height: 220px; object-fit: cover; }
+
+    .callout {
+      border-left: 2px solid var(--ink); padding: 20px 24px; margin: 32px 0; background: #fafafa;
+    }
+    .callout p { font-size: .91rem; line-height: 1.8; color: #333; margin: 0; }
+    .callout p + p { margin-top: 10px; }
+    .callout a { color: var(--ink); }
+
+    .tips-list { display: flex; flex-direction: column; gap: 0; }
+    .tip-item {
+      display: grid; grid-template-columns: 48px 1fr;
+      gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--rule); align-items: start;
+    }
+    .tip-item:last-child { border-bottom: none; }
+    .tip-num { font-family: var(--serif); font-size: 2rem; font-weight: 300; color: #ddd; line-height: 1; }
+    .tip-title { font-weight: 500; margin-bottom: 6px; font-size: .93rem; }
+    .tip-body { font-size: .88rem; line-height: 1.8; color: #555; }
+    .tip-body a { color: var(--ink); }
+
+    .gear-list { display: flex; flex-direction: column; gap: 0; }
+    .gear-item {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--rule); align-items: baseline;
+    }
+    .gear-item:last-child { border-bottom: none; }
+    .gear-name { font-size: .91rem; color: #333; line-height: 1.6; }
+    .gear-name strong { font-weight: 500; }
+    .gear-name a { color: var(--ink); text-underline-offset: 3px; }
+    .gear-price { font-family: var(--mono); font-size: .68rem; color: var(--muted); white-space: nowrap; }
+
+    .links-grid { display: flex; flex-direction: column; gap: 0; }
+    .link-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 0; border-bottom: 1px solid var(--rule);
+    }
+    .link-label { font-size: .91rem; color: var(--ink); }
+    .link-arrow {
+      font-family: var(--mono); font-size: .68rem; color: var(--muted);
+      text-decoration: none; transition: color .2s;
+    }
+    .link-arrow:hover { color: var(--ink); }
+
+    .highlight-item {
+      display: grid; grid-template-columns: 32px 1fr;
+      gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--rule); align-items: start;
+    }
+    .highlight-item:last-child { border-bottom: none; }
+    .highlight-num { font-family: var(--mono); font-size: .62rem; color: #ccc; letter-spacing: .08em; padding-top: 3px; }
+    .highlight-body { font-size: .91rem; line-height: 1.8; color: #333; }
+    .highlight-body strong { font-weight: 500; }
+
+    .season-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); margin: 24px 0; }
+    .season-item { background: white; padding: 24px; }
+    .season-name { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); margin-bottom: 10px; }
+    .season-desc { font-size: .85rem; line-height: 1.7; color: #555; }
+
+    .post-conclusion { max-width: 820px; margin: 0 auto; padding: 64px 52px; border-top: 1px solid var(--rule); }
+    .conclusion-text {
+      font-family: var(--serif); font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 300; line-height: 1.6; color: #333; font-style: italic;
+    }
+
+    .post-footer {
+      max-width: 820px; margin: 0 auto; padding: 40px 52px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--rule);
+    }
+    .back-link {
+      font-family: var(--mono); font-size: .68rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 8px; transition: color .2s;
+    }
+    .back-link:hover { color: var(--ink); }
+    .post-footer-tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .post-hero, .toc-wrapper, .article-body, .post-conclusion, .post-footer { padding-left: 24px; padding-right: 24px; }
+      .hero-caption { padding-left: 24px; padding-right: 24px; }
+      .toc-grid { grid-template-columns: 1fr; }
+      .post-img-trio, .post-img-grid, .season-grid { grid-template-columns: 1fr; }
+      .tip-item { grid-template-columns: 36px 1fr; }
+      .gear-item { grid-template-columns: 1fr; gap: 2px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html#travel" class="nav-back">← Travel</a>
+    <a href="index.html" class="nav-logo">Siri Gowda</a>
+    <span class="nav-tag">March 2020</span>
+  </nav>
+
+  <!-- POST HERO -->
+  <div class="post-hero">
+    <p class="post-category">Travel · Arizona</p>
+    <h1 class="post-title">Havasupai<br /><em>Falls</em></h1>
+    <div class="post-meta">
+      <span class="post-meta-item">March 2020</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">3 Nights · 4 Days</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">Grand Canyon, Arizona</span>
+    </div>
+  </div>
+
+  <!-- HERO IMAGE -->
+  <figure class="hero-image">
+    <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2926-1.jpg" alt="Havasupai Falls" />
+  </figure>
+  <div class="hero-caption">Havasu Falls, Grand Canyon · Arizona</div>
+
+  <!-- INTRO -->
+  <div class="article-body">
+    <div class="post-section">
+      <p class="post-p" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;line-height:1.75;font-style:italic;">
+        Hidden deep within a side canyon of the Grand Canyon, Havasupai Falls is one of the most breathtaking — and hardest to reach — destinations in the United States. The turquoise water, the red canyon walls, the silence. There's nothing else like it.
+      </p>
+    </div>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc-wrapper reveal">
+    <p class="toc-label">In this post</p>
+    <nav class="toc-grid">
+      <a href="#intro" class="toc-item"><span>Introduction & history</span></a>
+      <a href="#reservations" class="toc-item"><span>Making a reservation</span></a>
+      <a href="#planning" class="toc-item"><span>Planning the trip</span></a>
+      <a href="#getting-there" class="toc-item"><span>Getting there</span></a>
+      <a href="#packing" class="toc-item"><span>Packing list</span></a>
+      <a href="#itinerary" class="toc-item"><span>Itinerary</span></a>
+      <a href="#details" class="toc-item"><span>Food, hiking & photography</span></a>
+      <a href="#safety" class="toc-item"><span>Safety</span></a>
+      <a href="#gear" class="toc-item"><span>Camping gear on a budget</span></a>
+      <a href="#links" class="toc-item"><span>Useful links</span></a>
+    </nav>
+  </div>
+
+  <!-- ARTICLE -->
+  <div class="article-body">
+
+    <!-- INTRO & HISTORY -->
+    <div class="post-section reveal" id="intro">
+      <div class="section-label">
+        <span class="section-label-tag">Background</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">The Havasupai people</h2>
+      <p class="post-p">The Havasupai — or Havasu Baaja — are an American Indian tribe who have lived in the Grand Canyon for at least the past 800 years. <em>Havasu</em> means "blue-green water" and <em>pai</em> means "people." The creek is named for what it looks like.</p>
+      <p class="post-p">Historically, the Havasupai lived across a broad expanse, as far south as Bill Williams Mountain and east to the Little Colorado River. In 1882 they were restricted to a 518-acre reservation in Havasu Canyon, and the inception of the Grand Canyon as a national park in 1919 pushed the tribe further to the brink — their land consistently used by the National Park Service. In 1975, after decades of advocacy, the tribe succeeded in regaining approximately 185,000 acres of canyon and rim territory. Today, tourism is one of their primary sources of income.</p>
+
+      <h3 class="post-h3">Why is the water so blue?</h3>
+      <p class="post-p">The creek is famous for its vivid blue-green color — caused by large amounts of <strong>calcium carbonate</strong> in the water. The mineral forms travertine limestone that lines the creek bed and reflects its color so strongly that it almost looks unreal. It's completely natural.</p>
+      <div class="post-img-grid">
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2915.jpg" alt="Havasu Falls" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2908.jpg" alt="Havasu Creek blue water" />
+          <figcaption>The calcium carbonate gives the water its unmistakable turquoise color</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- RESERVATIONS -->
+    <div class="post-section reveal" id="reservations">
+      <div class="section-label">
+        <span class="section-label-tag">Booking</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Making a reservation</h2>
+      <div class="callout">
+        <p>Reservations open on <strong>February 1st at 8:00 AM Arizona Time</strong> for the entire year ahead. They sell out almost instantly. Have your account set up and card details saved before the date — there is no time to fumble during checkout.</p>
+      </div>
+      <ol class="post-ol">
+        <li><span><strong>Create an account on the <a href="https://www.havasupaireservations.com/account/dashboard">Havasupai website</a> beforehand.</strong> Save your card details and all required info. The checkout process is a race — every second counts.</span></li>
+        <li><span><strong>Log in at 8:00 AM Arizona Time on February 1st.</strong> Reservations for the full year open at this moment and are gone within minutes. Be ready to grab any available date — flexibility helps.</span></li>
+        <li><span><strong>Reservations are for 3 nights / 4 days only</strong> (changed from 2019 onwards). Before clicking on a start date, confirm the following three days also show as available — otherwise the site resets and you start over. Cost: $395 as of 2020.</span></li>
+        <li><span><strong>Optional: mule reservation.</strong> A mule can carry up to four bags at $200 each way and can be a lifesaver for first-time multi-day campers. <a href="https://waterfallsofthegrandcanyon.com/havasu-falls/horseback-riding-to-havasu-falls/">Mule reservations</a> must be made at least a week in advance. I chose to carry my own gear — it was challenging but entirely doable with no prior experience.</span></li>
+      </ol>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2567.jpg" alt="Canyon trail to Havasupai" />
+        <figcaption>The trail into the canyon</figcaption>
+      </figure>
+    </div>
+
+    <!-- PLANNING -->
+    <div class="post-section reveal" id="planning">
+      <div class="section-label">
+        <span class="section-label-tag">Planning</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Planning the trip</h2>
+
+      <h3 class="post-h3">Best time to go</h3>
+      <p class="post-p">Late spring and early fall are most recommended — but given how competitive reservations are, grab whatever date you can get. The park closes in December and January.</p>
+      <div class="season-grid">
+        <div class="season-item">
+          <p class="season-name">Spring</p>
+          <p class="season-desc">Ideal conditions. We went in mid-March — great hiking temperatures (70°F–30°F), chilly water but still swimmable, and no bugs.</p>
+        </div>
+        <div class="season-item">
+          <p class="season-name">Summer</p>
+          <p class="season-desc">Hot — start hikes early before temperatures peak. Trails close if it exceeds 115°F. The water is warm and perfect for swimming.</p>
+        </div>
+        <div class="season-item">
+          <p class="season-name">Fall</p>
+          <p class="season-desc">Monsoon season with flash flood risk. Late fall not recommended. Water may be too cold to swim. Early fall can still be beautiful.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <p>The crowds are the same year-round — reservation limits control visitor numbers equally each day. To avoid people in photos and on trails, simply head out early in the morning.</p>
+      </div>
+
+      <h3 class="post-h3">How many days?</h3>
+      <p class="post-p">Plan for a <strong>minimum of 2 nights and 3 days</strong>. Day hiking is strictly prohibited even with a permit. If you can swing 3 nights and 4 days, take it — you won't regret it.</p>
+    </div>
+
+    <!-- GETTING THERE -->
+    <div class="post-section reveal" id="getting-there">
+      <div class="section-label">
+        <span class="section-label-tag">Logistics</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Getting there</h2>
+      <p class="post-p">The closest airport is <strong>Las Vegas</strong>. Drive time from Las Vegas to the Havasupai Trailhead Parking Lot is approximately 4 hours.</p>
+      <div class="callout">
+        <p><strong>Recommended approach:</strong> Land in Vegas the night before, drive to Peach Springs and stay at the <strong>Hualapai Lodge</strong>. This covers most of the distance the day before — leaving you only about 1.5 hours from the <strong>Hualapai Trailhead</strong> the next morning, well-rested and ready to hike.</p>
+      </div>
+      <div class="post-img-trio">
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2163-1.jpg" alt="Canyon approach" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2173-1-e1584538936901.jpg" alt="Trail into Havasupai" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2272-2.jpg" alt="Havasupai canyon" />
+        </figure>
+      </div>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2306-1.jpg" alt="Havasupai trail" />
+      </figure>
+    </div>
+
+    <!-- PACKING -->
+    <div class="post-section reveal" id="packing">
+      <div class="section-label">
+        <span class="section-label-tag">Preparation</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Packing list</h2>
+      <p class="post-p">Think light, think durable. You'll be carrying everything on your back for 8–10 miles each day. Every ounce matters.</p>
+      <ul class="post-ul">
+        <li><span><strong>40–55L backpack</strong> — More than enough space. Read up on how to adjust your pack properly before you go — it will make or break your trip. Distribute weight to your hips, not your shoulders.</span></li>
+        <li><span><strong>Sleeping bag</strong> — Rated for temperatures down to 20°F. Nights in the canyon can be cold even in spring.</span></li>
+        <li><span><strong>Sleeping mat</strong> — Non-negotiable. Insulates you from the cold ground and makes an enormous difference in sleep quality.</span></li>
+        <li><span><strong>Trekking poles</strong> — A lifesaver on both the descent and the uphill return hike with a loaded pack.</span></li>
+        <li><span><strong>Water filter bottle</strong> — No water available from trailhead to village or campground to waterfalls. Fill from streams along the way. There's also a spring (Fern Spring) at the campground.</span></li>
+        <li><span><strong>Headlamp / torch</strong> — Essential. Plans inevitably run late and returning in the dark is common.</span></li>
+        <li><span><strong>Waterproof dry bag</strong> — You'll wade through water on the hike to Beaver Falls. Keep your gear dry.</span></li>
+        <li><span><strong>Microfiber towel</strong> — Packs small, dries fast.</span></li>
+        <li><span><strong>Inflatable pillow</strong> — A small luxury that makes side sleeping much more comfortable.</span></li>
+        <li><span><strong>Swimsuit</strong> — You'll be in and out of the water all day.</span></li>
+        <li><span><strong>Sunscreen & sun hat</strong> — Canyon walls don't provide shade in the middle of the day.</span></li>
+        <li><span><strong>Portable burner, fuel & pan</strong> — Campfires are not allowed. Campers sometimes leave behind fuel, but don't count on it.</span></li>
+      </ul>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2020/03/f0ae42d7-63b3-4981-b978-a7a6b8f8b1c5.jpg" alt="Packed gear for Havasupai" />
+        <figcaption>Everything you need for 4 days in the canyon</figcaption>
+      </figure>
+    </div>
+
+    <!-- ITINERARY -->
+    <div class="post-section reveal" id="itinerary">
+      <div class="section-label">
+        <span class="section-label-tag">Day by day</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Itinerary</h2>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2325.jpg" alt="Havasupai Falls from the trail" />
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2749-1.jpg" alt="Havasu campground" />
+        <figcaption>The campground along Havasu Creek</figcaption>
+      </figure>
+      <div class="post-img-grid">
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2539-1.jpg" alt="Beaver Falls" />
+          <figcaption>Beaver Falls</figcaption>
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2391-1.jpg" alt="Mooney Falls" />
+          <figcaption>Mooney Falls</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- ADDITIONAL DETAILS -->
+    <div class="post-section reveal" id="details">
+      <div class="section-label">
+        <span class="section-label-tag">On the ground</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Food, hiking & photography</h2>
+
+      <h3 class="post-h3">Food</h3>
+      <p class="post-p">Think sugar and protein — sugar for instant energy, protein for the muscle wear and tear. <strong>Campfires are not allowed.</strong> Bring a portable burner, fuel, and a pan. Sometimes campers leave behind fuel so you could get lucky, but don't rely on it.</p>
+      <p class="post-p">There is <strong>no water available</strong> along the entire stretch of the hike from trailhead to village, or from campgrounds to the waterfalls. A water filter bottle lets you refill from streams and falls along the way. The <strong>Fern Spring</strong> in the campground is a reliable source.</p>
+      <ul class="post-ul">
+        <li><span><strong>Breakfast</strong> — Instant oatmeal, granola, bagels, cream cheese</span></li>
+        <li><span><strong>Lunch</strong> — PB&J sandwich, fruit</span></li>
+        <li><span><strong>Dinner</strong> — Cup noodles, tortillas, corn</span></li>
+        <li><span><strong>Snacks</strong> — Nuts, trail mix, dried fruit, nut butter packets</span></li>
+      </ul>
+
+      <h3 class="post-h3">Restrooms</h3>
+      <p class="post-p">Compost toilets are located throughout the campground and include toilet paper — no need to pack it. They're well maintained and easy to find along the length of the camp.</p>
+
+      <h3 class="post-h3">Hiking tips</h3>
+      <div class="tips-list">
+        <div class="tip-item">
+          <div class="tip-num">01</div>
+          <div class="tip-content">
+            <p class="tip-title">Torch, compass, water filter — always</p>
+            <p class="tip-body">Even with the best intentions of being back before dark, plans go sideways. These three items are your survival kit when they do.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">02</div>
+          <div class="tip-content">
+            <p class="tip-title">Follow the mule poop</p>
+            <p class="tip-body">Not a joke. Multiple forks in the trail can be misleading, especially at night. The mules run between trailhead and camp all day — their path is the right path.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">03</div>
+          <div class="tip-content">
+            <p class="tip-title">Beehive-style the descent on Mooney Falls</p>
+            <p class="tip-body">The climb down Mooney Falls via chains and carved handholds is vertical and exposed. Take your time, go one person at a time, and don't look down if heights bother you.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">04</div>
+          <div class="tip-content">
+            <p class="tip-title">Adjust your backpack properly</p>
+            <p class="tip-body">Read up on how to fit your pack before you leave home. The weight should sit on your hips, not your shoulders — this makes an enormous difference over 10 miles.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="post-h3" style="margin-top:48px;">Photography</h3>
+      <div class="tips-list">
+        <div class="tip-item">
+          <div class="tip-num">01</div>
+          <div class="tip-content">
+            <p class="tip-title">Learn long exposure before you go</p>
+            <p class="tip-body">Long exposure shots capture the silky water flow and make the waterfalls look dramatically better. Practice before the trip — not after you arrive.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">02</div>
+          <div class="tip-content">
+            <p class="tip-title">Bring a tripod</p>
+            <p class="tip-body">Essential for long exposure and low-light shots near the falls. Even a lightweight travel tripod makes a significant difference.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">03</div>
+          <div class="tip-content">
+            <p class="tip-title">Skip the DSLR if you can</p>
+            <p class="tip-body">You'll be carrying everything 8–10 miles per day. If your phone camera or GoPro is solid, leave the heavy gear at home. Your back will thank you.</p>
+          </div>
+        </div>
+      </div>
+      <div class="post-img-grid">
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2542.jpg" alt="Havasu Falls long exposure" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2212-1.jpg" alt="Canyon walls at Havasupai" />
+        </figure>
+      </div>
+      <figure class="post-img">
+        <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2866.jpg" alt="Havasupai Falls pool" />
+      </figure>
+    </div>
+
+    <!-- SAFETY -->
+    <div class="post-section reveal" id="safety">
+      <div class="section-label">
+        <span class="section-label-tag">Safety</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Safety</h2>
+      <p class="post-p">You'll spend your days out exploring, leaving most of your belongings at camp. Every other camper is also packing out — they're not looking to add weight by taking your things. That said, if you're worried, bring a <a href="http://amzn.to/2EcOz42">small combination lock</a> and thread it through your tent zipper pulls.</p>
+      <div class="callout">
+        <p><strong>Hang your food and trash from a tree.</strong> If you leave food in your bag, squirrels and rats will gnaw through your tent or pack to reach it. This is not an exaggeration — it happens regularly.</p>
+      </div>
+    </div>
+
+    <!-- GEAR ON A BUDGET -->
+    <div class="post-section reveal" id="gear">
+      <div class="section-label">
+        <span class="section-label-tag">Kit</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Camping gear on a budget</h2>
+      <p class="post-p">You don't need to spend a fortune. Here's everything we used, with links and prices as of 2020.</p>
+      <div class="gear-list">
+        <div class="gear-item">
+          <div class="gear-name"><a href="https://www.amazon.com/gp/product/B07C7C7Z8R/"><strong>Backpack</strong></a> — 40–55L. More than enough space for this trip. Read up on how to adjust your pack before you go.</div>
+          <div class="gear-price">$55.99</div>
+        </div>
+        <div class="gear-item">
+          <div class="gear-name"><a href="https://www.amazon.com/gp/product/B0743C4HHW/"><strong>Sleeping Bag (Lightweight)</strong></a> — Comfortable between 35°F and 40°F, keeps average sleepers warm near 20°F.</div>
+          <div class="gear-price">$34.99</div>
+        </div>
+        <div class="gear-item">
+          <div class="gear-name"><a href="https://www.amazon.com/gp/product/B00BZ3C900/"><strong>Sleeping Mat</strong></a> — Insulates from the cold ground. A must in any season but summer.</div>
+          <div class="gear-price">$41.14</div>
+        </div>
+        <div class="gear-item">
+          <div class="gear-name"><a href="https://www.amazon.com/gp/product/B076JJGMSY/"><strong>Inflatable Pillow</strong></a> — A small luxury. Makes side sleeping dramatically more comfortable.</div>
+          <div class="gear-price">$16.90</div>
+        </div>
+        <div class="gear-item">
+          <div class="gear-name"><a href="https://www.amazon.com/gp/product/B076BJKQ27/"><strong>Water Filter Bottle</strong></a> — Fill from streams and waterfalls along the route. Non-negotiable.</div>
+          <div class="gear-price">$29.99</div>
+        </div>
+        <div class="gear-item">
+          <div class="gear-name"><a href="https://www.amazon.com/gp/product/B0779JSQGV/"><strong>Trekking Poles</strong></a> — Ease knee pressure on both the descent and uphill return. A lifesaver.</div>
+          <div class="gear-price">$21.99</div>
+        </div>
+        <div class="gear-item">
+          <div class="gear-name"><a href="https://www.amazon.com/gp/product/B07BXD6941/"><strong>Waterproof Dry Bag</strong></a> — You'll wade through water on the hike to Beaver Falls. Keep electronics and clothes dry.</div>
+          <div class="gear-price">—</div>
+        </div>
+        <div class="gear-item">
+          <div class="gear-name"><a href="https://www.amazon.com/gp/product/B010S1N0BQ/"><strong>Microfiber Towels (Lightweight)</strong></a> — Packs down small, dries fast.</div>
+          <div class="gear-price">$13.99</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- USEFUL LINKS -->
+    <div class="post-section reveal" id="links">
+      <div class="section-label">
+        <span class="section-label-tag">Resources</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Useful links</h2>
+      <h4 class="post-h4">Planning guides</h4>
+      <div class="links-grid">
+        <div class="link-item">
+          <span class="link-label">She Dreams of Alpine — Complete Guide</span>
+          <a href="https://www.shedreamsofalpine.com/blog/your-complete-guide-to-hiking-havasu-falls-trail/" target="_blank" class="link-arrow">shedreamsofalpine.com →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Back o' Beyond — Backpacking Guide</span>
+          <a href="https://backobeyond.blog/havasupai-backpacking-guide/" target="_blank" class="link-arrow">backobeyond.blog →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">REI — Local Tips</span>
+          <a href="https://destinations.rei.com/local-tips/plan-a-havasu-falls-hike/" target="_blank" class="link-arrow">rei.com →</a>
+        </div>
+      </div>
+      <h4 class="post-h4" style="margin-top:36px;">Packing resources</h4>
+      <div class="links-grid">
+        <div class="link-item">
+          <span class="link-label">Wandering Wheatleys — What to Pack</span>
+          <a href="https://wanderingwheatleys.com/what-to-pack-for-havasu-falls/" target="_blank" class="link-arrow">wanderingwheatleys.com →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Asher Fergusson — Must-Have Items</span>
+          <a href="https://www.asherfergusson.com/must-have-havasupai-packing-list-items/" target="_blank" class="link-arrow">asherfergusson.com →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Havasupai Reservations</span>
+          <a href="https://www.havasupaireservations.com/account/dashboard" target="_blank" class="link-arrow">havasupaireservations.com →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Mule Reservations</span>
+          <a href="https://waterfallsofthegrandcanyon.com/havasu-falls/horseback-riding-to-havasu-falls/" target="_blank" class="link-arrow">waterfallsofthegrandcanyon.com →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONCLUSION -->
+  <div class="post-conclusion reveal">
+    <p class="conclusion-text">"Havasupai is the hardest reservation to get, the most physically demanding hike I've done, and the most spectacular place I've ever seen. The turquoise water against red canyon walls looks like a painting. Everything about it is worth it."</p>
+  </div>
+
+  <!-- POST FOOTER -->
+  <div class="post-footer">
+    <a href="index.html#travel" class="back-link">← Back to Travel</a>
+    <span class="post-footer-tag">Havasupai · March 2020</span>
+  </div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
