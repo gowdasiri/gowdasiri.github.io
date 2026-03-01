@@ -77,7 +77,7 @@
       position: absolute; top: 100%; left: 50%;
       transform: translateX(-50%);
       padding-top: 12px;
-      list-style: none; min-width: 180px;
+      list-style: none; min-width: 240px;
       opacity: 0; pointer-events: none;
       transition: opacity .15s; z-index: 200;
     }
@@ -183,7 +183,7 @@
     /* travel */
     .travel-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 1px;
       background: rgba(0,0,0,.08);
     }
@@ -246,8 +246,11 @@
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .projects-grid { grid-template-columns: 1fr; }
       .exp-item { grid-template-columns: 1fr; gap: 6px; }
-      .travel-grid { grid-template-columns: 1fr; }
+      .travel-grid { grid-template-columns: repeat(2, 1fr); }
       footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .travel-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -271,6 +274,12 @@
           <div class="nav-dropdown-inner">
             <li><a href="iceland.html">Iceland</a></li>
             <li><a href="quebec.html">Solo Trip to Quebec</a></li>
+            <li><a href="newengland.html">New England Fall Road Trip</a></li>
+            <li><a href="havasupai.html">Havasupai Falls</a></li>
+            <li><a href="andaman.html">Andaman Islands</a></li>
+            <li><a href="tulum.html">Tulum, Mexico</a></li>
+            <li><a href="wizarding-world.html">Wizarding World</a></li>
+            <li><a href="rohtang.html">Rohtang Pass</a></li>
           </div>
         </ul>
       </li>
@@ -477,12 +486,11 @@
               <span class="travel-card-date">Feb — Mar 2024</span>
             </div>
             <h3 class="travel-card-title">Winter Girls Trip<br />to Iceland</h3>
-            <p class="travel-card-desc">4 days of glaciers, ice caves, active volcanoes, northern lights, black sand beaches, and an evacuation warning. The land of fire and ice did not disappoint.</p>
+            <p class="travel-card-desc">4 days of glaciers, ice caves, active volcanoes, northern lights, black sand beaches, and an evacuation warning.</p>
             <div class="travel-card-tags">
               <span class="travel-tag">Golden Circle</span>
               <span class="travel-tag">Aurora Borealis</span>
               <span class="travel-tag">Glacier Hike</span>
-              <span class="travel-tag">South Coast</span>
             </div>
             <span class="travel-card-cta">Read the full guide →</span>
           </div>
@@ -500,12 +508,143 @@
               <span class="travel-card-date">Winter 2025</span>
             </div>
             <h3 class="travel-card-title">Solo Trip<br />to Quebec</h3>
-            <p class="travel-card-desc">A solo winter escape to one of North America's most European cities — cobblestone streets dusted in snow, French patisseries, ice sculpture festivals, and the kind of quiet that only cold air brings.</p>
+            <p class="travel-card-desc">A solo winter escape to one of North America's most European cities — cobblestone streets, French patisseries, and ice sculpture festivals.</p>
             <div class="travel-card-tags">
               <span class="travel-tag">Old Quebec</span>
               <span class="travel-tag">Winter Carnival</span>
-              <span class="travel-tag">Château Frontenac</span>
               <span class="travel-tag">Solo Travel</span>
+            </div>
+            <span class="travel-card-cta">Read the full guide →</span>
+          </div>
+        </a>
+
+        <!-- New England -->
+        <a href="newengland.html" class="travel-card">
+          <div class="travel-card-img">
+            <img src="https://gowdasiri.files.wordpress.com/2020/10/img_0012.jpg" alt="New England Fall Foliage" />
+          </div>
+          <div class="travel-card-body">
+            <div class="travel-card-meta">
+              <span class="travel-card-region">USA</span>
+              <span class="travel-card-dot"></span>
+              <span class="travel-card-date">October 2020</span>
+            </div>
+            <h3 class="travel-card-title">New England<br />Fall Road Trip</h3>
+            <p class="travel-card-desc">5 days through Maine, New Hampshire, and Vermont at peak foliage — Acadia, the Kancamagus Highway, Stowe, and the Berkshires.</p>
+            <div class="travel-card-tags">
+              <span class="travel-tag">Acadia NP</span>
+              <span class="travel-tag">Fall Foliage</span>
+              <span class="travel-tag">Road Trip</span>
+            </div>
+            <span class="travel-card-cta">Read the full guide →</span>
+          </div>
+        </a>
+
+        <!-- Havasupai -->
+        <a href="havasupai.html" class="travel-card">
+          <div class="travel-card-img">
+            <img src="https://gowdasiri.files.wordpress.com/2020/03/img_2764.jpg" alt="Havasu Falls" />
+          </div>
+          <div class="travel-card-body">
+            <div class="travel-card-meta">
+              <span class="travel-card-region">USA</span>
+              <span class="travel-card-dot"></span>
+              <span class="travel-card-date">March 2020</span>
+            </div>
+            <h3 class="travel-card-title">Havasupai<br />Falls</h3>
+            <p class="travel-card-desc">3 nights backpacking into the Grand Canyon to reach the turquoise waterfalls of the Havasupai — one of the hardest reservations to get in America.</p>
+            <div class="travel-card-tags">
+              <span class="travel-tag">Backpacking</span>
+              <span class="travel-tag">Grand Canyon</span>
+              <span class="travel-tag">Havasu Falls</span>
+            </div>
+            <span class="travel-card-cta">Read the full guide →</span>
+          </div>
+        </a>
+
+        <!-- Andaman -->
+        <a href="andaman.html" class="travel-card">
+          <div class="travel-card-img">
+            <img src="https://gowdasiri.files.wordpress.com/2022/10/img_6917.jpg" alt="Andaman Islands" />
+          </div>
+          <div class="travel-card-body">
+            <div class="travel-card-meta">
+              <span class="travel-card-region">India</span>
+              <span class="travel-card-dot"></span>
+              <span class="travel-card-date">October 2022</span>
+            </div>
+            <h3 class="travel-card-title">Andaman<br />Islands</h3>
+            <p class="travel-card-desc">5 days in one of India's most remote destinations — turquoise water, coral reefs, scuba diving, and a beach that consistently ranks among Asia's best.</p>
+            <div class="travel-card-tags">
+              <span class="travel-tag">Havelock</span>
+              <span class="travel-tag">Scuba Diving</span>
+              <span class="travel-tag">Radhanagar Beach</span>
+            </div>
+            <span class="travel-card-cta">Read the full guide →</span>
+          </div>
+        </a>
+
+        <!-- Tulum -->
+        <a href="tulum.html" class="travel-card">
+          <div class="travel-card-img">
+            <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8400.jpg" alt="Tulum Mexico" />
+          </div>
+          <div class="travel-card-body">
+            <div class="travel-card-meta">
+              <span class="travel-card-region">Mexico</span>
+              <span class="travel-card-dot"></span>
+              <span class="travel-card-date">June 2024</span>
+            </div>
+            <h3 class="travel-card-title">Tulum<br />Mexico</h3>
+            <p class="travel-card-desc">6 days on the Yucatán Peninsula — Mayan ruins, underground cenotes, Chichén Itzá, the Sian Ka'an biosphere reserve, and Playa del Carmen.</p>
+            <div class="travel-card-tags">
+              <span class="travel-tag">Cenotes</span>
+              <span class="travel-tag">Chichén Itzá</span>
+              <span class="travel-tag">Sian Ka'an</span>
+            </div>
+            <span class="travel-card-cta">Read the full guide →</span>
+          </div>
+        </a>
+
+        <!-- Wizarding World -->
+        <a href="wizarding-world.html" class="travel-card">
+          <div class="travel-card-img">
+            <img src="https://gowdasiri.files.wordpress.com/2019/12/img_3520.jpg" alt="Wizarding World of Harry Potter" />
+          </div>
+          <div class="travel-card-body">
+            <div class="travel-card-meta">
+              <span class="travel-card-region">USA</span>
+              <span class="travel-card-dot"></span>
+              <span class="travel-card-date">November 2019</span>
+            </div>
+            <h3 class="travel-card-title">Wizarding World<br />of Harry Potter</h3>
+            <p class="travel-card-desc">10 things to do at Universal Orlando's Wizarding World — because the real magic is in the details you almost miss.</p>
+            <div class="travel-card-tags">
+              <span class="travel-tag">Diagon Alley</span>
+              <span class="travel-tag">Hogsmeade</span>
+              <span class="travel-tag">Universal Orlando</span>
+            </div>
+            <span class="travel-card-cta">Read the full guide →</span>
+          </div>
+        </a>
+
+        <!-- Rohtang Pass -->
+        <a href="rohtang.html" class="travel-card">
+          <div class="travel-card-img">
+            <img src="https://gowdasiri.files.wordpress.com/2019/06/img_2926-1.jpg" alt="Rohtang Pass Himachal Pradesh" />
+          </div>
+          <div class="travel-card-body">
+            <div class="travel-card-meta">
+              <span class="travel-card-region">India</span>
+              <span class="travel-card-dot"></span>
+              <span class="travel-card-date">Himachal Pradesh</span>
+            </div>
+            <h3 class="travel-card-title">Rohtang Pass<br />Himachal Pradesh</h3>
+            <p class="travel-card-desc">A 4am wake-up call, a lingering fever, and a drive through the Kullu valley to reach the first untouched snow of the season at Rohtang.</p>
+            <div class="travel-card-tags">
+              <span class="travel-tag">Kullu Valley</span>
+              <span class="travel-tag">Himalaya</span>
+              <span class="travel-tag">Road Trip</span>
             </div>
             <span class="travel-card-cta">Read the full guide →</span>
           </div>
@@ -536,8 +675,8 @@
     <p class="contact-eyebrow">Get in touch</p>
     <h2 class="contact-headline">Let's build something<br /><em>worth building</em></h2>
     <div class="contact-links">
-      <a href="mailto:hello@sirigowda.com" class="contact-link">Email</a>
-      <a href="https://linkedin.com/in/sirigowda" target="_blank" class="contact-link">LinkedIn</a>
+      <a href="/cdn-cgi/l/email-protection#e9818c858586a99a809b808e869e8d88c78a8684" class="contact-link">Email</a>
+      <a href="https://linkedin.com/in/gowdasiri" target="_blank" class="contact-link">LinkedIn</a>
       <a href="https://github.com/gowdasiri" target="_blank" class="contact-link">GitHub</a>
     </div>
   </section>
@@ -548,7 +687,7 @@
     <span class="footer-copy">Data Engineering · FinTech</span>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
       cursor.style.left = e.clientX + 'px';
@@ -566,10 +705,3 @@
       sections.forEach(s => {
         if (window.scrollY >= s.offsetTop - 120) current = s.id;
       });
-      navLinks.forEach(a => {
-        a.style.color = a.getAttribute('href') === '#' + current ? '#111' : '';
-      });
-    });
-  </script>
-</body>
-</html>
