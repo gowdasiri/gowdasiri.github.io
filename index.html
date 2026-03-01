@@ -77,7 +77,7 @@
       position: absolute; top: 100%; left: 50%;
       transform: translateX(-50%);
       padding-top: 12px;
-      list-style: none; min-width: 140px;
+      list-style: none; min-width: 180px;
       opacity: 0; pointer-events: none;
       transition: opacity .15s; z-index: 200;
     }
@@ -180,24 +180,42 @@
     .placeholder-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; margin-bottom: 12px; color: #111; }
     .placeholder-sub { font-family: 'DM Mono', monospace; font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: #888; }
 
-    /* travel card */
-    .travel-card {
-      display: grid; grid-template-columns: 400px 1fr;
-      border: 1px solid rgba(0,0,0,.1); text-decoration: none; color: #111;
-      transition: border-color .2s; cursor: none; overflow: hidden;
+    /* travel */
+    .travel-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: rgba(0,0,0,.08);
     }
-    .travel-card:hover { border-color: #111; }
-    .travel-card-img { overflow: hidden; height: 340px; }
-    .travel-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
+
+    .travel-card {
+      background: #fff;
+      display: flex; flex-direction: column;
+      border: none; text-decoration: none; color: #111;
+      transition: background .2s; cursor: none; overflow: hidden;
+      position: relative;
+    }
+    .travel-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: #111;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .35s ease;
+    }
+    .travel-card:hover { background: #fafafa; }
+    .travel-card:hover::after { transform: scaleX(1); }
+
+    .travel-card-img { overflow: hidden; aspect-ratio: 16/10; width: 100%; }
+    .travel-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; filter: saturate(.9); }
     .travel-card:hover .travel-card-img img { transform: scale(1.03); }
-    .travel-card-body { padding: 40px 48px; display: flex; flex-direction: column; justify-content: center; }
-    .travel-card-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+
+    .travel-card-body { padding: 32px 36px 36px; display: flex; flex-direction: column; flex: 1; }
+    .travel-card-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
     .travel-card-region { font-family: 'DM Mono', monospace; font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: #111; }
     .travel-card-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
     .travel-card-date { font-family: 'DM Mono', monospace; font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: #888; }
-    .travel-card-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 300; line-height: 1.1; margin-bottom: 16px; }
-    .travel-card-desc { font-size: .88rem; line-height: 1.8; color: #555; margin-bottom: 24px; max-width: 420px; }
-    .travel-card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 28px; }
+    .travel-card-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 300; line-height: 1.1; margin-bottom: 14px; }
+    .travel-card-desc { font-size: .86rem; line-height: 1.8; color: #555; margin-bottom: 22px; flex: 1; }
+    .travel-card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
     .travel-tag { font-family: 'DM Mono', monospace; font-size: .62rem; letter-spacing: .04em; border: 1px solid rgba(0,0,0,.1); padding: 4px 10px; border-radius: 2px; color: #888; }
     .travel-card-cta { font-family: 'DM Mono', monospace; font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: #111; border-bottom: 1px solid #111; padding-bottom: 2px; align-self: flex-start; }
 
@@ -228,9 +246,7 @@
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .projects-grid { grid-template-columns: 1fr; }
       .exp-item { grid-template-columns: 1fr; gap: 6px; }
-      .travel-card { grid-template-columns: 1fr; }
-      .travel-card-img { height: 240px; }
-      .travel-card-body { padding: 28px 24px; }
+      .travel-grid { grid-template-columns: 1fr; }
       footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
@@ -254,6 +270,7 @@
         <ul class="nav-dropdown">
           <div class="nav-dropdown-inner">
             <li><a href="iceland.html">Iceland</a></li>
+            <li><a href="quebec.html">Solo Trip to Quebec</a></li>
           </div>
         </ul>
       </li>
@@ -446,27 +463,55 @@
         <div class="section-line"></div>
         <span class="section-num">05</span>
       </div>
-      <a href="iceland.html" class="travel-card">
-        <div class="travel-card-img">
-          <img src="https://gowdasiri.files.wordpress.com/2024/02/img_3131.jpg" alt="Iceland Glacier Lagoon" />
-        </div>
-        <div class="travel-card-body">
-          <div class="travel-card-meta">
-            <span class="travel-card-region">Iceland</span>
-            <span class="travel-card-dot"></span>
-            <span class="travel-card-date">Feb — Mar 2024</span>
+      <div class="travel-grid">
+
+        <!-- Iceland -->
+        <a href="iceland.html" class="travel-card">
+          <div class="travel-card-img">
+            <img src="https://gowdasiri.files.wordpress.com/2024/02/img_3131.jpg" alt="Iceland Glacier Lagoon" />
           </div>
-          <h3 class="travel-card-title">Winter Girls Trip<br />to Iceland</h3>
-          <p class="travel-card-desc">4 days of glaciers, ice caves, active volcanoes, northern lights, black sand beaches, and an evacuation warning. The land of fire and ice did not disappoint.</p>
-          <div class="travel-card-tags">
-            <span class="travel-tag">Golden Circle</span>
-            <span class="travel-tag">Aurora Borealis</span>
-            <span class="travel-tag">Glacier Hike</span>
-            <span class="travel-tag">South Coast</span>
+          <div class="travel-card-body">
+            <div class="travel-card-meta">
+              <span class="travel-card-region">Iceland</span>
+              <span class="travel-card-dot"></span>
+              <span class="travel-card-date">Feb — Mar 2024</span>
+            </div>
+            <h3 class="travel-card-title">Winter Girls Trip<br />to Iceland</h3>
+            <p class="travel-card-desc">4 days of glaciers, ice caves, active volcanoes, northern lights, black sand beaches, and an evacuation warning. The land of fire and ice did not disappoint.</p>
+            <div class="travel-card-tags">
+              <span class="travel-tag">Golden Circle</span>
+              <span class="travel-tag">Aurora Borealis</span>
+              <span class="travel-tag">Glacier Hike</span>
+              <span class="travel-tag">South Coast</span>
+            </div>
+            <span class="travel-card-cta">Read the full guide →</span>
           </div>
-          <span class="travel-card-cta">Read the full guide →</span>
-        </div>
-      </a>
+        </a>
+
+        <!-- Quebec -->
+        <a href="quebec.html" class="travel-card">
+          <div class="travel-card-img">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Old Quebec City in Winter" />
+          </div>
+          <div class="travel-card-body">
+            <div class="travel-card-meta">
+              <span class="travel-card-region">Canada</span>
+              <span class="travel-card-dot"></span>
+              <span class="travel-card-date">Winter 2025</span>
+            </div>
+            <h3 class="travel-card-title">Solo Trip<br />to Quebec</h3>
+            <p class="travel-card-desc">A solo winter escape to one of North America's most European cities — cobblestone streets dusted in snow, French patisseries, ice sculpture festivals, and the kind of quiet that only cold air brings.</p>
+            <div class="travel-card-tags">
+              <span class="travel-tag">Old Quebec</span>
+              <span class="travel-tag">Winter Carnival</span>
+              <span class="travel-tag">Château Frontenac</span>
+              <span class="travel-tag">Solo Travel</span>
+            </div>
+            <span class="travel-card-cta">Read the full guide →</span>
+          </div>
+        </a>
+
+      </div>
     </div>
   </section>
 
@@ -492,7 +537,7 @@
     <h2 class="contact-headline">Let's build something<br /><em>worth building</em></h2>
     <div class="contact-links">
       <a href="mailto:hello@sirigowda.com" class="contact-link">Email</a>
-      <a href="https://linkedin.com/in/gowdasiri" target="_blank" class="contact-link">LinkedIn</a>
+      <a href="https://linkedin.com/in/sirigowda" target="_blank" class="contact-link">LinkedIn</a>
       <a href="https://github.com/gowdasiri" target="_blank" class="contact-link">GitHub</a>
     </div>
   </section>
@@ -504,7 +549,6 @@
   </footer>
 
   <script>
-    // cursor
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
       cursor.style.left = e.clientX + 'px';
@@ -515,7 +559,6 @@
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
     });
 
-    // active nav link on scroll
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
     window.addEventListener('scroll', () => {
