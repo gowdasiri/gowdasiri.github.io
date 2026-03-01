@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tulum, Mexico — Siri Gowda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #111111; --white: #ffffff; --muted: #888888; --rule: rgba(0,0,0,.10);
+      --mono: 'DM Mono', monospace; --serif: 'Cormorant Garamond', serif; --sans: 'Instrument Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; cursor: none; }
+    #cursor { position: fixed; top: 0; left: 0; z-index: 9999; width: 10px; height: 10px; background: var(--ink); border-radius: 50%; pointer-events: none; transform: translate(-50%,-50%); transition: width .2s, height .2s, opacity .2s; }
+    #cursor.expand { width: 30px; height: 30px; opacity: .12; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 52px; background: rgba(255,255,255,.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+    .nav-back { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .nav-back:hover { color: var(--ink); }
+    .nav-logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; letter-spacing: .04em; color: var(--ink); text-decoration: none; }
+    .nav-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+    .post-hero { padding-top: 100px; max-width: 820px; margin: 0 auto; padding-left: 52px; padding-right: 52px; padding-bottom: 64px; border-bottom: 1px solid var(--rule); }
+    .post-category { font-family: var(--mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .post-category::before { content: ''; width: 24px; height: 1px; background: var(--rule); }
+    .post-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.05; letter-spacing: -.01em; margin-bottom: 28px; }
+    .post-title em { font-style: italic; }
+    .post-meta { display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
+    .post-meta-item { font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
+
+    .hero-image { width: 100%; max-width: 820px; margin: 0 auto; }
+    .hero-image img { width: 100%; height: 520px; object-fit: cover; object-position: center; display: block; }
+    .hero-caption { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 10px 52px; border-bottom: 1px solid var(--rule); max-width: 820px; margin: 0 auto; }
+
+    .toc-wrapper { max-width: 820px; margin: 0 auto; padding: 48px 52px; border-bottom: 1px solid var(--rule); }
+    .toc-label { font-family: var(--mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 40px; }
+    .toc-item { font-family: var(--mono); font-size: .7rem; letter-spacing: .06em; color: var(--muted); text-decoration: none; padding: 6px 0; border-bottom: 1px solid var(--rule); transition: color .2s; display: flex; align-items: center; gap: 8px; }
+    .toc-item:hover { color: var(--ink); }
+    .toc-item::before { content: '→'; font-size: .6rem; opacity: .4; }
+
+    .article-body { max-width: 820px; margin: 0 auto; padding: 0 52px; }
+    .post-section { padding: 64px 0; border-bottom: 1px solid var(--rule); }
+    .post-section:last-child { border-bottom: none; }
+
+    .section-label { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
+    .section-label-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); }
+    .section-label-line { flex: 1; height: 1px; background: var(--rule); }
+
+    .post-h2 { font-family: var(--serif); font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 300; line-height: 1.2; margin-bottom: 24px; }
+    .post-h4 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; margin-top: 40px; }
+
+    .post-p { font-size: .93rem; line-height: 1.85; color: #333; margin-bottom: 18px; }
+    .post-p:last-child { margin-bottom: 0; }
+    .post-p a { color: var(--ink); text-underline-offset: 3px; }
+    .post-p em { font-style: italic; }
+
+    .post-img { margin: 40px 0; width: 100%; }
+    .post-img img { width: 100%; display: block; border: 1px solid var(--rule); }
+    .post-img figcaption { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--muted); margin-top: 10px; text-align: center; }
+
+    .post-img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 40px 0; }
+    .post-img-grid .post-img { margin: 0; }
+    .post-img-grid .post-img img { height: 300px; object-fit: cover; }
+
+    .post-img-trio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin: 40px 0; }
+    .post-img-trio .post-img { margin: 0; }
+    .post-img-trio .post-img img { height: 220px; object-fit: cover; }
+
+    /* Season grid */
+    .season-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); margin: 24px 0 32px; }
+    .season-item { background: var(--white); padding: 24px; }
+    .season-name { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); margin-bottom: 6px; }
+    .season-months { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; color: var(--muted); margin-bottom: 12px; }
+    .season-desc { font-size: .85rem; line-height: 1.7; color: #555; }
+
+    /* Day cards */
+    .day-card { border: 1px solid var(--rule); padding: 32px 36px; margin-bottom: 40px; }
+    .day-num { font-family: var(--mono); font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .day-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; margin-bottom: 20px; line-height: 1.2; }
+    .day-stops { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+    .day-stop { font-family: var(--mono); font-size: .62rem; letter-spacing: .06em; border: 1px solid var(--rule); padding: 4px 10px; color: var(--ink); }
+    .day-body { font-size: .91rem; line-height: 1.88; color: #333; }
+    .day-body p { margin-bottom: 14px; }
+    .day-body p:last-child { margin-bottom: 0; }
+    .day-body strong { font-weight: 500; }
+    .day-body em { font-style: italic; }
+    .day-body a { color: var(--ink); text-underline-offset: 3px; }
+
+    /* Tips */
+    .tips-list { display: flex; flex-direction: column; }
+    .tip-item { display: grid; grid-template-columns: 52px 1fr; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--rule); align-items: start; }
+    .tip-item:last-child { border-bottom: none; }
+    .tip-num { font-family: var(--serif); font-size: 2.4rem; font-weight: 300; color: #e0e0e0; line-height: 1; }
+    .tip-title { font-weight: 500; margin-bottom: 8px; font-size: .93rem; }
+    .tip-body { font-size: .88rem; line-height: 1.82; color: #555; }
+    .tip-body a { color: var(--ink); text-underline-offset: 3px; }
+
+    /* Packing */
+    .pack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; }
+    .pack-item { font-size: .88rem; line-height: 1.8; color: #333; padding: 8px 0; border-bottom: 1px solid var(--rule); display: flex; align-items: baseline; gap: 10px; }
+    .pack-item::before { content: '—'; font-family: var(--mono); color: var(--muted); font-size: .75rem; flex-shrink: 0; }
+    .pack-item a { color: var(--ink); }
+
+    /* Spanish phrases */
+    .phrase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: var(--rule); }
+    .phrase-item { display: grid; grid-template-columns: 1fr 1fr; padding: 10px 14px; border-bottom: 1px solid var(--rule); font-size: .88rem; background: var(--white); gap: 16px; }
+    .phrase-es { color: var(--ink); font-weight: 500; }
+    .phrase-en { color: var(--muted); }
+
+    /* Food list */
+    .food-list { display: flex; flex-direction: column; margin-bottom: 8px; }
+    .food-item { padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: .91rem; line-height: 1.75; color: #333; display: flex; gap: 14px; align-items: baseline; }
+    .food-item:last-child { border-bottom: none; }
+    .food-item::before { content: '—'; font-family: var(--mono); color: var(--muted); font-size: .75rem; flex-shrink: 0; }
+    .food-item a { color: var(--ink); text-underline-offset: 3px; }
+    .food-item strong { font-weight: 500; }
+
+    /* Cenote steps */
+    .cenote-steps { display: flex; flex-direction: column; }
+    .cenote-step { display: grid; grid-template-columns: 32px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--rule); align-items: start; }
+    .cenote-step:last-child { border-bottom: none; }
+    .cenote-num { font-family: var(--mono); font-size: .62rem; color: #ccc; padding-top: 3px; }
+    .cenote-body { font-size: .91rem; line-height: 1.82; color: #333; }
+    .cenote-body strong { font-weight: 500; }
+
+    /* Beach clubs */
+    .club-card { border: 1px solid var(--rule); padding: 32px 36px; margin-bottom: 16px; }
+    .club-name { font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 16px; }
+    .club-body { font-size: .91rem; line-height: 1.85; color: #333; }
+    .club-body p { margin-bottom: 12px; }
+    .club-body p:last-child { margin-bottom: 0; }
+    .club-body a { color: var(--ink); text-underline-offset: 3px; }
+
+    /* Links */
+    .links-list { display: flex; flex-direction: column; }
+    .link-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--rule); gap: 20px; }
+    .link-item:last-child { border-bottom: none; }
+    .link-label { font-size: .91rem; color: #333; }
+    .link-url { font-family: var(--mono); font-size: .64rem; letter-spacing: .05em; color: var(--muted); text-decoration: none; white-space: nowrap; transition: color .2s; }
+    .link-url:hover { color: var(--ink); }
+
+    .callout { border-left: 2px solid var(--ink); padding: 20px 24px; margin: 32px 0; background: #fafafa; }
+    .callout p { font-size: .91rem; line-height: 1.8; color: #333; margin: 0; }
+    .callout p + p { margin-top: 8px; }
+    .callout strong { font-weight: 500; }
+    .callout a { color: var(--ink); }
+
+    .post-conclusion { max-width: 820px; margin: 0 auto; padding: 64px 52px; border-top: 1px solid var(--rule); }
+    .conclusion-text { font-family: var(--serif); font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 300; line-height: 1.6; color: #333; font-style: italic; }
+    .post-footer { max-width: 820px; margin: 0 auto; padding: 40px 52px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rule); }
+    .back-link { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .back-link:hover { color: var(--ink); }
+    .post-footer-tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .post-hero, .toc-wrapper, .article-body, .post-conclusion, .post-footer { padding-left: 24px; padding-right: 24px; }
+      .hero-caption { padding-left: 24px; padding-right: 24px; }
+      .toc-grid, .post-img-grid, .post-img-trio, .season-grid, .pack-grid, .phrase-grid { grid-template-columns: 1fr; }
+      .tip-item { grid-template-columns: 40px 1fr; }
+      .day-card, .club-card { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <nav>
+    <a href="index.html#travel" class="nav-back">← Travel</a>
+    <a href="index.html" class="nav-logo">Siri Gowda</a>
+    <span class="nav-tag">June 2024</span>
+  </nav>
+
+  <div class="post-hero">
+    <p class="post-category">Travel · Mexico</p>
+    <h1 class="post-title">Tulum<br /><em>Mexico</em></h1>
+    <div class="post-meta">
+      <span class="post-meta-item">June 2024</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">6 Days</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">Quintana Roo · Yucatán Peninsula</span>
+    </div>
+  </div>
+
+  <figure class="hero-image">
+    <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8400.jpg" alt="Tulum, Mexico" />
+  </figure>
+  <div class="hero-caption">Tulum — Quintana Roo, Mexico</div>
+
+  <div class="article-body">
+    <div class="post-section">
+      <p class="post-p" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;line-height:1.75;font-style:italic;">Ruins on a cliff above turquoise water. Underground cave systems that go on for miles. Ancient Mayan sites and colonial towns an hour's drive away. Tulum packs a lot into a small stretch of coastline.</p>
+
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_9027.jpg?w=1024" alt="Tulum beach" />
+      </figure>
+    </div>
+  </div>
+
+  <div class="toc-wrapper reveal">
+    <p class="toc-label">In this post</p>
+    <nav class="toc-grid">
+      <a href="#timing" class="toc-item">Best time to visit</a>
+      <a href="#itinerary" class="toc-item">6-day itinerary</a>
+      <a href="#tips" class="toc-item">Tips</a>
+      <a href="#packing" class="toc-item">Packing list</a>
+      <a href="#spanish" class="toc-item">Basic Spanish</a>
+      <a href="#food" class="toc-item">Where to eat</a>
+      <a href="#cenotes" class="toc-item">How cenotes are formed</a>
+      <a href="#beach-clubs" class="toc-item">Beach clubs</a>
+      <a href="#nearby" class="toc-item">Other places nearby</a>
+      <a href="#links" class="toc-item">Reference links</a>
+    </nav>
+  </div>
+
+  <div class="article-body">
+
+    <!-- OPENING PHOTOS -->
+    <div class="post-section reveal">
+      <div class="post-img-grid">
+        <figure class="post-img">
+          <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_7553.jpg?w=768" alt="Tulum ruins" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_9259.jpg?w=1024" alt="Tulum coast" />
+        </figure>
+      </div>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_9506-2-1.jpg?w=1024" alt="Tulum beach" />
+      </figure>
+    </div>
+
+    <!-- BEST TIME TO VISIT -->
+    <div class="post-section reveal" id="timing">
+      <div class="section-label">
+        <span class="section-label-tag">Planning</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Best time to visit</h2>
+      <p class="post-p">The best time to visit Tulum depends on what you prioritize — weather, avoiding crowds, or budget. Here's a breakdown:</p>
+
+      <div class="season-grid">
+        <div class="season-item">
+          <p class="season-name">High Season</p>
+          <p class="season-months">December — April</p>
+          <p class="season-desc">Best weather — warm, low humidity, minimal rain. Peak crowds and prices, especially around Christmas, New Year, and Easter. Various festivals add vibrancy.</p>
+        </div>
+        <div class="season-item">
+          <p class="season-name">Shoulder</p>
+          <p class="season-months">May — June · November</p>
+          <p class="season-desc">Warm and enjoyable with occasional showers. Fewer tourists, lower rates. Beaches and cenotes are less crowded — a more peaceful visit overall.</p>
+        </div>
+        <div class="season-item">
+          <p class="season-name">Low Season</p>
+          <p class="season-months">July — October</p>
+          <p class="season-desc">Rainy season. Hurricane risk August–October. Highest humidity. Fewest crowds and significantly cheaper rates — good for budget travelers. Some businesses may have limited hours.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>For the best balance of weather, fewer crowds, and reasonable prices — <strong>November and early December</strong> are the sweet spot. Just before high season begins, with pleasant weather and a quieter atmosphere.</p>
+        <p>Hurricanes are most likely between August and October. Worth factoring in when planning.</p>
+      </div>
+
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_7902.jpg?w=1024" alt="Tulum beach" />
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_7925.jpg?w=1024" alt="Tulum Caribbean water" />
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_7845.jpg?w=1024" alt="Tulum beach" />
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_7941.jpg?w=1024" alt="Tulum" />
+      </figure>
+    </div>
+
+    <!-- ITINERARY -->
+    <div class="post-section reveal" id="itinerary">
+      <div class="section-label">
+        <span class="section-label-tag">Day by day</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">6-Day Itinerary</h2>
+
+      <div class="day-card">
+        <p class="day-num">Day 01</p>
+        <h3 class="day-title">Arrival &amp; Beach Relaxation</h3>
+        <div class="day-stops">
+          <span class="day-stop">Playa Paraiso</span>
+          <span class="day-stop">Las Palmas</span>
+          <span class="day-stop">Playa Ruinas</span>
+          <span class="day-stop">La Eufemia Beach Club</span>
+        </div>
+        <div class="day-body">
+          <p><strong>Morning:</strong> Arrive in Tulum — the airport is a 30–40 minute drive from the downtown beach area. Check in and settle.</p>
+          <p><strong>Afternoon:</strong> Head to <strong>Playa Paraiso</strong>, one of Tulum's most stunning beaches. Relax, swim, and ease into Caribbean mode. For a more laid-back vibe, bring your own towel and drinks to any of the true public-access beaches — Las Palmas, Playa Paraiso, or Playa Ruinas. All equally beautiful, no minimum spend required.</p>
+          <p><strong>Evening:</strong> Dinner at a beachfront restaurant like <strong>La Eufemia Beach Club</strong> for delicious food with a view.</p>
+        </div>
+      </div>
+
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8077.jpg?w=768" alt="Sac Actun cenote" />
+        <figcaption>Sac Actun underground cave system</figcaption>
+      </figure>
+
+      <div class="day-card">
+        <p class="day-num">Day 02</p>
+        <h3 class="day-title">Tulum Ruins &amp; Cenotes</h3>
+        <div class="day-stops">
+          <span class="day-stop">Tulum Ruins</span>
+          <span class="day-stop">Sac Actun</span>
+          <span class="day-stop">Tulum Pueblo</span>
+          <span class="day-stop">Bonita / Burrito Amor</span>
+        </div>
+        <div class="day-body">
+          <p><strong>Morning:</strong> Visit the <strong>Tulum Ruins</strong> early — beat the crowds and the heat. The views of the ancient Mayan port city from the cliff above the sea are worth every bit of the early alarm.</p>
+          <p><strong>Afternoon:</strong> Cool off at <strong>Sac Actun</strong>, about a 30-minute drive from the ruins. You have to book a guided tour, which involves a combination of walking and snorkeling through an underground connected cave system. I couldn't recommend it highly enough — the tour lasts about 90 minutes and all gear (wetsuit, snorkel equipment) is included.</p>
+          <p>Other cenote recommendations: Oxman, Gran Cenote, Dos Ojos, Car Wash (crystal-clear waters), Casa Cenote, Zacil-Ha, Calavera, Casa Tortuga. Whichever you choose, plan to pay an entrance fee (minimum $8 USD) plus an additional fee for cameras or drones.</p>
+          <p><strong>Evening:</strong> Explore Tulum Pueblo and dinner at <strong>Bonita's</strong> or <strong>Burrito Amor</strong> for tasty, casual dining.</p>
+        </div>
+      </div>
+
+      <div class="post-img-grid">
+        <figure class="post-img">
+          <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8015.jpg?w=768" alt="Cenote" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8024-1.jpg?w=768" alt="Underground cenote" />
+        </figure>
+      </div>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8072.jpg?w=768" alt="Cenote snorkeling" />
+      </figure>
+
+      <div class="day-card">
+        <p class="day-num">Day 03</p>
+        <h3 class="day-title">Day Trip — Chichén Itzá, Valladolid &amp; Cenote Ik Kil</h3>
+        <div class="day-stops">
+          <span class="day-stop">Chichén Itzá</span>
+          <span class="day-stop">Cenote Ik Kil</span>
+          <span class="day-stop">Hacienda Chichen</span>
+          <span class="day-stop">Valladolid</span>
+          <span class="day-stop">Palma Central</span>
+        </div>
+        <div class="day-body">
+          <p><strong>Morning:</strong> Depart <em>early</em> — cannot stress this enough. Sharp 7am at the latest. <a href="https://www.viator.com/tours/Cancun/Chichen-Itza-Ik-Kil-Cenote-and-Valladolid-Full-Day-Tour/d631-110186P2">Chichén Itzá</a> is a 2–2.5 hour drive from Tulum. Explore El Castillo, the Temple of the Warriors, and the Great Ball Court. Tour guides are available at and near the gate — make sure yours speaks your language fluently before hiring them.</p>
+          <p><strong>Afternoon:</strong> Cool off at a cenote near Chichén Itzá. <strong>Ik Kil</strong> is less than 10 minutes away and absolutely stunning. Lorenzo Oxman and Suytun are also worth considering.</p>
+          <p><strong>Lunch:</strong> <strong>Hacienda Chichen</strong> — a gorgeous Spanish mansion converted to a hotel, located a few minutes from Chichén Itzá.</p>
+          <p><strong>Late Afternoon:</strong> Stop in <strong>Valladolid</strong> — a charming, colorful colonial town many skip in favor of heading straight back to Tulum. Worth it for the church, the park, the shops, and churros.</p>
+          <p><strong>Evening:</strong> Return to Tulum. Dinner at <strong>Palma Central</strong>.</p>
+        </div>
+      </div>
+
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8142-1.jpg?w=814" alt="Chichen Itza" />
+        <figcaption>Chichén Itzá</figcaption>
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8459-1.jpg?w=1024" alt="Valladolid" />
+        <figcaption>Valladolid</figcaption>
+      </figure>
+      <div class="post-img-trio">
+        <figure class="post-img">
+          <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8500.jpg?w=1024" alt="Valladolid" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8407.jpg?w=768" alt="Chichen Itza" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/fa09d397-89d6-44be-b337-e3bf948ada02-2-1.jpg?w=768" alt="Valladolid streets" />
+        </figure>
+      </div>
+      <div class="post-img-grid">
+        <figure class="post-img">
+          <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8489.jpg?w=1024" alt="Day trip" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8449.jpg?w=768" alt="Yucatan" />
+        </figure>
+      </div>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8441-1.jpg?w=1024" alt="Cenote Ik Kil" />
+      </figure>
+
+      <div class="day-card">
+        <p class="day-num">Day 04</p>
+        <h3 class="day-title">Sian Ka'an Biosphere Reserve</h3>
+        <div class="day-stops">
+          <span class="day-stop">Sian Ka'an Reserve</span>
+          <span class="day-stop">Punta Allen</span>
+          <span class="day-stop">Mateo's</span>
+        </div>
+        <div class="day-body">
+          <p><strong>Morning:</strong> Take a <a href="https://mexicokantours.rezdy.com/catalog/284374/small-group-tours">guided tour of the Sian Ka'an Biosphere Reserve</a> — a UNESCO World Heritage Site with opportunities to spot dolphins, turtles, and manatees among diverse wildlife and mangroves.</p>
+          <p><strong>Afternoon:</strong> Continue the tour with bird watching and boat rides through the lagoons. The tour takes you near the world's second largest coral reef for snorkeling. Stop for lunch in <strong>Punta Allen</strong>, a small village on the eastern tip of Mexico with fresh, delicious seafood.</p>
+          <p><strong>Evening:</strong> Back to Tulum. Dinner at <strong>Mateo's</strong>, known for its fish tacos.</p>
+        </div>
+      </div>
+
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8746-1.jpg?w=1024" alt="Sian Ka'an boat trip" />
+        <figcaption>Sian Ka'an boat trip</figcaption>
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8542.jpg?w=1024" alt="Sian Ka'an" />
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_9510-2-1.jpg?w=1024" alt="Sian Ka'an lagoons" />
+      </figure>
+      <div class="post-img-grid">
+        <figure class="post-img">
+          <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_9509-2-1.jpg?w=691" alt="Sian Ka'an wildlife" />
+        </figure>
+        <figure class="post-img">
+          <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_9508-2-1.jpg?w=728" alt="Biosphere reserve" />
+        </figure>
+      </div>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8703.jpg?w=1024" alt="Cafe in Punta Allen town" />
+        <figcaption>Cafe in Punta Allen town</figcaption>
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_8694.jpg" alt="Punta Allen" />
+      </figure>
+
+      <div class="day-card">
+        <p class="day-num">Day 05</p>
+        <h3 class="day-title">Day Trip — Playa del Carmen &amp; Akumal</h3>
+        <div class="day-stops">
+          <span class="day-stop">Cenote Azul</span>
+          <span class="day-stop">Akumal — Sea Turtles</span>
+          <span class="day-stop">La Quinta Avenida</span>
+          <span class="day-stop">Mezzanine</span>
+        </div>
+        <div class="day-body">
+          <p><strong>Morning:</strong> Breakfast in Tulum, then head to <strong>Cenote Azul</strong> — beautiful shades of blue, 20 minutes from Playa del Carmen. Great for swimming and snorkeling. <strong>Cenote Chaak Aktun</strong> is another option, with <a href="https://travel.usnews.com/Playa_del_Carmen_Mexico/Things_To_Do/Rio_Secreto_63403/">cave tours available</a>.</p>
+          <p><strong>Afternoon:</strong> <a href="https://www.fjordsandbeaches.com/turtles-in-akumal/"><strong>Akumal Beach</strong></a> — try your luck swimming with sea turtles. Rent life vests and stay near areas with seagrass, which draws the turtles close to shore for feeding and nesting.</p>
+          <p>Then drive to <strong>Playa del Carmen</strong> (about an hour from Tulum) and explore <strong>La Quinta Avenida</strong> — a pedestrian street full of shops, restaurants, and cafes. Get lunch at a restaurant with a 2nd-floor view of La Quinta; the people-watching is a blast. (<a href="https://sarowly.me/blog/playadelcarmen">Full Playa del Carmen guide here.</a>)</p>
+          <p><strong>Evening:</strong> Back to Tulum for dinner at <strong>Mezzanine</strong>.</p>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <p class="day-num">Day 06</p>
+        <h3 class="day-title">Relaxation &amp; Departure</h3>
+        <div class="day-stops">
+          <span class="day-stop">Mezzanine</span>
+          <span class="day-stop">Departure</span>
+        </div>
+        <div class="day-body">
+          <p><strong>Morning:</strong> Spend your last morning at <strong>Mezzanine</strong> — enjoy the facilities, the beach, and a leisurely breakfast or brunch before heading to the airport.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIPS -->
+    <div class="post-section reveal" id="tips">
+      <div class="section-label">
+        <span class="section-label-tag">Logistics</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Tips</h2>
+      <div class="tips-list">
+        <div class="tip-item">
+          <div class="tip-num">01</div>
+          <div>
+            <p class="tip-title">Rent a car</p>
+            <p class="tip-body"><a href="https://www.tripsavvy.com/renting-a-car-in-mexico-and-crossing-the-mexico-border-3149964">Renting a car</a> is the most convenient way to get around Tulum and do day trips. We paid ~$200 USD for a 6-day SUV rental from Hertz at the airport (full coverage included). Expect to wait up to an hour for pickup, and another 30 minutes at drop-off. Budget an additional $50–70 for diesel. Worth noting: some gas stations only accept cash, and attendants pump your gas and wipe your windshield. Read Mexico's road rules, and remember — <strong>Tope</strong> means speed bump.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">02</div>
+          <div>
+            <p class="tip-title">Carry cash in pesos</p>
+            <p class="tip-body">Quite a few places prefer cash, and tipping is much easier in pesos. Have some on hand at all times — especially for street food, cenote entries, and gas stations.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">03</div>
+          <div>
+            <p class="tip-title">Get travel insurance</p>
+            <p class="tip-body">We used IMG (~$25) and Berkshire Hathaway (~$7) for a 6-day trip. WorldNomads is another great option for adventurous travelers. <a href="https://upgradedpoints.com/travel/best-travel-insurance-mexico/">Full comparison here.</a></p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num">04</div>
+          <div>
+            <p class="tip-title">Book popular tours &amp; restaurants in advance</p>
+            <p class="tip-body">Sac Actun, Sian Ka'an, and Chichén Itzá tours all benefit from pre-booking. Same goes for popular restaurants — especially those along the beach strip.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACKING -->
+    <div class="post-section reveal" id="packing">
+      <div class="section-label">
+        <span class="section-label-tag">Preparation</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Packing list</h2>
+      <div class="pack-grid">
+        <div class="pack-item">4–7 beach outfits</div>
+        <div class="pack-item">2–3 swimwear</div>
+        <div class="pack-item">1 pair of shorts</div>
+        <div class="pack-item">Sunglasses</div>
+        <div class="pack-item">Flip flops</div>
+        <div class="pack-item">Daytime sandals / shoes</div>
+        <div class="pack-item">Evening sandals / wedges</div>
+        <div class="pack-item">Wide-brimmed hat</div>
+        <div class="pack-item">Crossbody or clutch for evenings</div>
+        <div class="pack-item">Small packable day backpack</div>
+        <div class="pack-item">Beach tote bag</div>
+        <div class="pack-item">Pajamas (AC runs cold)</div>
+        <div class="pack-item">Insulated water bottle</div>
+        <div class="pack-item">Adapter (non-North America)</div>
+        <div class="pack-item"><a href="https://amzn.to/2RHbAB6">After sun lotion</a></div>
+        <div class="pack-item"><a href="https://amzn.to/38u7Bi0">Reef-safe sunscreen</a></div>
+        <div class="pack-item">Stomach meds for emergencies</div>
+        <div class="pack-item">Cash in pesos</div>
+        <div class="pack-item">Ear plugs</div>
+        <div class="pack-item">A good book</div>
+        <div class="pack-item"><a href="https://www.amazon.com/gp/product/B0BTR2DTWM/">Mosquito spray</a> — don't skip this</div>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="post-section reveal" id="spanish">
+      <div class="section-label">
+        <span class="section-label-tag">Language</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Basic Spanish</h2>
+      <p class="post-p">Spanish is a beautiful language. If you have time, brush up before you go. If not, these phrases will get you by:</p>
+      <div class="phrase-grid">
+        <div class="phrase-item"><span class="phrase-es">Buenos días</span><span class="phrase-en">Good morning</span></div>
+        <div class="phrase-item"><span class="phrase-es">Buenas tardes</span><span class="phrase-en">Good afternoon</span></div>
+        <div class="phrase-item"><span class="phrase-es">Buenas noches</span><span class="phrase-en">Good evening</span></div>
+        <div class="phrase-item"><span class="phrase-es">Hola</span><span class="phrase-en">Hi</span></div>
+        <div class="phrase-item"><span class="phrase-es">¿Cómo estás?</span><span class="phrase-en">How are you?</span></div>
+        <div class="phrase-item"><span class="phrase-es">Muy bien</span><span class="phrase-en">Very good</span></div>
+        <div class="phrase-item"><span class="phrase-es">Excelente</span><span class="phrase-en">Excellent</span></div>
+        <div class="phrase-item"><span class="phrase-es">Sí / No</span><span class="phrase-en">Yes / No</span></div>
+        <div class="phrase-item"><span class="phrase-es">Alto</span><span class="phrase-en">Stop</span></div>
+        <div class="phrase-item"><span class="phrase-es">¿Cuánto cuesta?</span><span class="phrase-en">How much?</span></div>
+        <div class="phrase-item"><span class="phrase-es">Tope</span><span class="phrase-en">Speed bump</span></div>
+        <div class="phrase-item"><span class="phrase-es">Salida</span><span class="phrase-en">Exit</span></div>
+        <div class="phrase-item"><span class="phrase-es">Baño</span><span class="phrase-en">Restroom</span></div>
+        <div class="phrase-item"><span class="phrase-es">Hombre / Mujer</span><span class="phrase-en">Man / Woman</span></div>
+      </div>
+
+      <figure class="post-img" style="margin-top:48px;">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/8c8a6d25-9e9b-4628-a052-abea158ae107-1.jpg?w=1024" alt="Tulum" />
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/75cb729f-3ff2-4b6c-8d63-2e81c893534e.jpg" alt="Tulum" />
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_9518-1.jpg?w=754" alt="Tulum" />
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_9565.jpg" alt="Tulum beach" />
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_9517-1.jpg?w=817" alt="Tulum" />
+      </figure>
+    </div>
+
+    <!-- FOOD -->
+    <div class="post-section reveal" id="food">
+      <div class="section-label">
+        <span class="section-label-tag">Eating &amp; drinking</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Where to eat in Tulum</h2>
+
+      <h4 class="post-h4">Breakfast</h4>
+      <div class="food-list">
+        <div class="food-item"><span><strong>Del Cielo</strong> — Fresh organic ingredients, Mexican and American options. The chilaquiles were outstanding.</span></div>
+        <div class="food-item"><span><strong>Don Cafeto</strong> — Breakfast with a live band performing.</span></div>
+        <div class="food-item"><span><strong>Burrito Amor</strong> — Breakfast burritos with eggs and cactus. The spicy sauce is divine.</span></div>
+        <div class="food-item"><span><strong>Matcha Mama</strong> or <strong>Raw Love</strong> — Acai bowls (both on the pricier side).</span></div>
+        <div class="food-item"><span><strong>Prieto</strong></span></div>
+      </div>
+
+      <h4 class="post-h4">Lunch &amp; Dinner</h4>
+      <div class="food-list">
+        <div class="food-item"><span><a href="https://www.tripadvisor.com/Restaurant_Review-g150813-d7617975-Reviews-Burrito_Amor-Tulum_Yucatan_Peninsula.html"><strong>Burrito Amor</strong></a> — Delicious and filling. We ate here multiple times.</span></div>
+        <div class="food-item"><span><a href="https://www.tripadvisor.com/Restaurant_Review-g150813-d1971817-Reviews-Mateo_s_Mexican_Grill-Tulum_Yucatan_Peninsula.html"><strong>Mateo's</strong></a> — Casual Mexican with a rooftop overlooking the jungle at sunset. For similar views with a reservation: Azulik's Kin Toh and Tseen Ja.</span></div>
+        <div class="food-item"><span><strong>La Taqueria</strong> — For grilled fish tacos.</span></div>
+        <div class="food-item"><span><strong>Mezzanine</strong> — Thai food; the ceviche was amazing.</span></div>
+        <div class="food-item"><span><strong>Taqueria Honoria</strong> — Highly recommended by locals for chicken or pork. Make it your first stop.</span></div>
+        <div class="food-item"><span><strong>La Hoja Verde</strong> — Vegan options (wasn't all that great, tbh).</span></div>
+        <div class="food-item"><span><a href="https://www.tripadvisor.com/Restaurant_Review-g150813-d13826756-Reviews-Bonita-Tulum_Yucatan_Peninsula.html"><strong>Bonita</strong></a> — Burgers.</span></div>
+        <div class="food-item"><span><a href="https://www.tripadvisor.com/Restaurant_Review-g150813-d13500102-Reviews-Palma_Central-Tulum_Yucatan_Peninsula.html"><strong>Palma Central</strong></a></span></div>
+        <div class="food-item"><span><strong>Sukulenta Tamaleria</strong> — Fresh vegan tamales.</span></div>
+      </div>
+
+      <h4 class="post-h4">Street food</h4>
+      <div class="food-list">
+        <div class="food-item"><span><strong>Marquesita</strong> — Absolutely delicious. The cheese seems odd at first but adds a lovely salty contrast.</span></div>
+        <div class="food-item"><span>Elote on packaged nacho chips with cheese, pickle, and queso.</span></div>
+        <div class="food-item"><span>Churros with Nutella and milk cream.</span></div>
+      </div>
+
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/8f165802-ac78-4dc7-8d08-565fc30313ea-1950976905-e1718587168345.jpg" alt="Food in Tulum" />
+      </figure>
+      <figure class="post-img">
+        <img src="https://gowdasiri.wordpress.com/wp-content/uploads/2024/06/img_7660.jpg?w=1024" alt="Tulum restaurant" />
+      </figure>
+    </div>
+
+    <!-- HOW CENOTES FORM -->
+    <div class="post-section reveal" id="cenotes">
+      <div class="section-label">
+        <span class="section-label-tag">Geology</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">How is a cenote formed?</h2>
+      <p class="post-p">Cenotes form through the gradual dissolution of limestone bedrock over thousands of years — a geological process unique to places like the Yucatán Peninsula:</p>
+      <div class="cenote-steps">
+        <div class="cenote-step">
+          <span class="cenote-num">01</span>
+          <p class="cenote-body"><strong>Limestone formation.</strong> The bedrock in the region is composed of limestone — a porous rock formed from the accumulation of marine organisms like corals and shellfish over millions of years.</p>
+        </div>
+        <div class="cenote-step">
+          <span class="cenote-num">02</span>
+          <p class="cenote-body"><strong>Underground caves develop.</strong> Rainwater picks up carbon dioxide from the atmosphere and soil, creating weak carbonic acid. As this percolates through cracks in the limestone, it dissolves the rock, enlarging fractures and forming underground channels and cave systems.</p>
+        </div>
+        <div class="cenote-step">
+          <span class="cenote-num">03</span>
+          <p class="cenote-body"><strong>Roof collapse.</strong> Over time, the ceilings of these underground caves become unstable from erosion. Eventually they collapse, exposing the underground water to the surface — forming a cenote.</p>
+        </div>
+        <div class="cenote-step">
+          <span class="cenote-num">04</span>
+          <p class="cenote-body"><strong>What you get.</strong> Cenotes vary widely in size and shape — from small circular openings to vast sinkholes with vertical walls. They can be filled with freshwater, saltwater, or a mix, depending on location and connection to underground aquifers.</p>
+        </div>
+        <div class="cenote-step">
+          <span class="cenote-num">05</span>
+          <p class="cenote-body"><strong>Why they matter.</strong> Cenotes are essential freshwater sources in the Yucatán, where surface water is scarce. They're also windows into the underground water systems and home to unique biodiversity found nowhere else on earth.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BEACH CLUBS -->
+    <div class="post-section reveal" id="beach-clubs">
+      <div class="section-label">
+        <span class="section-label-tag">Beach clubs</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Beach clubs</h2>
+
+      <div class="club-card">
+        <p class="club-name">Coco Tulum</p>
+        <div class="club-body">
+          <p>A great budget-friendly option — minimum consumption of only $25, which is very low for Tulum beach. The quality is excellent: three fish tacos come with spicy pineapple salsa, tomato salsa, and guacamole. Sandwiches (including deep-fried prawns) come with a generous side of potatoes — they don't skimp on anything.</p>
+          <p><a href="https://cocotulum.com/">cocotulum.com</a></p>
+        </div>
+      </div>
+
+      <div class="club-card">
+        <p class="club-name">Papaya Playa Project</p>
+        <div class="club-body">
+          <p>Probably the hippest hotel and beach club in Tulum, and you'll pay for the honor. During low season, minimum consumption is typically $25–$65 USD — and you'll spend it quickly. The beach club menu includes ceviches, tacos, and tostadas; portions are generous, and one main dish is usually enough.</p>
+          <p>The fish ceviche with onions and avocado is fresh and excellent. The tuna tostada is loaded with avocado mousse — definitely bring a fork.</p>
+          <p><a href="https://www.papayaplayaproject.com/">papayaplayaproject.com</a></p>
+        </div>
+      </div>
+
+      <h4 class="post-h4" style="margin-top:36px;">Budget alternatives</h4>
+      <div class="food-list">
+        <div class="food-item"><span><strong>Taquería La Eufemia</strong> — No minimum spend, no cover charge.</span></div>
+        <div class="food-item"><span><a href="https://maps.app.goo.gl/wyok5zxbyebns22fA"><strong>Paraiso Beach Club</strong></a> — $5 USD minimum spend.</span></div>
+      </div>
+    </div>
+
+    <!-- NEARBY -->
+    <div class="post-section reveal" id="nearby">
+      <div class="section-label">
+        <span class="section-label-tag">While you're here</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Other places to visit nearby</h2>
+      <div class="food-list">
+        <div class="food-item"><span><strong>Cobá</strong> — Climb a Mayan pyramid with panoramic jungle views. One of the few you can still scale.</span></div>
+        <div class="food-item"><span><strong>Kaan Luun Lagoon</strong> — A stunning natural lagoon a short drive from Tulum.</span></div>
+        <div class="food-item"><span><strong>Mérida</strong> — Vibrant capital of Yucatán state, about 4 hours from Tulum. Worth an overnight.</span></div>
+      </div>
+    </div>
+
+    <!-- LINKS -->
+    <div class="post-section reveal" id="links">
+      <div class="section-label">
+        <span class="section-label-tag">Resources</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="post-h2">Reference links</h2>
+      <p class="post-p" style="font-size:.85rem;color:var(--muted);font-style:italic;margin-bottom:28px;">Note: this post was written partly with the help of ChatGPT, edited based on my trip and personal research.</p>
+      <div class="links-list">
+        <div class="link-item">
+          <span class="link-label">Restaurant guide — Midnight Blue Elephant</span>
+          <a href="https://www.midnightblueelephant.com/tulum-restaurants/" target="_blank" class="link-url">midnightblueelephant.com →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Budget Tulum — The Haphazard Traveler</span>
+          <a href="https://thehaphazardtraveler.com/affordable-tulum/" target="_blank" class="link-url">thehaphazardtraveler.com →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Budget guide — Midnight Blue Elephant</span>
+          <a href="https://www.midnightblueelephant.com/how-to-do-tulum-on-a-budget/" target="_blank" class="link-url">midnightblueelephant.com →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Travel insurance for Mexico — Upgraded Points</span>
+          <a href="https://upgradedpoints.com/travel/best-travel-insurance-mexico/" target="_blank" class="link-url">upgradedpoints.com →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Chichén Itzá + Ik Kil + Valladolid tour — Viator</span>
+          <a href="https://www.viator.com/tours/Cancun/Chichen-Itza-Ik-Kil-Cenote-and-Valladolid-Full-Day-Tour/d631-110186P2" target="_blank" class="link-url">viator.com →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Sian Ka'an guided tours — Mexico Kan</span>
+          <a href="https://mexicokantours.rezdy.com/catalog/284374/small-group-tours" target="_blank" class="link-url">mexicokantours.rezdy.com →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Playa del Carmen guide — sarowly</span>
+          <a href="https://sarowly.me/blog/playadelcarmen" target="_blank" class="link-url">sarowly.me →</a>
+        </div>
+        <div class="link-item">
+          <span class="link-label">Sea turtles in Akumal — Fjords and Beaches</span>
+          <a href="https://www.fjordsandbeaches.com/turtles-in-akumal/" target="_blank" class="link-url">fjordsandbeaches.com →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="post-conclusion reveal">
+    <p class="conclusion-text">"Tulum is one of those places that gives you almost too much to fit into a single trip — ruins, cenotes, ancient cities, biosphere reserves, the best fish tacos. Go with a plan but leave room for the days that just happen on their own."</p>
+  </div>
+
+  <div class="post-footer">
+    <a href="index.html#travel" class="back-link">← Back to Travel</a>
+    <span class="post-footer-tag">Tulum · June 2024</span>
+  </div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 60); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
