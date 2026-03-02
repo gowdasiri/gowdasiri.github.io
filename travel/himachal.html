@@ -9,10 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --ink: #111111; --white: #ffffff; --muted: #888888; --rule: rgba(0,0,0,.10);
-      --mono: 'DM Mono', monospace; --serif: 'Cormorant Garamond', serif; --sans: 'Instrument Sans', sans-serif;
-    }
+    :root { --ink: #111111; --white: #ffffff; --muted: #888888; --rule: rgba(0,0,0,.10); --mono: 'DM Mono', monospace; --serif: 'Cormorant Garamond', serif; --sans: 'Instrument Sans', sans-serif; }
     html { scroll-behavior: smooth; }
     body { background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; cursor: none; }
     #cursor { position: fixed; top: 0; left: 0; z-index: 9999; width: 10px; height: 10px; background: var(--ink); border-radius: 50%; pointer-events: none; transform: translate(-50%,-50%); transition: width .2s, height .2s, opacity .2s; }
@@ -23,6 +20,28 @@
     .nav-logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; letter-spacing: .04em; color: var(--ink); text-decoration: none; }
     .nav-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
+    /* SIDE PANEL */
+    .side-tab { position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 300; width: 18px; height: 56px; background: rgba(255,255,255,.9); border: 1px solid rgba(0,0,0,.12); border-right: none; border-radius: 4px 0 0 4px; display: flex; align-items: center; justify-content: center; cursor: none; backdrop-filter: blur(4px); transition: width .2s ease, background .2s; }
+    .side-tab:hover { width: 22px; background: #fff; }
+    .side-tab-arrow { font-size: .5rem; color: #bbb; line-height: 1; transition: color .2s, transform .3s ease; user-select: none; }
+    .side-tab:hover .side-tab-arrow { color: var(--ink); }
+    body.panel-open .side-tab-arrow { transform: rotate(180deg); }
+    .side-overlay { position: fixed; inset: 0; z-index: 290; background: rgba(0,0,0,.15); opacity: 0; pointer-events: none; transition: opacity .28s ease; }
+    body.panel-open .side-overlay { opacity: 1; pointer-events: all; }
+    .side-panel { position: fixed; top: 0; right: 0; bottom: 0; z-index: 295; width: 270px; background: #fff; border-left: 1px solid var(--rule); transform: translateX(100%); transition: transform .3s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column; overflow-y: auto; }
+    body.panel-open .side-panel { transform: translateX(0); }
+    .side-panel-header { padding: 26px 26px 18px; border-bottom: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+    .side-panel-label { font-family: var(--mono); font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+    .side-panel-close { font-family: var(--mono); font-size: .65rem; color: var(--muted); background: none; border: none; cursor: none; padding: 0; line-height: 1; transition: color .2s; }
+    .side-panel-close:hover { color: var(--ink); }
+    .side-panel-list { padding: 8px 0; flex: 1; }
+    .side-panel-list a { display: block; padding: 13px 26px; font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--rule); transition: color .15s, background .15s; white-space: nowrap; }
+    .side-panel-list a:last-child { border-bottom: none; }
+    .side-panel-list a:hover { color: var(--ink); background: #fafafa; }
+    .side-panel-list a.active { color: var(--ink); background: #f7f7f7; }
+    .side-panel-list a.active::before { content: '→ '; opacity: .45; font-size: .58rem; }
+
+    /* PAGE STYLES */
     .post-hero { padding-top: 100px; max-width: 820px; margin: 0 auto; padding-left: 52px; padding-right: 52px; padding-bottom: 64px; border-bottom: 1px solid var(--rule); }
     .post-category { font-family: var(--mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
     .post-category::before { content: ''; width: 24px; height: 1px; background: var(--rule); }
@@ -31,55 +50,41 @@
     .post-meta { display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
     .post-meta-item { font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
     .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
-
     .hero-image { width: 100%; max-width: 820px; margin: 0 auto; display: block; }
     .hero-image img { width: 100%; height: 520px; object-fit: cover; object-position: center; display: block; }
     .hero-caption { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 10px 52px; border-bottom: 1px solid var(--rule); max-width: 820px; margin: 0 auto; }
-
     .article-body { max-width: 820px; margin: 0 auto; padding: 0 52px; }
     .post-section { padding: 64px 0; border-bottom: 1px solid var(--rule); }
     .post-section:last-child { border-bottom: none; }
-
     .section-label { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
     .section-label-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); }
     .section-label-line { flex: 1; height: 1px; background: var(--rule); }
-
     .post-p { font-size: .93rem; line-height: 1.95; color: #333; margin-bottom: 22px; }
     .post-p:last-child { margin-bottom: 0; }
-
     .post-img { margin: 40px 0; width: 100%; }
     .post-img img { width: 100%; display: block; border: 1px solid var(--rule); }
     .post-img figcaption { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--muted); margin-top: 10px; text-align: center; }
-
     .post-img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 48px 0; }
     .post-img-grid .post-img { margin: 0; }
     .post-img-grid .post-img img { height: 320px; object-fit: cover; }
-
     .post-img-trio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin: 48px 0; }
     .post-img-trio .post-img { margin: 0; }
     .post-img-trio .post-img img { height: 240px; object-fit: cover; }
-
-    /* Pull quote */
     .pull-quote { margin: 48px 0; padding: 36px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
     .pull-quote p { font-family: var(--serif); font-size: clamp(1.2rem, 2.8vw, 1.65rem); font-weight: 300; line-height: 1.55; color: #222; font-style: italic; }
-
     .callout { border-left: 2px solid var(--ink); padding: 20px 24px; margin: 32px 0; background: #fafafa; }
     .callout p { font-size: .91rem; line-height: 1.8; color: #333; margin: 0; }
-
     .post-conclusion { max-width: 820px; margin: 0 auto; padding: 64px 52px; border-top: 1px solid var(--rule); }
     .conclusion-text { font-family: var(--serif); font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 300; line-height: 1.6; color: #333; font-style: italic; }
-
     .post-footer { max-width: 820px; margin: 0 auto; padding: 40px 52px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rule); }
     .back-link { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
     .back-link:hover { color: var(--ink); }
     .post-footer-tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
-
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
     ::-webkit-scrollbar { width: 3px; }
     ::-webkit-scrollbar-track { background: var(--white); }
     ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
-
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       .post-hero, .article-body, .post-conclusion, .post-footer { padding-left: 24px; padding-right: 24px; }
@@ -89,7 +94,6 @@
   </style>
 </head>
 <body>
-
   <div id="cursor"></div>
 
   <nav>
@@ -97,6 +101,27 @@
     <a href="index.html" class="nav-logo">Siri Gowda</a>
     <span class="nav-tag">Himachal Pradesh</span>
   </nav>
+
+  <button class="side-tab" id="sideTab" aria-label="Browse travel posts">
+    <span class="side-tab-arrow">‹</span>
+  </button>
+  <div class="side-overlay" id="sideOverlay"></div>
+  <div class="side-panel" id="sidePanel" role="navigation" aria-label="Travel posts">
+    <div class="side-panel-header">
+      <span class="side-panel-label">Travel</span>
+      <button class="side-panel-close" id="sidePanelClose">✕</button>
+    </div>
+    <div class="side-panel-list">
+      <a href="iceland.html">Iceland</a>
+      <a href="quebec.html">Solo Trip to Quebec</a>
+      <a href="newengland.html">New England Fall Road Trip</a>
+      <a href="havasupai.html">Havasupai Falls</a>
+      <a href="andaman.html">Andaman Islands</a>
+      <a href="tulum.html">Tulum, Mexico</a>
+      <a href="wizarding-world.html">Wizarding World</a>
+      <a href="rohtang.html" class="active">Rohtang Pass</a>
+    </div>
+  </div>
 
   <div class="post-hero">
     <p class="post-category">Travel · India</p>
@@ -116,60 +141,31 @@
   <div class="hero-caption">Rohtang Pass — Kullu Valley, Himachal Pradesh</div>
 
   <div class="article-body">
-
     <div class="post-section reveal">
-      <p class="post-p" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;line-height:1.75;font-style:italic;">
-        With a 4 a.m. wake-up call, a lingering fever, and barely any sleep — we went anyway. Some trips are like that.
-      </p>
-
+      <p class="post-p" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;line-height:1.75;font-style:italic;">With a 4 a.m. wake-up call, a lingering fever, and barely any sleep — we went anyway. Some trips are like that.</p>
       <p class="post-p">My friends and I were sick from something we'd had the last evening (read: special hot chocolate) and had barely slept. Since we'd looked forward to going here for ages, we decided to push through. The pass had opened to tourists that very day for the season — which meant we got the first glimpse of untouched snow, clear roads, and the best weather since summer had just begun.</p>
-
       <div class="pull-quote">
         <p>The beauty we were surrounded by had a medicinal effect on us — the remnants of the fever simply evaporated.</p>
       </div>
-
       <p class="post-p">The drive to the pass was one of the most scenic I've ever been on. Winding hilly roads, through streams (loved this part), snow-capped mountains on the horizon, and a full view of the beautiful Kullu valley spread out below. It was postcard-perfect everywhere we looked. Cameras out, snapping away, old Hindi songs playing in the background — our three-hour drive to the pass was a road trip to remember.</p>
-
       <p class="post-p">If you've been to Ladakh or Kashmir, you probably know what to expect. For me and my friends, this was our first trip to the North. We arrived exhausted from the lack of sleep, famished from skipping breakfast, and severely dehydrated — but none of that mattered as we reached the magnificent Rohtang valley. Worth noting: the government has banned snow activities like skiing, and being the first day the pass was open, there were crowds. But the views alone are reason enough.</p>
-
       <div class="callout">
         <p>A trip to Himachal is incomplete without at least a few of the many breathtaking valleys the state has to offer. This is one you shouldn't miss.</p>
       </div>
     </div>
 
-    <!-- PHOTOS -->
     <div class="post-section reveal">
-      <div class="section-label">
-        <span class="section-label-tag">From the road</span>
-        <div class="section-label-line"></div>
-      </div>
-
-      <!-- 
-        Photo gallery (WordPress IDs 177–181).
-        Replace the src values below with the actual filenames once retrieved from your WordPress media library.
-        Go to: WordPress Dashboard → Media → and find IDs 177, 178, 179, 180, 181 to get their filenames.
-      -->
+      <div class="section-label"><span class="section-label-tag">From the road</span><div class="section-label-line"></div></div>
       <div class="post-img-grid">
-        <figure class="post-img">
-          <img src="https://i0.wp.com/gowdasiri.wordpress.com/wp-content/uploads/2016/10/screenshot_2016-10-06-02-53-13-2.jpg" alt="Rohtang Pass" />
-        </figure>
-        <figure class="post-img">
-          <img src="https://i0.wp.com/gowdasiri.wordpress.com/wp-content/uploads/2016/10/screenshot_2016-10-06-02-55-07-2.jpg?w=1030&h=761&ssl=1" alt="Kullu valley road" />
-        </figure>
+        <figure class="post-img"><img src="https://i0.wp.com/gowdasiri.wordpress.com/wp-content/uploads/2016/10/screenshot_2016-10-06-02-53-13-2.jpg" alt="Rohtang Pass" /></figure>
+        <figure class="post-img"><img src="https://i0.wp.com/gowdasiri.wordpress.com/wp-content/uploads/2016/10/screenshot_2016-10-06-02-55-07-2.jpg?w=1030&h=761&ssl=1" alt="Kullu valley road" /></figure>
       </div>
       <div class="post-img-trio">
-        <figure class="post-img">
-          <img src="https://i0.wp.com/gowdasiri.wordpress.com/wp-content/uploads/2016/10/screenshot_2016-10-06-02-55-46-2.jpg?w=1030&h=760&ssl=1" alt="Snow at Rohtang" />
-        </figure>
-        <figure class="post-img">
-          <img src="https://i0.wp.com/gowdasiri.wordpress.com/wp-content/uploads/2016/10/screenshot_2016-10-06-02-55-53-2.jpg?w=792&h=586&ssl=1" alt="Mountain drive Himachal" />
-        </figure>
-        <figure class="post-img">
-          <img src="https://i0.wp.com/gowdasiri.wordpress.com/wp-content/uploads/2016/10/screenshot_2016-10-06-02-56-00-2.jpg?w=792&h=582&ssl=1" alt="Rohtang valley" />
-        </figure>
+        <figure class="post-img"><img src="https://i0.wp.com/gowdasiri.wordpress.com/wp-content/uploads/2016/10/screenshot_2016-10-06-02-55-46-2.jpg?w=1030&h=760&ssl=1" alt="Snow at Rohtang" /></figure>
+        <figure class="post-img"><img src="https://i0.wp.com/gowdasiri.wordpress.com/wp-content/uploads/2016/10/screenshot_2016-10-06-02-55-53-2.jpg?w=792&h=586&ssl=1" alt="Mountain drive Himachal" /></figure>
+        <figure class="post-img"><img src="https://i0.wp.com/gowdasiri.wordpress.com/wp-content/uploads/2016/10/screenshot_2016-10-06-02-56-00-2.jpg?w=792&h=582&ssl=1" alt="Rohtang valley" /></figure>
       </div>
     </div>
-
   </div>
 
   <div class="post-conclusion reveal">
@@ -188,6 +184,15 @@
       el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
     });
+    const tab = document.getElementById('sideTab');
+    const overlay = document.getElementById('sideOverlay');
+    const close = document.getElementById('sidePanelClose');
+    function openPanel() { document.body.classList.add('panel-open'); }
+    function closePanel() { document.body.classList.remove('panel-open'); }
+    tab.addEventListener('click', e => { e.stopPropagation(); document.body.classList.contains('panel-open') ? closePanel() : openPanel(); });
+    close.addEventListener('click', closePanel);
+    overlay.addEventListener('click', closePanel);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 60); observer.unobserve(entry.target); }
