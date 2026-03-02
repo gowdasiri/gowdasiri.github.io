@@ -1,209 +1,319 @@
-<!-- wp:paragraph {"align":"justify"} -->
-<p class="has-text-align-justify">Wikipedia, the free encyclopedia, that anyone can edit. </p>
-<!-- /wp:paragraph -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wikipedia — Siri Gowda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ink: #111111; --white: #ffffff; --muted: #888888; --rule: rgba(0,0,0,.10); --mono: 'DM Mono', monospace; --serif: 'Cormorant Garamond', serif; --sans: 'Instrument Sans', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; cursor: none; }
+    #cursor { position: fixed; top: 0; left: 0; z-index: 9999; width: 10px; height: 10px; background: var(--ink); border-radius: 50%; pointer-events: none; transform: translate(-50%,-50%); transition: width .2s, height .2s, opacity .2s; }
+    #cursor.expand { width: 30px; height: 30px; opacity: .12; }
 
-<!-- wp:paragraph {"align":"justify"} -->
-<p class="has-text-align-justify">With 61M articles in total as of late 2023 and 10% of those in English (English Wikipedia receives 48% of Wikipedia's cumulative traffic), Wikipedia, run by a non-profit organization, has consistently been one of the 10 most visited websites.</p>
-<!-- /wp:paragraph -->
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 52px; background: rgba(255,255,255,.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+    .nav-back { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .nav-back:hover { color: var(--ink); }
+    .nav-logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; letter-spacing: .04em; color: var(--ink); text-decoration: none; }
+    .nav-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Brief History</h3>
-<!-- /wp:heading -->
+    /* POST HERO */
+    .post-hero { padding-top: 120px; max-width: 720px; margin: 0 auto; padding-left: 52px; padding-right: 52px; padding-bottom: 64px; border-bottom: 1px solid var(--rule); }
+    .post-category { font-family: var(--mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .post-category::before { content: ''; width: 24px; height: 1px; background: var(--rule); }
+    .post-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.02; letter-spacing: -.02em; margin-bottom: 28px; }
+    .post-title em { font-style: italic; }
+    .post-meta { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+    .post-meta-item { font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
 
-<!-- wp:paragraph {"align":"justify"} -->
-<p class="has-text-align-justify">In 1994, Ward Cunnigham created Wiki (<em>wiki</em>, the Hawaiin word for quick) - websites that allowed users to easily create and edit information on sites in real time. </p>
-<!-- /wp:paragraph -->
+    /* ARTICLE */
+    .article-body { max-width: 720px; margin: 0 auto; padding: 0 52px; }
+    .post-section { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+    .post-section:last-child { border-bottom: none; }
 
-<!-- wp:paragraph {"align":"justify"} -->
-<p class="has-text-align-justify">In 2000, Jimmy Wales and Larry Sanger found Nupedia, a for-profit encyclopedic website, with peer reviewed articles, where the reviewers were expert contributors (preferably PhDs) in their fields. The venture faced growing pains due to lack of resources and an intimidating and cumbersome review process. </p>
-<!-- /wp:paragraph -->
+    .section-label { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .section-label-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); }
+    .section-label-line { flex: 1; height: 1px; background: var(--rule); }
 
-<!-- wp:paragraph -->
-<p>In 2001, Wikipedia (<em>pedia </em>comes from Hellenistic Greek, meaning 'education') was started as a "feeder" project for Nupedia - a discussion forum, where the public could suggest potential topics and effectively collaborate on content to submit to Nupedia. Its integral policy of "<em><strong>neutral point-of-view</strong></em>" was codified in its first few months. I was originally intended to be a business for profit with ad revenue. The <strong>"<em>anyone can edit</em></strong>" model proved successful (Wales has maintained that communities inherently scale), resulting in Wikipedia to have published 20,000 articles as of 2003, as opposed to 24 articles published in Nupedia. At this point in time, Nupedia was taken down and it's text was incorporated into Wikipedia. Sander disagreeing with the project, left at this point in time (more on this below). The <a href="https://en.wikipedia.org/wiki/English_Wikipedia">English Wikipedia</a> passed the mark of two million articles on September 9, 2007, making it the largest encyclopedia ever assembled.</p>
-<!-- /wp:paragraph -->
+    h2.post-h2 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 300; line-height: 1.2; margin-bottom: 20px; }
+    h3.post-h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; margin-bottom: 14px; margin-top: 32px; }
+    h4.post-h4 { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; margin-top: 28px; }
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Product Vision</h3>
-<!-- /wp:heading -->
+    .post-p { font-size: .93rem; line-height: 1.9; color: #333; margin-bottom: 18px; }
+    .post-p:last-child { margin-bottom: 0; }
+    .post-p a { color: var(--ink); text-underline-offset: 3px; }
+    .post-p a:hover { opacity: .6; }
+    .post-p strong { font-weight: 500; color: #111; }
+    .post-p em { font-style: italic; }
 
-<!-- wp:paragraph -->
-<p>Wales has stated the vision has been "<strong>democratization of knowledge</strong>" and to “<strong>compile the sum of all human knowledge</strong>.”</p>
-<!-- /wp:paragraph -->
+    /* Lead paragraph */
+    .post-lead { font-family: var(--serif); font-size: clamp(1.1rem, 2.2vw, 1.35rem); font-weight: 300; line-height: 1.75; color: #222; margin-bottom: 28px; }
 
-<!-- wp:paragraph -->
-<p>Few key decisions made at a nascent stage dictated both the quality of the end product and the community that it attracted and sustained.</p>
-<!-- /wp:paragraph -->
+    /* Lists */
+    .post-ul { margin: 0 0 20px 0; padding-left: 0; list-style: none; }
+    .post-ul li { font-size: .91rem; line-height: 1.85; color: #333; padding: 10px 0; border-bottom: 1px solid var(--rule); display: flex; align-items: baseline; gap: 12px; }
+    .post-ul li:last-child { border-bottom: none; }
+    .post-ul li::before { content: '—'; font-family: var(--mono); color: var(--muted); font-size: .75rem; flex-shrink: 0; }
+    .post-ul li span { flex: 1; }
+    .post-ul li strong { font-weight: 500; }
 
-<!-- wp:list -->
-<ul><!-- wp:list-item -->
-<li><strong>Setting an editorial policy</strong> : Discussions on whether essay, commentary, jokes in articles should be allowed on articles with the community lead to the adoption of neutral point of view  as a core belief. </li>
-<!-- /wp:list-item -->
+    /* Stat blocks */
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); margin: 32px 0; }
+    .stat-item { background: white; padding: 28px 24px; }
+    .stat-num { font-family: var(--serif); font-size: 2.4rem; font-weight: 300; line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-family: var(--mono); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
-<!-- wp:list-item -->
-<li><strong>Controls for vandalism</strong></li>
-<!-- /wp:list-item -->
+    /* Callout / blockquote */
+    .callout { border-left: 2px solid var(--ink); padding: 20px 24px; margin: 32px 0; background: #fafafa; }
+    .callout p { font-size: .91rem; line-height: 1.8; color: #333; margin: 0; }
+    .callout p + p { margin-top: 10px; }
+    .callout a { color: var(--ink); }
 
-<!-- wp:list-item -->
-<li><strong>Validating quality of source</strong></li>
-<!-- /wp:list-item -->
+    .pull-quote { margin: 48px 0; padding: 36px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .pull-quote p { font-family: var(--serif); font-size: clamp(1.2rem, 2.8vw, 1.6rem); font-weight: 300; line-height: 1.55; color: #222; font-style: italic; }
 
-<!-- wp:list-item -->
-<li><strong>Community guidelines</strong> : When should a user be banned? Ethos of the community has been that with discussions it is nothing personal, and the debate is focused on how the article can be improved as opposed to debating the topic in itself. </li>
-<!-- /wp:list-item --></ul>
-<!-- /wp:list -->
+    /* Users table */
+    .users-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); margin: 24px 0; }
+    .users-item { background: white; padding: 24px; }
+    .users-label { font-family: var(--mono); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); margin-bottom: 8px; }
+    .users-desc { font-size: .88rem; line-height: 1.75; color: #444; }
+    .users-desc strong { font-weight: 500; }
 
-<!-- wp:paragraph -->
-<p><strong>Non profit organization</strong> - Decision driven by both the community and founders whose thought was to have the website remain a cultural contribution and not have it be driven by funds. Wales has since defended the decision stating it would've been very hard to stop an organization from following the money - caring a lot more about pages that drove ad revenue by higher page views/traffic. Wikipedia has been able to raise funds through successful fundraisers, being run on a shoestring budget, it has been able to sustain itself for the past couple of decades with some reserve revenue. </p>
-<!-- /wp:paragraph -->
+    /* Features */
+    .feature-row { display: flex; gap: 0; flex-wrap: wrap; margin: 24px 0; border: 1px solid var(--rule); }
+    .feature-tag { font-family: var(--mono); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 10px 18px; border-right: 1px solid var(--rule); }
+    .feature-tag:last-child { border-right: none; }
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Users</h3>
-<!-- /wp:heading -->
+    /* Tradeoff comparison */
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); margin: 32px 0; }
+    .compare-item { background: white; padding: 28px; }
+    .compare-label { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
+    .compare-label.wiki { color: #444; }
+    .compare-label.citizendium { color: var(--muted); }
+    .compare-point { font-size: .88rem; line-height: 1.8; color: #444; margin-bottom: 10px; display: flex; gap: 10px; }
+    .compare-point::before { content: '·'; color: #ccc; flex-shrink: 0; }
+    .compare-point strong { font-weight: 500; color: #111; }
 
-<!-- wp:paragraph -->
-<p><strong>Contributors </strong>: Wikipedia has about 75k monthly contributors who make about 5 edits; and a 3-5k core community making 100+ edits.</p>
-<!-- /wp:paragraph -->
+    /* Footnotes */
+    .footnote { font-family: var(--mono); font-size: .62rem; color: var(--muted); margin-top: 4px; }
 
-<!-- wp:paragraph -->
-<p><strong>Admins </strong>: Their only real nod to hierarchy was electing a small group of “<strong>administrators</strong>” who could wield special powers such as<strong> deleting articles or temporarily banning other editors. </strong>(There are now 635 active admins on the English Wikipedia.)</p>
-<!-- /wp:paragraph -->
+    /* Post footer */
+    .post-conclusion { max-width: 720px; margin: 0 auto; padding: 56px 52px; border-top: 1px solid var(--rule); }
+    .conclusion-text { font-family: var(--serif); font-size: clamp(1.1rem, 2.2vw, 1.45rem); font-weight: 300; line-height: 1.65; color: #333; font-style: italic; }
+    .post-footer { max-width: 720px; margin: 0 auto; padding: 40px 52px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rule); }
+    .back-link { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .back-link:hover { color: var(--ink); }
+    .post-footer-tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
 
-<!-- wp:paragraph -->
-<p><strong>Users </strong>:</p>
-<!-- /wp:paragraph -->
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Target Audience</h3>
-<!-- /wp:heading -->
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .post-hero, .article-body, .post-conclusion, .post-footer { padding-left: 24px; padding-right: 24px; }
+      .stat-row, .users-grid, .compare-grid { grid-template-columns: 1fr; }
+      .feature-row { flex-direction: column; }
+      .feature-tag { border-right: none; border-bottom: 1px solid var(--rule); }
+      .feature-tag:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
 
-<!-- wp:paragraph -->
-<p>From a contributor's perspective, Wikipedia does not attract experts. In fact it discourages experts from contributing as the changes may be replaced. </p>
-<!-- /wp:paragraph -->
+  <nav>
+    <a href="index.html#blog" class="nav-back">← Blog</a>
+    <a href="index.html" class="nav-logo">Siri Gowda</a>
+    <span class="nav-tag">Product</span>
+  </nav>
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Target Experience </h3>
-<!-- /wp:heading -->
+  <div class="post-hero">
+    <p class="post-category">Blog · Product</p>
+    <h1 class="post-title"><em>Wikipedia</em></h1>
+    <div class="post-meta">
+      <span class="post-meta-item">Product breakdown</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">Knowledge · Community · Scale</span>
+    </div>
+  </div>
 
-<!-- wp:paragraph -->
-<p>Wikipedia aims to provide free access to the sum of all human knowledge. </p>
-<!-- /wp:paragraph -->
+  <div class="article-body">
 
-<!-- wp:paragraph -->
-<p>However, in Wales' own words on the How I Built This podcast, "Wikipedia is quite good, it is the place to go to get the questions, not the answers. A way to get oriented into the context of the topic. Go to the Talk page of the article and see what the Wikipedians are struggling with, it presents interesting questions. If you want to use Wikipedia as the starting point, you can go to the footnotes and go to the source and that's what you should do." </p>
-<!-- /wp:paragraph -->
+    <!-- INTRO -->
+    <div class="post-section reveal">
+      <p class="post-lead">Wikipedia, the free encyclopedia that anyone can edit. With 61M articles in total as of late 2023 — 10% in English, which receives 48% of cumulative traffic — Wikipedia has consistently been one of the 10 most visited websites on the internet, run entirely by a non-profit.</p>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-num">61M</div>
+          <div class="stat-label">Total articles</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">48%</div>
+          <div class="stat-label">Traffic to English Wikipedia</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">635</div>
+          <div class="stat-label">Active English admins</div>
+        </div>
+      </div>
+    </div>
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Pain points </h3>
-<!-- /wp:heading -->
+    <!-- HISTORY -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Origin</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Brief History</h2>
+      <p class="post-p">In 1994, Ward Cunningham created Wiki — <em>wiki</em>, the Hawaiian word for "quick" — websites that allowed users to easily create and edit information in real time.</p>
+      <p class="post-p">In 2000, Jimmy Wales and Larry Sanger founded <strong>Nupedia</strong>, a for-profit encyclopedic website with peer-reviewed articles, where reviewers were expert contributors (preferably PhDs) in their fields. The venture faced growing pains due to lack of resources and an intimidating, cumbersome review process.</p>
+      <p class="post-p">In 2001, <strong>Wikipedia</strong> (<em>pedia</em> from Hellenistic Greek, meaning "education") was started as a "feeder" project for Nupedia — a discussion forum where the public could suggest topics and collaborate on content. Its core policy of <em><strong>neutral point-of-view</strong></em> was codified in its first few months.</p>
+      <p class="post-p">The <strong>"anyone can edit" model</strong> proved transformative. Wales maintained that communities inherently scale — and the data bore this out: Wikipedia published 20,000 articles by 2003, compared to just 24 published in Nupedia over the same period. Nupedia was taken down, its text incorporated into Wikipedia. The English Wikipedia passed two million articles on September 9, 2007, making it the largest encyclopedia ever assembled.</p>
+    </div>
 
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Cumbersome collaboration and intimidating review process </h4>
-<!-- /wp:heading -->
+    <!-- PRODUCT VISION -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Vision</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Product Vision</h2>
+      <p class="post-p">Wales has stated the vision as "<strong>democratization of knowledge</strong>" and to "<strong>compile the sum of all human knowledge</strong>." A few key decisions made at the nascent stage dictated both the quality of the end product and the community it attracted.</p>
+      <ul class="post-ul">
+        <li><span><strong>Editorial policy</strong> — Discussions on whether essays, commentary, and jokes should be allowed led to the adoption of neutral point of view as a core belief.</span></li>
+        <li><span><strong>Controls for vandalism</strong> — A combination of community tools, automated bots, and tiered protection levels.</span></li>
+        <li><span><strong>Source validation</strong> — Verifiability over truth: claims must be attributable to reliable, published sources.</span></li>
+        <li><span><strong>Community guidelines</strong> — When should a user be banned? The ethos: debates are about improving the article, not the topic itself. Nothing personal.</span></li>
+      </ul>
+      <div class="callout">
+        <p><strong>Non-profit organization</strong> — A decision driven by both the community and the founders, whose view was that the site should remain a cultural contribution, not be driven by funds. Wales has defended it: it would've been very hard to stop an organization from following the money — caring more about pages that drove ad revenue through higher page views. Wikipedia has sustained itself for two decades through fundraisers and a shoestring budget.</p>
+      </div>
+    </div>
 
-<!-- wp:paragraph -->
-<p>Using Wiki alleviated the <strong>cumbersome collaboration process</strong> editors previously faced on Nupedia. The anyone can edit model further ensured that this could scale, but attracting users who may have previously been <strong>intimidated by the review and submission process</strong>, and ensuring that the model did not depend on a few select contributors who were experts in the field.</p>
-<!-- /wp:paragraph -->
+    <!-- USERS -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Community</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Users</h2>
+      <div class="users-grid">
+        <div class="users-item">
+          <p class="users-label">Contributors</p>
+          <p class="users-desc">~<strong>75,000</strong> monthly contributors making ~5 edits each. A core community of <strong>3,000–5,000</strong> making 100+ edits.</p>
+        </div>
+        <div class="users-item">
+          <p class="users-label">Admins</p>
+          <p class="users-desc">A small group elected by the community, wielding special powers such as <strong>deleting articles or temporarily banning editors</strong>. Currently 635 active admins on the English Wikipedia.</p>
+        </div>
+      </div>
+      <h3 class="post-h3">Target Audience</h3>
+      <p class="post-p">From a contributor's perspective, Wikipedia does not attract experts — in fact, it actively discourages them, since any expert's edits can be replaced by anyone. The model depends on a broad, self-correcting community rather than credentialed authority.</p>
+      <h3 class="post-h3">Target Experience</h3>
+      <p class="post-p">Wikipedia aims to provide free access to the sum of all human knowledge. But in Wales' own words on <em>How I Built This</em>:</p>
+      <div class="pull-quote">
+        <p>"Wikipedia is quite good — it is the place to go to get the questions, not the answers. A way to get oriented into the context of a topic. If you want to use it as a starting point, go to the footnotes and go to the source. That's what you should do."</p>
+      </div>
+    </div>
 
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Data quality concerns - Vandalism, Hoaxes, and manipulation</h4>
-<!-- /wp:heading -->
+    <!-- PAIN POINTS -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Challenges</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Pain Points</h2>
 
-<!-- wp:paragraph -->
-<p>As is typical with Wikipedians, a response emerged from a mixture of cordial discussions, tedious arguments, and online wrestling matches—but it was sophisticated. The project’s <strong>most active volunteers introduced a raft of new editing tools and bureaucratic procedures intended to combat the bad edits</strong>. They created software that allowed fellow editors <strong>to quickly survey recent changes and reject them or admonish their authors with a single mouse click</strong>. They <strong>set loose automated “bots” that could reverse any incorrectly formatted changes or those that were likely to be vandalism and dispatch warning messages to the offending editors.</strong></p>
-<!-- /wp:paragraph -->
+      <h4 class="post-h4">Cumbersome collaboration & intimidating review</h4>
+      <p class="post-p">Using Wiki alleviated the cumbersome collaboration process editors faced on Nupedia. The "anyone can edit" model ensured it could scale — attracting users previously intimidated by the review and submission process, and ensuring the model didn't depend on a few select experts.</p>
 
-<!-- wp:paragraph -->
-<p>A frequently vandalized article can be "semi-protected" or "extended confirmed protected", meaning that only "autoconfirmed" or "extended confirmed" editors can modify it.<sup><a href="https://en.wikipedia.org/wiki/Wikipedia#cite_note-88">[83]</a></sup>A particularly contentious article may be locked so that only <a href="https://en.wikipedia.org/wiki/Wikipedia_administrators">administrators</a> can make changes.<sup><a href="https://en.wikipedia.org/wiki/Wikipedia#cite_note-89">[84]</a></sup></p>
-<!-- /wp:paragraph -->
+      <h4 class="post-h4">Data quality — Vandalism, hoaxes, and manipulation</h4>
+      <p class="post-p">The community's response was sophisticated. Active volunteers introduced new editing tools and bureaucratic procedures. They created software allowing editors to <strong>quickly survey recent changes and reject them with a single click</strong>. They deployed automated <strong>bots that could reverse incorrectly formatted changes or likely vandalism</strong> and dispatch warnings to offending editors.</p>
+      <p class="post-p">A frequently vandalized article can be "semi-protected," meaning only autoconfirmed editors can modify it. A particularly contentious article may be locked so only administrators can make changes.</p>
+      <div class="callout">
+        <p>Since 2007, when new controls began to bite, the likelihood of a new participant's edit being immediately deleted has steadily climbed — and well-intentioned newcomers are far less likely to <strong>still be editing Wikipedia two months after their first try</strong>.</p>
+      </div>
 
-<!-- wp:paragraph -->
-<p>Since 2007, when the new controls began to bite, the likelihood of a new participant’s edit being immediately deleted has steadily climbed. Over the same period, the proportion of those deletions made by automated tools rather than humans grew. Unsurprisingly, the data also indicate that well-intentioned newcomers are far less likely to <strong>still be editing Wikipedia two months after their first try</strong>.</p>
-<!-- /wp:paragraph -->
+      <h4 class="post-h4">Skewed coverage — biased toward technical, Western, and male-dominated subject matter</h4>
+      <p class="post-p">The loose collective running the site today is estimated to be <strong>90 percent male</strong>, operating a crushing bureaucracy with an often abrasive atmosphere that deters newcomers. "The biggest issue is editor diversity," Wales has said.</p>
+      <p class="post-p">A 2011 study from the University of Minnesota showed that articles worked on mostly by female editors were significantly shorter than those worked on mostly by male editors. Another 2011 study from Oxford found that <strong>84 percent of entries tagged with a location were about Europe or North America</strong>. Antarctica had more entries than any nation in Africa or South America.</p>
+      <p class="post-p">The number of active editors on English Wikipedia peaked in 2007 at more than 51,000 and has been <strong>declining</strong> ever since — this past summer only 31,000 people could be considered active editors.</p>
+    </div>
 
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Skewed coverage - biased towards <strong>technical, Western, and male-dominated subject matter</strong></h4>
-<!-- /wp:heading -->
+    <!-- FEATURES -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Product</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Features</h2>
+      <div class="feature-row">
+        <span class="feature-tag">Read</span>
+        <span class="feature-tag">Edit</span>
+        <span class="feature-tag">Talk</span>
+        <span class="feature-tag">View History</span>
+        <span class="feature-tag">Teahouse</span>
+        <span class="feature-tag">Articles for Deletion</span>
+      </div>
+    </div>
 
-<!-- wp:paragraph -->
-<p><a href="https://en.wikipedia.org/wiki/Criticism_of_Wikipedia">It has been criticized</a> for exhibiting <a href="https://en.wikipedia.org/wiki/Criticism_of_Wikipedia#Systemic_bias_in_coverage">systemic bias</a>, particularly <a href="https://en.wikipedia.org/wiki/Gender_bias_on_Wikipedia">gender bias</a> against women and <a href="https://en.wikipedia.org/wiki/Geographical_bias_on_Wikipedia">geographical bias</a> against the <a href="https://en.wikipedia.org/wiki/Global_South">Global South</a>. </p>
-<!-- /wp:paragraph -->
+    <!-- DECLINE -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Trend</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Decline in Page Views Since 2014</h2>
+      <p class="post-p">On January 20, 2014, <em>The Economic Times</em> reported that Wikipedia had <strong>lost nearly ten percent of its page views</strong> the prior year — a decline of about two billion between December 2012 and December 2013. The English Wikipedia declined by 12%, German by 17%, Japanese by 9%.</p>
+      <p class="post-p">The likely culprit: <strong>Google's Knowledge Graph</strong>, launched the prior year. Clay Shirky, associate professor at NYU and fellow at Harvard's Berkman Klein Center, put it plainly:</p>
+      <div class="callout">
+        <p>"If you can get your question answered from the search page, you don't need to click any further."</p>
+      </div>
+    </div>
 
-<!-- wp:paragraph -->
-<p>The main source of those problems is not mysterious. The loose collective running the site today, estimated to be <strong>90 percent male</strong>, operates a crushing bureaucracy with an often abrasive atmosphere that deters newcomers who might increase participation in Wikipedia and broaden its coverage. “<strong>The biggest issue is editor diversity</strong>,” says Wales. He hopes to “grow the number of editors in topics that need work.”<sup data-fn="140d6491-2c08-4205-9461-50927a083331" class="fn"><a href="#140d6491-2c08-4205-9461-50927a083331" id="140d6491-2c08-4205-9461-50927a083331-link">1</a></sup></p>
-<!-- /wp:paragraph -->
+    <!-- TRADEOFFS -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Comparison</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Tradeoffs — Wikipedia vs. Citizendium</h2>
+      <p class="post-p">If you've wondered whether an encyclopedia this large could've been achieved by reviewed contributors and subject matter experts, there's a website that attempted the feat. Larry Sanger, one of Wikipedia's co-founders, launched <strong>Citizendium</strong> with the vision: "<em>The world needs a more credible free encyclopedia.</em>"</p>
+      <p class="post-p"><strong>It failed to scale — unable to grow and sustain contributors.</strong></p>
+      <div class="compare-grid">
+        <div class="compare-item">
+          <p class="compare-label wiki">Wikipedia</p>
+          <div class="compare-point"><strong>Anonymous editing</strong> allowed</div>
+          <div class="compare-point">Anyone can contribute, no credentials required</div>
+          <div class="compare-point">Community self-moderates at scale</div>
+          <div class="compare-point">Admins elected by community vote</div>
+          <div class="compare-point">Articles can be edited continuously</div>
+          <div class="compare-point">Scales easily — 61M articles</div>
+        </div>
+        <div class="compare-item">
+          <p class="compare-label citizendium">Citizendium</p>
+          <div class="compare-point"><strong>Real names required</strong> with working email</div>
+          <div class="compare-point">Expert contributors must verify qualifications openly</div>
+          <div class="compare-point">Gentle expert oversight of everyday contributors</div>
+          <div class="compare-point">Admins ("constables") require a bachelor's degree, age 25+</div>
+          <div class="compare-point">Articles subject to a formal approval process</div>
+          <div class="compare-point">Failed to sustain contributor growth</div>
+        </div>
+      </div>
+      <p class="post-p">The lesson is stark: credibility and scale are in fundamental tension. Wikipedia chose scale — and got both reach and the biases that come with it. Citizendium chose credibility — and got neither.</p>
+    </div>
 
-<!-- wp:paragraph -->
-<p>Because Wikipedia has failed to replenish its supply of editors, its <em><strong>skew toward technical, Western, and male-dominated subject matter</strong> </em>has persisted. In 2011, researchers from the University of Minnesota and three other schools showed that articles worked on mostly by female editors—which presumably were more likely to be of interest to women—were significantly shorter than those worked on mostly by male editors or by men and women equally. Another 2011 study, from the University of Oxford, found that <strong>84 percent of entries tagged with a location were about Europe or North America</strong>. Antarctica had more entries than any nation in Africa or South America.</p>
-<!-- /wp:paragraph -->
+  </div>
 
-<!-- wp:paragraph -->
-<p>While this could be combated by encouraging contributions and growing active diverse editors, newcomers to Wikipedia making their first, tentative edits—and the inevitable mistakes—have become less likely to stick around. Being <strong>steamrollered by the newly efficient, impersonal editing machine</strong> was no fun. The number of active editors on the English-language Wikipedia peaked in 2007 at more than 51,000 and has been <strong>declining </strong>ever since as the supply of new ones got choked off. This past summer only 31,000 people could be considered active editors.</p>
-<!-- /wp:paragraph -->
+  <div class="post-conclusion reveal">
+    <p class="conclusion-text">"Wales built something genuinely unprecedented — a living document of human knowledge, written by no one and everyone, sustained by community rather than capital. Its flaws are inseparable from its scale. The better question isn't whether it's perfect, but whether anything else could have worked."</p>
+  </div>
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Features</h3>
-<!-- /wp:heading -->
+  <div class="post-footer">
+    <a href="index.html#blog" class="back-link">← Back to Blog</a>
+    <span class="post-footer-tag">Product · Wikipedia</span>
+  </div>
 
-<!-- wp:list -->
-<ul><!-- wp:list-item -->
-<li>Read</li>
-<!-- /wp:list-item -->
-
-<!-- wp:list-item -->
-<li>Edit</li>
-<!-- /wp:list-item -->
-
-<!-- wp:list-item -->
-<li>Talk</li>
-<!-- /wp:list-item -->
-
-<!-- wp:list-item -->
-<li>View History</li>
-<!-- /wp:list-item -->
-
-<!-- wp:list-item -->
-<li>Teahouse</li>
-<!-- /wp:list-item -->
-
-<!-- wp:list-item -->
-<li>Articles for Deletion </li>
-<!-- /wp:list-item --></ul>
-<!-- /wp:list -->
-
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Decline in page views since 2014</h3>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>On January 20, 2014, Subodh Varma reporting for <em><a href="https://en.wikipedia.org/wiki/The_Economic_Times">The Economic Times</a></em> indicated that not only had Wikipedia's growth stalled, it "had <strong>lost nearly ten percent of its page views</strong> last year. There was a decline of about two billion between December 2012 and December 2013. Its most popular versions are leading the slide: page-views of the English Wikipedia declined by twelve percent, those of German version slid by 17 percent and the Japanese version lost nine percent."<sup><a href="https://en.wikipedia.org/wiki/Wikipedia#cite_note-economictimes.indiatimes.com-76">[71]</a></sup> Varma added, "While Wikipedia's managers think that this could be due to errors in counting, other experts feel that <strong>Google's <a href="https://en.wikipedia.org/wiki/Knowledge_Graph">Knowledge Graphs</a> project </strong>launched last year may be gobbling up Wikipedia users."<sup><a href="https://en.wikipedia.org/wiki/Wikipedia#cite_note-economictimes.indiatimes.com-76">[71]</a></sup> When contacted on this matter, <a href="https://en.wikipedia.org/wiki/Clay_Shirky">Clay Shirky</a>, associate professor at New York University and fellow at Harvard's <a href="https://en.wikipedia.org/wiki/Berkman_Klein_Center_for_Internet_%26_Society">Berkman Klein Center for Internet &amp; Society</a> said that he suspected much of the page-view decline was due to Knowledge Graphs, stating, "<strong>If you can get your question answered from the search page, you don't need to click [any further]</strong>."</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Tradeoffs</h3>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>If you, like me have wondered, whether an encyclopedia as large as this one could've been achieved by reviewed contributors and subject matter experts, there is a website that attempted the feat. Larry Sanger, one of the founders of Wikipedia, launched a free online encyclopedia called <strong>Citizendium</strong>, with the vision, "<strong>The world needs a more credible free encyclopedia</strong>". It planned to achieve this by requiring virtually all contributors to use their real names, by strictly moderating the project for unprofessional behavior, by providing "gentle expert oversight" of everyday contributors, and through "approved articles" which have undergone a form of <a href="https://en.wikipedia.org/wiki/Peer-review">peer-review</a> by topic experts with credentials. </p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p><strong>It however failed to scale, since it was unable to grow and sustain contributors. </strong></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Experts are required to verify their <a href="https://en.wikipedia.org/wiki/Professional_certification">qualifications</a> openly, for transparency and publicly accepted authority.<sup><a href="https://en.wikipedia.org/wiki/Citizendium#cite_note-Sangeroutline-25">[25]</a></sup> This contrasts with the open and largely <a href="https://en.wikipedia.org/wiki/Anonymity">anonymous</a> nature of Wikipedia,<sup><a href="https://en.wikipedia.org/wiki/Citizendium#cite_note-26">[26]</a></sup> where subject specialists have neither any verifiable special knowledge of their subject nor agreed special status. Sanger stated that editors would <em>not</em> have pre-approval rights over edits by ordinary authors, though editors would have somewhat undefined authority over articles that fall within their specific area of expertise.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Unlike Wikipedia, Citizendium <strong>does not allow anonymous editing</strong>. Participants must <strong>register under their real names </strong>with a working email address. Sanger decided that Citizendium <a href="https://en.wikipedia.org/wiki/Sysops">administrators</a> would be called "<strong>constables</strong>", and need <strong>a <a href="https://en.wikipedia.org/wiki/Bachelor%27s_degree">bachelor's degree</a> to qualify</strong>. He also instituted a minimum "<strong>maturity</strong>" requirement—<strong>25 years of age</strong>—for constables.<sup><a href="https://en.wikipedia.org/wiki/Citizendium#cite_note-Sangeroutline-25">[25]</a></sup> The "<strong>head" constable</strong> is the <em>Chief Constable</em> (D. Matt Innis), and the head editor is the <em>Managing Editor</em>.<sup><a href="https://en.wikipedia.org/wiki/Citizendium#cite_note-SangerEmail092306-27">[27]</a></sup></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Citizendium articles are <strong>subject to an "approval" process</strong> after they have achieved reasonable quality. An "<strong>editor</strong>" can determine when an article is ready to be approved.<sup><a href="https://en.wikipedia.org/wiki/Citizendium#cite_note-Sangeroutline-25">[25]</a></sup></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">References</h3>
-<!-- /wp:heading -->
-
-<!-- wp:footnotes /-->
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 60); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
