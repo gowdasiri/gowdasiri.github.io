@@ -1,61 +1,223 @@
-<!-- wp:paragraph -->
-<p>40% of all food produced on the planet is wasted, responsible for 10% of green house gas emissions.</p>
-<!-- /wp:paragraph -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Too Good To Go — Siri Gowda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ink: #111111; --white: #ffffff; --muted: #888888; --rule: rgba(0,0,0,.10); --mono: 'DM Mono', monospace; --serif: 'Cormorant Garamond', serif; --sans: 'Instrument Sans', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; cursor: none; }
+    #cursor { position: fixed; top: 0; left: 0; z-index: 9999; width: 10px; height: 10px; background: var(--ink); border-radius: 50%; pointer-events: none; transform: translate(-50%,-50%); transition: width .2s, height .2s, opacity .2s; }
+    #cursor.expand { width: 30px; height: 30px; opacity: .12; }
 
-<!-- wp:paragraph -->
-<p>60% of food waste is through grocery stores, restaurants and other institutions, based on a research by FeedAmerica. </p>
-<!-- /wp:paragraph -->
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 52px; background: rgba(255,255,255,.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+    .nav-back { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .nav-back:hover { color: var(--ink); }
+    .nav-logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; letter-spacing: .04em; color: var(--ink); text-decoration: none; }
+    .nav-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
-<!-- wp:paragraph -->
-<p><strong>Too Good To Go</strong> is a for-profit company, aiming to be a part of a global movement fighting food waste. Restaurants, cafes and markets can list surprise bags containing end of day leftovers for a discounted price on the platform - as part of their sustainability mission to ensure as little food as possible is wasted and to generate additional revenue. Founded in 2015 by Dutch women, this platform is now available in 17 companies, as of 2023 and lists about 12k stores in the US.  </p>
-<!-- /wp:paragraph -->
+    .post-hero { padding-top: 120px; max-width: 720px; margin: 0 auto; padding-left: 52px; padding-right: 52px; padding-bottom: 64px; border-bottom: 1px solid var(--rule); }
+    .post-category { font-family: var(--mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .post-category::before { content: ''; width: 24px; height: 1px; background: var(--rule); }
+    .post-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.02; letter-spacing: -.02em; margin-bottom: 28px; }
+    .post-title em { font-style: italic; }
+    .post-meta { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+    .post-meta-item { font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Too Good To Go</h3>
-<!-- /wp:heading -->
+    .article-body { max-width: 720px; margin: 0 auto; padding: 0 52px; }
+    .post-section { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+    .post-section:last-child { border-bottom: none; }
+    .section-label { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .section-label-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); }
+    .section-label-line { flex: 1; height: 1px; background: var(--rule); }
 
-<!-- wp:paragraph -->
-<p>While the restaurant, cafe or market is unaware of the food that will be leftover at the end of day, they are aware that they have food left every night. The leftover fresh food would be stale by the following day. The idea is to pack this food in surprise bags and sell it for a third of the cost on the app and avoid wastage end of day. The consumer pays for the order ahead time and picks up these bags within the window mentioned by the seller. </p>
-<!-- /wp:paragraph -->
+    h2.post-h2 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 300; line-height: 1.2; margin-bottom: 20px; }
+    h4.post-h4 { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; margin-top: 28px; }
 
-<!-- wp:paragraph -->
-<p>Brings in new customers, additional revenue and takes the same or even lesser time in packaging the food as it would disposing it. </p>
-<!-- /wp:paragraph -->
+    .post-p { font-size: .93rem; line-height: 1.9; color: #333; margin-bottom: 18px; }
+    .post-p:last-child { margin-bottom: 0; }
+    .post-p strong { font-weight: 500; color: #111; }
+    .post-p em { font-style: italic; }
+    .post-lead { font-family: var(--serif); font-size: clamp(1.1rem, 2.2vw, 1.35rem); font-weight: 300; line-height: 1.75; color: #222; margin-bottom: 28px; }
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Paint Point</h3>
-<!-- /wp:heading -->
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); margin: 32px 0; }
+    .stat-item { background: white; padding: 28px 24px; }
+    .stat-num { font-family: var(--serif); font-size: 2.4rem; font-weight: 300; line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-family: var(--mono); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
-<!-- wp:list {"ordered":true} -->
-<ol><!-- wp:list-item -->
-<li><strong>Adoption</strong> : Would it take more than than simply disposing off leftovers at the end of the day? At the end of the day, with surprise bag, the managers <em>do not need to calculate inventory</em> of what they have left, and instead simply add to bag anything that they have left over. This would take<strong> as much or even lesser time than getting rid of end of day leftovers</strong>. Joining the app is straightforward, free and stores can list bags from the day they join the app. The app then receives a fixed cut on all purchases. </li>
-<!-- /wp:list-item -->
+    .callout { border-left: 2px solid var(--ink); padding: 20px 24px; margin: 32px 0; background: #fafafa; }
+    .callout p { font-size: .91rem; line-height: 1.8; color: #333; margin: 0; }
+    .callout p + p { margin-top: 10px; }
 
-<!-- wp:list-item -->
-<li><strong>Devaluing the brand</strong> : If you can get a bagel with TGTG for a fraction of the cost, why would you pay full price? With a surprise bag, you are also not going to know what you're going to get. For instance, if you needed to buy bread for dinner, you would go to the bakery to buy bread, as opposed to purchase the surprise bag, since you don't know for sure if you would get bread. This would also bring in new customers through your doors, who could potentially convert to regular customers. And most importantly, sustainability is the future and add value to the brand as a whole.</li>
-<!-- /wp:list-item --></ol>
-<!-- /wp:list -->
+    .pull-quote { margin: 48px 0; padding: 36px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .pull-quote p { font-family: var(--serif); font-size: clamp(1.2rem, 2.8vw, 1.6rem); font-weight: 300; line-height: 1.55; color: #222; font-style: italic; }
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Why not do it as a non profit?</h3>
-<!-- /wp:heading -->
+    .pain-item { display: grid; grid-template-columns: 40px 1fr; gap: 24px; padding: 32px 0; border-bottom: 1px solid var(--rule); align-items: start; }
+    .pain-item:last-child { border-bottom: none; }
+    .pain-num { font-family: var(--serif); font-size: 2rem; font-weight: 300; color: #ddd; line-height: 1; }
+    .pain-title { font-weight: 500; font-size: .93rem; margin-bottom: 8px; color: #111; }
+    .pain-body { font-size: .9rem; line-height: 1.85; color: #444; }
+    .pain-body em { font-style: italic; }
+    .pain-body strong { font-weight: 500; color: #111; }
 
-<!-- wp:paragraph -->
-<p>It shouldn't have to be so mutually exclusive that you have a charity to help the world or a business to make money. The idea is that social impact businesses can do both and should do both. To have a big impact, you need a strong business model to maximize the impact. </p>
-<!-- /wp:paragraph -->
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); margin: 28px 0; }
+    .two-col-item { background: white; padding: 28px; }
+    .two-col-label { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
+    .two-col-body { font-size: .88rem; line-height: 1.85; color: #444; }
+    .two-col-body strong { font-weight: 500; color: #111; }
 
-<!-- wp:paragraph -->
-<p>Big part of this was also raising money with Bliss B Corp venture capital, because the North Star metric was different. They were not only interested in financial KPI, but also about the way they do things - deal with consumers, employees, diversity, equity, inclusion. Building a business with a mission, which had to be sustainable and had to make money. </p>
-<!-- /wp:paragraph -->
+    .post-conclusion { max-width: 720px; margin: 0 auto; padding: 56px 52px; border-top: 1px solid var(--rule); }
+    .conclusion-text { font-family: var(--serif); font-size: clamp(1.1rem, 2.2vw, 1.45rem); font-weight: 300; line-height: 1.65; color: #333; font-style: italic; }
+    .post-footer { max-width: 720px; margin: 0 auto; padding: 40px 52px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rule); }
+    .back-link { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .back-link:hover { color: var(--ink); }
+    .post-footer-tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Are they undercutting work of charities?</h3>
-<!-- /wp:heading -->
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
 
-<!-- wp:paragraph -->
-<p>Enabling people who have money to access food, as opposed to charities where food would be redistributed to people are hungry or homeless. </p>
-<!-- /wp:paragraph -->
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .post-hero, .article-body, .post-conclusion, .post-footer { padding-left: 24px; padding-right: 24px; }
+      .stat-row, .two-col { grid-template-columns: 1fr; }
+      .pain-item { grid-template-columns: 32px 1fr; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
 
-<!-- wp:paragraph -->
-<p>They work with charities, to ensure that the food is first shared with the food bank and then the rest is sold on the app. In many cases, the food on the app is bought by low income families and in some other cases there are restaurants that have previously reached out to food banks to pick up the leftovers, but it was infeasible for them to do so. In a lot of different scenarios Too Good To Go bridges that gap in making the food accessible to many.</p>
-<!-- /wp:paragraph -->
+  <nav>
+    <a href="index.html#blog" class="nav-back">← Blog</a>
+    <a href="index.html" class="nav-logo">Siri Gowda</a>
+    <span class="nav-tag">Product</span>
+  </nav>
+
+  <div class="post-hero">
+    <p class="post-category">Blog · Product</p>
+    <h1 class="post-title">Too Good<br /><em>To Go</em></h1>
+    <div class="post-meta">
+      <span class="post-meta-item">Product breakdown</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">Food waste · Social impact · Scale</span>
+    </div>
+  </div>
+
+  <div class="article-body">
+
+    <!-- INTRO -->
+    <div class="post-section reveal">
+      <p class="post-lead">40% of all food produced on the planet is wasted, responsible for 10% of greenhouse gas emissions. 60% of that waste flows through grocery stores, restaurants, and other institutions.</p>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-num">40%</div>
+          <div class="stat-label">of all food produced is wasted</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">10%</div>
+          <div class="stat-label">of greenhouse gas emissions</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">12k</div>
+          <div class="stat-label">US stores listed as of 2023</div>
+        </div>
+      </div>
+      <p class="post-p"><strong>Too Good To Go</strong> is a for-profit company aiming to be part of a global movement fighting food waste. Restaurants, cafes, and markets can list surprise bags containing end-of-day leftovers at a discounted price — roughly a third of the retail cost — generating additional revenue while ensuring as little food as possible is wasted. Founded in 2015 by Dutch women, the platform is now available in 17 countries.</p>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">The Model</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">How it works</h2>
+      <p class="post-p">While a restaurant or cafe may not know exactly what food will be left over at the end of each day, they know with certainty that <em>something</em> will be. Fresh food left overnight is stale by morning. The idea: pack whatever remains into a surprise bag, list it on the app at a third of the cost, and let customers pay and schedule pickup within a seller-defined window.</p>
+      <div class="callout">
+        <p>Packaging a surprise bag takes the same time — often less — than disposing of end-of-day leftovers. It brings in new customers, generates additional revenue, and requires no inventory calculation. Sellers simply add whatever is left.</p>
+      </div>
+      <p class="post-p">The app receives a fixed cut on all purchases. Joining is free, and stores can begin listing bags from the day they sign up.</p>
+    </div>
+
+    <!-- PAIN POINTS -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Seller Concerns</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Pain Points — addressed</h2>
+      <div class="pain-item">
+        <div class="pain-num">01</div>
+        <div>
+          <p class="pain-title">Adoption — is it more work?</p>
+          <p class="pain-body">The concern is whether participating takes more time than simply throwing food away. With the surprise bag model, managers <em>do not need to calculate inventory</em> of what remains — they add whatever is left to a bag. This takes <strong>as much or even less time than disposing of end-of-day leftovers</strong>. Onboarding is free and straightforward, and stores can list bags from day one.</p>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-num">02</div>
+        <div>
+          <p class="pain-title">Devaluing the brand</p>
+          <p class="pain-body">If you can get a bagel through TGTG at a fraction of the price, why would you ever pay full price? Two things protect against this: the <strong>surprise bag mechanic</strong> means you never know exactly what you'll get — if you need bread for dinner, you go to the bakery. And TGTG tends to bring in <strong>new customers</strong> who might not have visited otherwise and can convert to regulars. More broadly, sustainability adds brand value, not dilutes it.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHY FOR-PROFIT -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Business Model</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Why not a non-profit?</h2>
+      <p class="post-p">It shouldn't have to be mutually exclusive — a charity that helps the world, or a business that makes money. The premise of Too Good To Go is that social impact businesses can and should do both. To have a big impact, you need a strong business model to maximize it.</p>
+      <div class="pull-quote">
+        <p>"To have a big impact, you need a strong business model to maximize the impact."</p>
+      </div>
+      <p class="post-p">A significant part of this was raising capital through <strong>Bliss B Corp venture capital</strong>, whose north star metric was different from traditional VC. They were interested not only in financial KPIs, but in <em>how</em> the company operates — how it treats consumers, employees, and approaches diversity, equity, and inclusion. Building a mission-driven business that had to be sustainable <em>and</em> had to make money.</p>
+    </div>
+
+    <!-- CHARITY -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Social Impact</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Are they undercutting charities?</h2>
+      <p class="post-p">The criticism is fair to raise: TGTG enables people who already have money to access discounted food, rather than redistributing it to those who are hungry or homeless — which is traditionally what charities do.</p>
+      <div class="two-col">
+        <div class="two-col-item">
+          <p class="two-col-label">The concern</p>
+          <p class="two-col-body">Surplus food sold at a discount goes to paying customers, not food banks. Doesn't this compete with redistribution efforts?</p>
+        </div>
+        <div class="two-col-item">
+          <p class="two-col-label">The reality</p>
+          <p class="two-col-body">TGTG works with charities directly — food is <strong>first offered to food banks</strong>, and only the remainder is sold on the app. In many cases, restaurants had previously tried to donate to food banks, but it was logistically infeasible. TGTG bridges that gap.</p>
+        </div>
+      </div>
+      <p class="post-p">In practice, surplus food on the app is frequently purchased by low-income families. And in many scenarios where no charity pickup was feasible, Too Good To Go ensures the food reaches someone rather than a bin.</p>
+    </div>
+
+  </div>
+
+  <div class="post-conclusion reveal">
+    <p class="conclusion-text">"The surprise bag is a quietly elegant design decision — it removes the inventory problem for sellers, sets accurate expectations for buyers, and makes the whole model scale without friction. The best product thinking often works like that: solving an operational problem and a behavioral one at the same time."</p>
+  </div>
+
+  <div class="post-footer">
+    <a href="index.html#blog" class="back-link">← Back to Blog</a>
+    <span class="post-footer-tag">Product · Too Good To Go</span>
+  </div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 60); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
