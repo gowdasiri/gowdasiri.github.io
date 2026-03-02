@@ -1,173 +1,261 @@
-<!-- wp:paragraph -->
-<p><strong>Google's mission statement</strong>, as stated by it's founders Larry and Sergey, is to<strong><em> organize the world’s information and make it universally accessible and useful.</em></strong></p>
-<!-- /wp:paragraph -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Google Knowledge Panel — Siri Gowda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ink: #111111; --white: #ffffff; --muted: #888888; --rule: rgba(0,0,0,.10); --mono: 'DM Mono', monospace; --serif: 'Cormorant Garamond', serif; --sans: 'Instrument Sans', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; cursor: none; }
+    #cursor { position: fixed; top: 0; left: 0; z-index: 9999; width: 10px; height: 10px; background: var(--ink); border-radius: 50%; pointer-events: none; transform: translate(-50%,-50%); transition: width .2s, height .2s, opacity .2s; }
+    #cursor.expand { width: 30px; height: 30px; opacity: .12; }
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Knowledge panel</h3>
-<!-- /wp:heading -->
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 52px; background: rgba(255,255,255,.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+    .nav-back { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .nav-back:hover { color: var(--ink); }
+    .nav-logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; letter-spacing: .04em; color: var(--ink); text-decoration: none; }
+    .nav-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
-<!-- wp:paragraph -->
-<p>Introduced in 2012, knowledge panels are information boxes that appear on Google when you search for entities (people, places, organizations, things) that are in the Knowledge Graph. They are meant to help you get a quick <strong>snapshot of information</strong> on a topic based on Google’s understanding of available content on the web.</p>
-<!-- /wp:paragraph -->
+    .post-hero { padding-top: 120px; max-width: 720px; margin: 0 auto; padding-left: 52px; padding-right: 52px; padding-bottom: 64px; border-bottom: 1px solid var(--rule); }
+    .post-category { font-family: var(--mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .post-category::before { content: ''; width: 24px; height: 1px; background: var(--rule); }
+    .post-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.2rem, 5.5vw, 4rem); line-height: 1.04; letter-spacing: -.02em; margin-bottom: 28px; }
+    .post-title em { font-style: italic; }
+    .post-meta { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+    .post-meta-item { font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
 
-<!-- wp:paragraph -->
-<p>Knowledge panels are automatically generated, and information that appears in a knowledge panel comes from various sources across the web. In some cases, they work with data partners who provide authoritative data on specific topics like movies or music, and combine that data with information from other open web sources.</p>
-<!-- /wp:paragraph -->
+    .article-body { max-width: 720px; margin: 0 auto; padding: 0 52px; }
+    .post-section { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+    .post-section:last-child { border-bottom: none; }
+    .section-label { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .section-label-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); }
+    .section-label-line { flex: 1; height: 1px; background: var(--rule); }
 
-<!-- wp:paragraph -->
-<p>Entities whose information is included in knowledge panels (like prominent individuals or the creators of a television show) who are self-authoritative, Google provides ways for these entities to provide direct feedback. Therefore, some of the information displayed may also come from verified entities who have suggested edits to facts on their own knowledge panels.</p>
-<!-- /wp:paragraph -->
+    h2.post-h2 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 300; line-height: 1.2; margin-bottom: 20px; }
+    h4.post-h4 { font-family: var(--mono); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); margin-bottom: 12px; margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--rule); }
+    h4.post-h4:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
 
-<!-- wp:paragraph -->
-<p>Images that appear in the knowledge panel can come from several sources. One source is those individuals that have claimed their knowledge panels and selected a featured image from images available on the web. Other images (especially when there is a collection of multiple images) are a preview of Google Images results for the entity and are automatically sourced from across the web.</p>
-<!-- /wp:paragraph -->
+    .post-p { font-size: .93rem; line-height: 1.9; color: #333; margin-bottom: 18px; }
+    .post-p:last-child { margin-bottom: 0; }
+    .post-p strong { font-weight: 500; color: #111; }
+    .post-p em { font-style: italic; }
+    .post-p a { color: var(--ink); text-underline-offset: 3px; }
+    .post-p a:hover { opacity: .6; }
+    .post-lead { font-family: var(--serif); font-size: clamp(1.1rem, 2.2vw, 1.35rem); font-weight: 300; line-height: 1.75; color: #222; margin-bottom: 28px; }
 
-<!-- wp:paragraph -->
-<p>Knowledge panels are updated automatically as information changes on the web, but Google also considers changes in two main ways: directly from the entities depicted in the knowledge panel, and from general user feedback.<sup data-fn="f6a6f71b-3861-4be9-b72f-4044170709b7" class="fn"><a href="#f6a6f71b-3861-4be9-b72f-4044170709b7" id="f6a6f71b-3861-4be9-b72f-4044170709b7-link">1</a></sup></p>
-<!-- /wp:paragraph -->
+    .stat-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--rule); margin: 32px 0; }
+    .stat-item { background: white; padding: 28px 24px; }
+    .stat-num { font-family: var(--serif); font-size: 2.4rem; font-weight: 300; line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-family: var(--mono); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
-<!-- wp:paragraph -->
-<p><strong>By Google's own account</strong></p>
-<!-- /wp:paragraph -->
+    .how-list { display: flex; flex-direction: column; }
+    .how-item { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+    .how-item:last-child { border-bottom: none; }
+    .how-item::before { content: '—'; font-family: var(--mono); color: #ccc; font-size: .75rem; flex-shrink: 0; }
+    .how-body { font-size: .9rem; line-height: 1.85; color: #444; }
+    .how-body strong { font-weight: 500; color: #111; }
+    .how-body em { font-style: italic; }
 
-<!-- wp:paragraph -->
-<p>Their aim on the launch of the Knowledge panel has been to help users find the right thing, provide the best summary and enable users to go broader and deeper. </p>
-<!-- /wp:paragraph -->
+    .callout { border-left: 2px solid var(--ink); padding: 20px 24px; margin: 32px 0; background: #fafafa; }
+    .callout p { font-size: .91rem; line-height: 1.8; color: #333; margin: 0; }
+    .callout p + p { margin-top: 10px; }
+    .callout p strong { font-weight: 500; }
+    .callout p em { font-style: italic; }
 
-<!-- wp:paragraph -->
-<p>It does this by : </p>
-<!-- /wp:paragraph -->
+    .callout.update { border-left-color: #ccc; }
+    .callout.update p { color: #666; font-size: .88rem; }
 
-<!-- wp:list -->
-<ul><!-- wp:list-item -->
-<li>Decoding the ambiguity of language </li>
-<!-- /wp:list-item -->
+    .pull-quote { margin: 48px 0; padding: 36px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .pull-quote p { font-family: var(--serif); font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 300; line-height: 1.6; color: #222; font-style: italic; }
+    .pull-quote cite { display: block; margin-top: 14px; font-family: var(--mono); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-style: normal; }
 
-<!-- wp:list-item -->
-<li>To identify the facts most likely to be needed for each item, they go back to their users and study in aggregate what they’ve been asking Google about each item.</li>
-<!-- /wp:list-item -->
+    .metric-list { display: flex; flex-direction: column; }
+    .metric-item { display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--rule); align-items: start; }
+    .metric-item:last-child { border-bottom: none; }
+    .metric-num { font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: #ddd; line-height: 1; }
+    .metric-body { font-size: .9rem; line-height: 1.85; color: #444; }
+    .metric-body strong { font-weight: 500; color: #111; }
 
-<!-- wp:list-item -->
-<li>It’s not just a catalog of objects; it also models all these inter-relationships. It’s the intelligence&nbsp;<em>between</em>&nbsp;these different entities that’s the key.<sup data-fn="2c5e4dda-57f2-4be8-9336-334f71aec73b" class="fn"><a href="#2c5e4dda-57f2-4be8-9336-334f71aec73b" id="2c5e4dda-57f2-4be8-9336-334f71aec73b-link">2</a></sup></li>
-<!-- /wp:list-item --></ul>
-<!-- /wp:list -->
+    .rec-list { display: flex; flex-direction: column; }
+    .rec-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+    .rec-item:last-child { border-bottom: none; }
+    .rec-item::before { content: '→'; font-family: var(--mono); color: #bbb; font-size: .65rem; flex-shrink: 0; }
+    .rec-body { font-size: .9rem; line-height: 1.8; color: #444; }
+    .rec-body strong { font-weight: 500; color: #111; }
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Some Numbers...</h3>
-<!-- /wp:heading -->
+    .post-conclusion { max-width: 720px; margin: 0 auto; padding: 56px 52px; border-top: 1px solid var(--rule); }
+    .conclusion-text { font-family: var(--serif); font-size: clamp(1.1rem, 2.2vw, 1.45rem); font-weight: 300; line-height: 1.65; color: #333; font-style: italic; }
+    .post-footer { max-width: 720px; margin: 0 auto; padding: 40px 52px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rule); }
+    .back-link { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .back-link:hover { color: var(--ink); }
+    .post-footer-tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
 
-<!-- wp:paragraph -->
-<p>CEO Sundar Pichai, in October 2016, noted that Google's Knowledge Graph encompasses 70 billion facts.<sup data-fn="7529ecb0-981a-459a-a2c8-277ea7c16e23" class="fn"><a href="#7529ecb0-981a-459a-a2c8-277ea7c16e23" id="7529ecb0-981a-459a-a2c8-277ea7c16e23-link">3</a></sup> By March 2023, this had grown to 800 billion facts on 8 billion entities.<sup><a href="https://en.wikipedia.org/wiki/Google_Knowledge_Graph#cite_note-5">[</a><a rel="noreferrer noopener" href="https://en.wikipedia.org/wiki/Google_Knowledge_Graph#cite_note-5" target="_blank">5]</a></sup></p>
-<!-- /wp:paragraph -->
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Highlight : “People also search for” feature</h3>
-<!-- /wp:heading -->
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .post-hero, .article-body, .post-conclusion, .post-footer { padding-left: 24px; padding-right: 24px; }
+      .stat-row { grid-template-columns: 1fr; }
+      .metric-item { grid-template-columns: 32px 1fr; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
 
-<!-- wp:paragraph -->
-<p>This particular feature is something that only Google is equipped to provide. While I was growing up, ChildKraft books were my absolute favorite, followed by Brittanica. There were endless stories and knowledge to acquire and you never ran out of new things that interested you. <em>'People also search for'</em> presents all this even more seamlessly, with prompts to meander without you having to go looking for the related topic. </p>
-<!-- /wp:paragraph -->
+  <nav>
+    <a href="index.html#blog" class="nav-back">← Blog</a>
+    <a href="index.html" class="nav-logo">Siri Gowda</a>
+    <span class="nav-tag">Product</span>
+  </nav>
 
-<!-- wp:paragraph -->
-<p>The con as always, remains to be the bias of it all. Assume that while most people find the actors drawing their attention when searching for movie names, you would be naturally more drawn to the story or writer. With Google prompts it's easy to lose yourself in a rabbit hole of information that you never meant to look into in the first place. </p>
-<!-- /wp:paragraph -->
+  <div class="post-hero">
+    <p class="post-category">Blog · Product</p>
+    <h1 class="post-title">Google<br /><em>Knowledge Panel</em></h1>
+    <div class="post-meta">
+      <span class="post-meta-item">Product breakdown</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">Search · Context · Accuracy</span>
+    </div>
+  </div>
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Measuring Success </h3>
-<!-- /wp:heading -->
+  <div class="article-body">
 
-<!-- wp:paragraph -->
-<p>With Knowledge Panel, what we ideally would want to measure is value added to the user and if we presented them with the answers they were looking for in the least time possible (in tandem with reduced effort - minimal clicks).</p>
-<!-- /wp:paragraph -->
+    <!-- INTRO -->
+    <div class="post-section reveal">
+      <p class="post-lead">Google's mission, as stated by founders Larry Page and Sergey Brin, is to <em>organize the world's information and make it universally accessible and useful.</em> The Knowledge Panel is perhaps the clearest expression of that ambition — and its tensions.</p>
+      <p class="post-p">Introduced in 2012, knowledge panels are information boxes that appear on Google when you search for entities — people, places, organizations, things — that are in the Knowledge Graph. They're meant to give you a quick <strong>snapshot of information</strong> on a topic based on Google's understanding of available content on the web.</p>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-num">70B</div>
+          <div class="stat-label">facts in Knowledge Graph (2016)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">800B</div>
+          <div class="stat-label">facts across 8B entities (2023)</div>
+        </div>
+      </div>
+    </div>
 
-<!-- wp:paragraph -->
-<p>Measuring if the user did not click on any link beyond the first search would be an indicator that they found everything they were looking for in the panel itself. This could however prove to be false positive in some scenarios where maybe they didn't find what they were looking for at all and hence did not browse. Another false positive could be considering a further click as a bad thing, when maybe the user found the answer and was interested in learning more - however, in this case we could differentiate between clicks on the knowledge panel vs the main panel</p>
-<!-- /wp:paragraph -->
+    <!-- HOW IT WORKS -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">How it works</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">The Knowledge Panel</h2>
+      <p class="post-p">Knowledge panels are automatically generated from sources across the web — including data partners who provide authoritative information on specific topics like movies or music, combined with open web sources. Prominent entities such as individuals or show creators can claim their panels and suggest edits to facts, meaning some information comes directly from verified sources.</p>
+      <p class="post-p">Images in panels can come from the entity's own selection (if they've claimed their panel) or from an automatic preview of Google Images results. Panels update automatically as information changes on the web, and Google also accepts feedback directly from the entities depicted and from general user feedback.</p>
 
-<!-- wp:paragraph -->
-<p>Interaction with the panel through feedback</p>
-<!-- /wp:paragraph -->
+      <p class="post-p" style="margin-top:28px;"><strong>By Google's own account</strong>, the panel aims to help users find the right thing, provide the best summary, and enable them to go broader and deeper. It does this by:</p>
+      <div class="how-list">
+        <div class="how-item"><div class="how-body">Decoding the <strong>ambiguity of language</strong> — understanding that "Apple" could be the fruit or the company, depending on context.</div></div>
+        <div class="how-item"><div class="how-body">Identifying the facts <strong>most likely to be needed</strong> for each entity by studying, in aggregate, what users have been asking Google about that item.</div></div>
+        <div class="how-item"><div class="how-body">Modeling <strong>inter-relationships between entities</strong> — not just a catalog of objects, but the intelligence <em>between</em> them. That's the key.</div></div>
+      </div>
+    </div>
 
-<!-- wp:paragraph -->
-<p>Businesses and people maintaining their own panels </p>
-<!-- /wp:paragraph -->
+    <!-- PEOPLE ALSO SEARCH FOR -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Highlight</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">"People also search for"</h2>
+      <p class="post-p">This particular feature is something only Google is positioned to provide at this scale. Growing up, ChildKraft and Britannica were my absolute favorites — endless knowledge to acquire, never running out of new things that interested you. <em>'People also search for'</em> presents that same wandering, even more seamlessly, with prompts to meander without you having to go looking for the related topic yourself.</p>
+      <div class="callout">
+        <p>The con, as always, is bias. Most people searching for a movie title may be drawn to the actors; you might be more interested in the story or the writer. The prompts reflect the aggregate — not your particular curiosity. And it's easy to lose yourself in a rabbit hole of information you never intended to explore.</p>
+      </div>
+    </div>
 
-<!-- wp:paragraph -->
-<p>Clicks on the 'People also Search For' feature </p>
-<!-- /wp:paragraph -->
+    <!-- MEASURING SUCCESS -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Metrics</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Measuring success</h2>
+      <p class="post-p">What we ideally want to measure is the value added to the user — did the panel present the right answer in the least time, with the least effort?</p>
+      <div class="metric-list">
+        <div class="metric-item">
+          <div class="metric-num">01</div>
+          <div class="metric-body"><strong>No further clicks after the first search</strong> — an indicator the user found what they needed in the panel itself. This can be a false positive: they may simply not have found it and given up. Differentiating between clicks on the knowledge panel vs. the main results would help.</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-num">02</div>
+          <div class="metric-body"><strong>Interaction with the panel</strong> — feedback submissions, corrections, and entity-claimed edits signal active engagement and signal where the panel is falling short.</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-num">03</div>
+          <div class="metric-body"><strong>Businesses and individuals maintaining their own panels</strong> — a proxy for perceived accuracy and usefulness.</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-num">04</div>
+          <div class="metric-body"><strong>Clicks on 'People also search for'</strong> — measures discovery and depth of exploration beyond the initial query.</div>
+        </div>
+      </div>
 
-<!-- wp:paragraph -->
-<p>If we truly value user satisfaction though, we need a way to measure if the snapshot provided user with the right information </p>
-<!-- /wp:paragraph -->
+      <p class="post-p" style="margin-top:32px;">If we truly value user satisfaction, we also need a way to measure whether the snapshot provided the <em>right</em> information — not just whether it was clicked. Some recommendations:</p>
+      <div class="rec-list">
+        <div class="rec-item"><div class="rec-body"><strong>Avoid knowledge panels for convoluted or sensitive public interest topics</strong> — snapshots always dilute context and nuance to some degree.</div></div>
+        <div class="rec-item"><div class="rec-body"><strong>Validate sources</strong> — Wikipedia's "anyone can edit" model makes it an unreliable sole source for a panel.</div></div>
+        <div class="rec-item"><div class="rec-body"><strong>Transparency</strong> — cite sources explicitly and flag non-validated ones.</div></div>
+        <div class="rec-item"><div class="rec-body"><strong>Feedback with teeth</strong> — strong, enforced guidelines for removing inaccuracies, especially on public interest topics.</div></div>
+      </div>
+    </div>
 
-<!-- wp:list -->
-<ul><!-- wp:list-item -->
-<li>Avoid Knowledge panels for convoluted and more sensitive public interest topics - because snapshots always dilute context and nuance to various degrees</li>
-<!-- /wp:list-item -->
+    <!-- CONCERNS -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Concerns</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Knowledge Graph concerns & inaccuracies</h2>
 
-<!-- wp:list-item -->
-<li>Validate the sources used for panels - Wikipedia, for instance, with an 'anyone can edit' model, is not a reliable validated source of information </li>
-<!-- /wp:list-item -->
+      <h4 class="post-h4">Lack of source attribution</h4>
+      <p class="post-p">Google's Knowledge Graph is sourced largely from Wikipedia and constructed in part from user search patterns. A 2015 analysis by Stone Temple Consulting found that knowledge panels — frequently unattributed at the time — were one of the fastest-growing content types in Google's search arsenal.</p>
+      <div class="callout update">
+        <p><strong>As of 2020</strong>, Google appears to consistently attribute sources in panels. This transparency returns power to the user — they can evaluate the source themselves and choose to dig deeper for nuance.</p>
+      </div>
 
-<!-- wp:list-item -->
-<li>Transparency - citing sources and flagging non-validated sources</li>
-<!-- /wp:list-item -->
+      <h4 class="post-h4">Lack of context</h4>
+      <p class="post-p">To Google, the knowledge panel is proof of its semantic search technology. To critics, it is a public literacy threat.</p>
+      <div class="pull-quote">
+        <p>"It undermines people's ability to verify information and, ultimately, to develop well-informed opinions. That is something we really need to study and process as a society."</p>
+        <cite>— Dario Taraborelli, Head of Research, Wikimedia Foundation</cite>
+      </div>
+      <p class="post-p">The primary issue is that knowledge panels provide information but often <strong>strip away the context of where that information came from</strong>. Being transparent about sources, allowing feedback, and surfacing related nuances would help combat this — though on public interest topics, no room for error should be permitted.</p>
 
-<!-- wp:list-item -->
-<li>Feedback - strong guidelines to remove inaccuracies </li>
-<!-- /wp:list-item --></ul>
-<!-- /wp:list -->
+      <h4 class="post-h4">Bias & inaccuracy</h4>
+      <p class="post-p">Geographer Mark Graham and colleague Heather Ford analyzed how the city of Jerusalem was represented on Wikipedia versus Google knowledge panels. They found that while Wikipedia devoted nearly 1,500 words to explaining the city's contested geopolitical status, <strong>the nuance was jettisoned entirely</strong> when the article was ingested by Google's panel.</p>
+      <p class="post-p">This is the structural problem with snapshots: compression destroys context, and context is often where the truth lives.</p>
+      <div class="callout update">
+        <p><strong>As of 2020</strong>, Google added a 'Feedback' link at the bottom of panels for users to flag inaccuracies. Google uses this feedback to analyse the cause, prevent future errors, and delete content that violates their policies — particularly for public interest topics.</p>
+      </div>
+    </div>
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Knowledge Graph concerns and inaccuracies<sup data-fn="4b4f8057-17f3-497e-8c2f-1a2bc5b3dbc8" class="fn"><a href="#4b4f8057-17f3-497e-8c2f-1a2bc5b3dbc8" id="4b4f8057-17f3-497e-8c2f-1a2bc5b3dbc8-link">4</a></sup></h3>
-<!-- /wp:heading -->
+  </div>
 
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading"><strong>Lack of Source Attribution</strong></h4>
-<!-- /wp:heading -->
+  <div class="post-conclusion reveal">
+    <p class="conclusion-text">"The Knowledge Panel is a product that succeeds brilliantly at its stated goal — giving you a fast answer — while quietly creating a new problem: the confidence that a fast answer is a complete one. The real challenge isn't accuracy; it's the illusion of completeness that a clean, authoritative-looking box creates."</p>
+  </div>
 
-<!-- wp:paragraph -->
-<p>Google’s Knowledge Graph, an advanced database sourced largely from Wikipedia and constructed in part from user search patterns. According to a October 2015 analysis by the digital marketing firm Stone Temple Consulting, these knowledge panels, which are frequently unattributed, are one of the fastest growing types in Google’s&nbsp;arsenal.<sup data-fn="c6a576f9-3401-49be-9a18-7d413e01bed5" class="fn"><a href="#c6a576f9-3401-49be-9a18-7d413e01bed5" id="c6a576f9-3401-49be-9a18-7d413e01bed5-link">5</a></sup> </p>
-<!-- /wp:paragraph -->
+  <div class="post-footer">
+    <a href="index.html#blog" class="back-link">← Back to Blog</a>
+    <span class="post-footer-tag">Product · Google Knowledge Panel</span>
+  </div>
 
-<!-- wp:paragraph -->
-<p>As of 2020, Google seems to have always attributed the souce. The transparency gives the power back to the user  to decide for themselves if it is pulled from a trusted source and to dig deeper for nuances.<sup><a href="https://blog.google/products/search/about-knowledge-graph-and-knowledge-panels/">4</a></sup></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading"><strong>Lack of Context </strong></h4>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>To Google, that’s proof of its semantic search technology; to Googlers, it’s a convenience that saves them a few clicks. But to skeptics, of whom there are a growing number, it’s a looming public literacy threat.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>“It undermines people’s ability to verify information and, ultimately, to develop well-informed opinions,” said Dario Taraborelli, head of research at the Wikimedia Foundation and a social computing researcher who studies knowledge production online. “And that is something I think we really need to study and process as a society.”&nbsp;</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>For&nbsp;Taraborelli, the primary issue with Google’s knowledge panels is that they aren’t terribly knowledgeable: They provide information but often <strong>leave out any context on where that information came from</strong>.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Being transparent by citing the source, coupled with allowing users to provide feedback and presenting relevant related details would help combat the lack of context to a large degree. Keeping in mind that with public interest topics no room for error should be allowed. </p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Bias and <strong>Inaccuracy</strong></h4>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>Mark Graham, a geographer at the Oxford Internet Institute, recently did just that: He and his colleague Heather Ford analyzed, in&nbsp;<a href="https://web.archive.org/web/20160603201137/http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2682459">a paper published last month</a>&nbsp;in the academic volume Code and the City, how the city of Jerusalem was represented both on Wikipedia and in Google knowledge panels. They found that while Wikipedia may explain the city’s contested geopolitical status in enormous depth — as of this writing, that portion runs to almost 1,500 words&nbsp;— the nuance was jettisoned completely when the article was deboned and ingested by Google.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>As of 2020, Google has introduced a 'Feedback' link at the bottom of the panel for users to flag inaccuracies. Google then users the feedback to analyse the cause and to prevent inaccuracies int he future. They also delete inaccuracies that violate their policies, especially associated with public interest topics.<sup><a href="https://blog.google/products/search/about-knowledge-graph-and-knowledge-panels/">4</a></sup></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">References</h3>
-<!-- /wp:heading -->
-
-<!-- wp:footnotes /-->
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 60); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
