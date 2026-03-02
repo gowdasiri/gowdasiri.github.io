@@ -1,139 +1,231 @@
-<!-- wp:paragraph -->
-<p>Sept 1st 2023 </p>
-<!-- /wp:paragraph -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech Regulation — Siri Gowda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ink: #111111; --white: #ffffff; --muted: #888888; --rule: rgba(0,0,0,.10); --mono: 'DM Mono', monospace; --serif: 'Cormorant Garamond', serif; --sans: 'Instrument Sans', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; cursor: none; }
+    #cursor { position: fixed; top: 0; left: 0; z-index: 9999; width: 10px; height: 10px; background: var(--ink); border-radius: 50%; pointer-events: none; transform: translate(-50%,-50%); transition: width .2s, height .2s, opacity .2s; }
+    #cursor.expand { width: 30px; height: 30px; opacity: .12; }
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">E.U. tech-focused laws</h2>
-<!-- /wp:heading -->
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 52px; background: rgba(255,255,255,.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+    .nav-back { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .nav-back:hover { color: var(--ink); }
+    .nav-logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; letter-spacing: .04em; color: var(--ink); text-decoration: none; }
+    .nav-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">General Data Protection Regulation (G.D.P.R.)</h4>
-<!-- /wp:heading -->
+    .post-hero { padding-top: 120px; max-width: 720px; margin: 0 auto; padding-left: 52px; padding-right: 52px; padding-bottom: 64px; border-bottom: 1px solid var(--rule); }
+    .post-category { font-family: var(--mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .post-category::before { content: ''; width: 24px; height: 1px; background: var(--rule); }
+    .post-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.2rem, 5.5vw, 4rem); line-height: 1.04; letter-spacing: -.02em; margin-bottom: 28px; }
+    .post-title em { font-style: italic; }
+    .post-meta { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+    .post-meta-item { font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
 
-<!-- wp:paragraph -->
-<p>GDPR was a landmark legislation to protect people’s online data. </p>
-<!-- /wp:paragraph -->
+    .article-body { max-width: 720px; margin: 0 auto; padding: 0 52px; }
+    .post-section { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+    .post-section:last-child { border-bottom: none; }
+    .section-label { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .section-label-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); }
+    .section-label-line { flex: 1; height: 1px; background: var(--rule); }
 
-<!-- wp:paragraph -->
-<p>Providing a paid tier would be one of the most tangible examples to date of how companies are having to redesign products to comply with data privacy rules and other government policies, particularly in Europe.</p>
-<!-- /wp:paragraph -->
+    h2.post-h2 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 300; line-height: 1.2; margin-bottom: 20px; }
+    h4.post-h4 { font-family: var(--mono); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); margin-bottom: 14px; margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--rule); }
+    h4.post-h4:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
 
-<!-- wp:paragraph -->
-<p>In July, the European Union’s highest court effectively <strong>barred Meta from combining data collected about users across its platforms — including Facebook, Instagram and WhatsApp — as well as from outside websites and apps, unless it received explicit consent from users</strong>. In January, the company was also fined 390 million euros by Irish regulators for <strong>forcing users to accept personalized ads as a condition of using Facebook</strong>.<br>The rulings stemmed from the 2018 enactment of Europe’s General Data Protection Regulation, or G.D.P.R., which was landmark legislation to protect people’s online data.</p>
-<!-- /wp:paragraph -->
+    .post-p { font-size: .93rem; line-height: 1.9; color: #333; margin-bottom: 18px; }
+    .post-p:last-child { margin-bottom: 0; }
+    .post-p strong { font-weight: 500; color: #111; }
+    .post-p em { font-style: italic; }
+    .post-lead { font-family: var(--serif); font-size: clamp(1.1rem, 2.2vw, 1.35rem); font-weight: 300; line-height: 1.75; color: #222; margin-bottom: 28px; }
 
-<!-- wp:paragraph -->
-<p>“This shows that tech companies are complying with the E.U.’s digital regulations, suggesting that they remain beholden to governments and not the other way around,” said Anu Bradford, a Columbia University law professor and the author of “Digital Empires: The Global Battle to Regulate Technology.”</p>
-<!-- /wp:paragraph -->
+    /* Law cards */
+    .law-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--rule); margin: 32px 0; }
+    .law-item { background: white; padding: 24px; }
+    .law-abbr { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); margin-bottom: 6px; }
+    .law-name { font-family: var(--serif); font-size: 1rem; font-weight: 400; line-height: 1.3; color: #333; margin-bottom: 10px; }
+    .law-desc { font-size: .83rem; line-height: 1.75; color: #666; }
 
-<!-- wp:paragraph -->
-<p>Europe is the second most lucrative region for Meta after North America. Susan Li, Meta’s chief financial officer, said in April that advertising in the European Union accounted for 10 percent of the company’s overall business. Meta’s revenue totaled nearly $117 billion last year.</p>
-<!-- /wp:paragraph -->
+    /* Region blocks */
+    .region-block { padding: 28px 0; border-bottom: 1px solid var(--rule); }
+    .region-block:last-child { border-bottom: none; }
+    .region-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 20px; }
+    .region-name { font-family: var(--mono); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); }
+    .region-line { flex: 1; height: 1px; background: var(--rule); }
+    .region-body { font-size: .9rem; line-height: 1.85; color: #444; }
+    .region-body strong { font-weight: 500; color: #111; }
 
-<!-- wp:paragraph -->
-<p>The decision was an example of how governments around the world are increasingly setting rules and standards governing how data can move around the globe.</p>
-<!-- /wp:paragraph -->
+    .callout { border-left: 2px solid var(--ink); padding: 20px 24px; margin: 32px 0; background: #fafafa; }
+    .callout p { font-size: .91rem; line-height: 1.8; color: #333; margin: 0; }
+    .callout p + p { margin-top: 10px; }
+    .callout p strong { font-weight: 500; }
 
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Digital Markets Act</h4>
-<!-- /wp:heading -->
+    .pull-quote { margin: 48px 0; padding: 36px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .pull-quote p { font-family: var(--serif); font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 300; line-height: 1.6; color: #222; font-style: italic; }
+    .pull-quote cite { display: block; margin-top: 14px; font-family: var(--mono); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-style: normal; }
 
-<!-- wp:paragraph -->
-<p>In recent weeks, as a new E.U. law called the Digital Services Act took effect to stem the flow of illicit content online, TikTok and <strong>Instagram users in the region have also been able to block personal data from being used to generate their social media feeds</strong>. Snapchat and Meta have <strong>stopped marketers from targeting teenagers ages 13 to 17 in Europe with personalized ads</strong>.</p>
-<!-- /wp:paragraph -->
+    .impact-list { display: flex; flex-direction: column; }
+    .impact-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+    .impact-item:last-child { border-bottom: none; }
+    .impact-item::before { content: '→'; font-family: var(--mono); color: #bbb; font-size: .65rem; flex-shrink: 0; }
+    .impact-body { font-size: .9rem; line-height: 1.8; color: #444; }
+    .impact-body strong { font-weight: 500; color: #111; }
 
-<!-- wp:paragraph -->
-<p>By next year, another E.U. tech-focused law, the Digital Markets Act, will take effect. That is set to force big tech platforms to change certain business practices to encourage competition and will have wide-ranging impacts, with Apple expected to allow users in the European Union to download alternatives to the App Store on iPhones and iPads for the first time.</p>
-<!-- /wp:paragraph -->
+    .post-conclusion { max-width: 720px; margin: 0 auto; padding: 56px 52px; border-top: 1px solid var(--rule); }
+    .conclusion-text { font-family: var(--serif); font-size: clamp(1.1rem, 2.2vw, 1.45rem); font-weight: 300; line-height: 1.65; color: #333; font-style: italic; }
+    .post-footer { max-width: 720px; margin: 0 auto; padding: 40px 52px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rule); }
+    .back-link { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .back-link:hover { color: var(--ink); }
+    .post-footer-tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
 
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Digital Services Act</h4>
-<!-- /wp:heading -->
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
 
-<!-- wp:paragraph -->
-<p>The&nbsp;Digital Services Act (DSA)&nbsp;and the&nbsp;Digital Market Act (DMA)&nbsp;form a single set of rules that apply across the whole EU. They have&nbsp;two main goals:</p>
-<!-- /wp:paragraph -->
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .post-hero, .article-body, .post-conclusion, .post-footer { padding-left: 24px; padding-right: 24px; }
+      .law-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
 
-<!-- wp:list {"ordered":true} -->
-<ol><!-- wp:list-item -->
-<li>to create a safer digital space in which the fundamental rights of all users of digital services are protected;</li>
-<!-- /wp:list-item -->
+  <nav>
+    <a href="index.html#blog" class="nav-back">← Blog</a>
+    <a href="index.html" class="nav-logo">Siri Gowda</a>
+    <span class="nav-tag">Tech & Policy</span>
+  </nav>
 
-<!-- wp:list-item -->
-<li>to establish a level playing field to foster innovation, growth, and competitiveness, both in the European Single Market and globally.<sup data-fn="23bd5cdb-e658-4b1a-8f1f-8a675aae6165" class="fn"><a href="#23bd5cdb-e658-4b1a-8f1f-8a675aae6165" id="23bd5cdb-e658-4b1a-8f1f-8a675aae6165-link">1</a></sup></li>
-<!-- /wp:list-item --></ol>
-<!-- /wp:list -->
+  <div class="post-hero">
+    <p class="post-category">Blog · Tech & Policy</p>
+    <h1 class="post-title">Tech<br /><em>Regulation</em></h1>
+    <div class="post-meta">
+      <span class="post-meta-item">September 2023</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">EU · USA · Canada · Global</span>
+    </div>
+  </div>
 
-<!-- wp:paragraph -->
-<p><strong>What are digital services?</strong></p>
-<!-- /wp:paragraph -->
+  <div class="article-body">
 
-<!-- wp:paragraph -->
-<p>Digital services include a large category of online services, from simple websites to internet infrastructure services and online platforms.</p>
-<!-- /wp:paragraph -->
+    <!-- INTRO -->
+    <div class="post-section reveal">
+      <p class="post-lead">Governments around the world are increasingly setting rules that govern how data moves, how platforms compete, and how technology companies can operate. The EU has led — but the pressure is spreading.</p>
+      <p class="post-p">Providing a paid, ad-free tier has become one of the most tangible examples of how companies are having to redesign products to comply with data privacy rules and other government policies — particularly in Europe. What was once optional product design is becoming regulatory compliance.</p>
+    </div>
 
-<!-- wp:paragraph -->
-<p>The rules specified in the DSA primarily concern online intermediaries and platforms. For example, online marketplaces, social networks, content-sharing platforms, app stores, and&nbsp;online travel and accommodation platforms.</p>
-<!-- /wp:paragraph -->
+    <!-- EU -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">European Union</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">The EU's tech-focused legal framework</h2>
 
-<!-- wp:paragraph -->
-<p>The Digital Markets Act includes rules that govern gatekeeper online platforms. Gatekeeper platforms are digital platforms with a systemic role in the internal market that function as bottlenecks between businesses and consumers for important digital services. Some of these services are also covered in the Digital Services Act, but for different reasons and with different types of provisions.</p>
-<!-- /wp:paragraph -->
+      <div class="law-grid">
+        <div class="law-item">
+          <p class="law-abbr">GDPR</p>
+          <p class="law-name">General Data Protection Regulation</p>
+          <p class="law-desc">Enacted 2018. Landmark legislation protecting people's online data. Governs how companies collect, store, and use personal data.</p>
+        </div>
+        <div class="law-item">
+          <p class="law-abbr">DSA</p>
+          <p class="law-name">Digital Services Act</p>
+          <p class="law-desc">Took effect 2023. Targets illegal content online and restricts personalized advertising to minors. Covers social networks, marketplaces, and content platforms.</p>
+        </div>
+        <div class="law-item">
+          <p class="law-abbr">DMA</p>
+          <p class="law-name">Digital Markets Act</p>
+          <p class="law-desc">Taking effect 2024. Forces large "gatekeeper" platforms to change business practices to encourage competition. Apple expected to allow alternative app stores on EU devices.</p>
+        </div>
+      </div>
 
-<!-- wp:paragraph -->
-<p><strong>Why are the DSA and DMA necessary?</strong></p>
-<!-- /wp:paragraph -->
+      <h4 class="post-h4">GDPR — General Data Protection Regulation</h4>
+      <p class="post-p">In July 2023, the EU's highest court effectively <strong>barred Meta from combining data collected across its platforms</strong> — Facebook, Instagram, and WhatsApp — as well as from outside websites and apps, without explicit user consent. In January, Meta was fined €390 million by Irish regulators for <strong>forcing users to accept personalized ads as a condition of using Facebook</strong>.</p>
+      <div class="pull-quote">
+        <p>"This shows that tech companies are complying with the E.U.'s digital regulations, suggesting that they remain beholden to governments and not the other way around."</p>
+        <cite>— Anu Bradford, Columbia University Law Professor, author of Digital Empires</cite>
+      </div>
+      <p class="post-p">Europe is Meta's second most lucrative region after North America — EU advertising accounts for roughly 10% of the company's overall business, on total revenue of nearly $117 billion. The stakes of compliance are significant.</p>
 
-<!-- wp:paragraph -->
-<p>Digital services impact and make our lives easier in many different ways. We use them to communicate with each other, shop, order food, find information, see films and listen to music through new, constantly evolving services . Digital services have also made it easier for companies to trade across borders and access new markets. &nbsp;</p>
-<!-- /wp:paragraph -->
+      <h4 class="post-h4">DSA & DMA — Digital Services Act & Digital Markets Act</h4>
+      <p class="post-p">The DSA and DMA form a single set of rules applying across the entire EU, with two goals: to create a safer digital space in which users' fundamental rights are protected, and to establish a level playing field that fosters competition and innovation.</p>
+      <p class="post-p">Following the DSA, TikTok and Instagram users in Europe can now block personal data from being used to generate their feeds. Snapchat and Meta have stopped marketers from targeting 13–17 year-olds with personalized ads.</p>
+      <div class="callout">
+        <p><strong>Why now?</strong> Some large platforms have emerged as gatekeepers in digital markets — private rule-makers with the power to act as bottlenecks between businesses and consumers. Their rules sometimes result in unfair conditions for businesses using their platforms and reduced choice for consumers. The DSA and DMA are designed to address exactly this.</p>
+      </div>
+      <p class="post-p">The DMA takes effect in 2024, with wide-ranging consequences. Apple is expected to allow users in the EU to download apps from alternatives to the App Store on iPhones and iPads — for the first time.</p>
 
-<!-- wp:paragraph -->
-<p>While there are many benefits of the digital transformation, there are also problems. A core concern is the trade and exchange of illegal goods, services and content online. Online services are also being misused by manipulative algorithmic systems to amplify the spread of disinformation, and for other harmful purposes. These challenges and the way platforms address them have a significant impact on fundamental rights online.</p>
-<!-- /wp:paragraph -->
+      <h4 class="post-h4">Real-world impact</h4>
+      <div class="impact-list">
+        <div class="impact-item"><div class="impact-body"><strong>Meta</strong> barred from combining cross-platform user data without explicit consent (CJEU ruling, 2023)</div></div>
+        <div class="impact-item"><div class="impact-body"><strong>Meta</strong> fined €390M for forcing ad consent as condition of Facebook access</div></div>
+        <div class="impact-item"><div class="impact-body"><strong>TikTok & Instagram</strong> users can now opt out of algorithmic feed personalization</div></div>
+        <div class="impact-item"><div class="impact-body"><strong>Snapchat & Meta</strong> prohibited from targeting 13–17 year-olds with personalized advertising</div></div>
+        <div class="impact-item"><div class="impact-body"><strong>Apple</strong> expected to open iOS to third-party app stores in EU markets</div></div>
+      </div>
+    </div>
 
-<!-- wp:paragraph -->
-<p>Despite a range of targeted, sector-specific interventions at EU level, there were still significant gaps and legal burdens to address in the beginning of the 2020s. For example some large platforms control important ecosystems in the digital economy. They have emerged as gatekeepers in digital markets, with the power to act as private rule-makers. These rules&nbsp;sometimes result in unfair conditions for businesses using these platforms and less choice for consumers.</p>
-<!-- /wp:paragraph -->
+    <!-- REST OF WORLD -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Beyond Europe</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Global regulation landscape</h2>
 
-<!-- wp:paragraph -->
-<p>Therefore, the European Union has adopted a modern legal framework that ensures the safety of users online, establishes governance with the protection of fundamental rights at its forefront, and&nbsp;maintains fair and open online platform environment.</p>
-<!-- /wp:paragraph -->
+      <div class="region-block">
+        <div class="region-header"><span class="region-name">United States</span><div class="region-line"></div></div>
+        <div class="region-body">
+          <p>Two significant moves at the state level. Utah passed a law that could <strong>curb the use of TikTok and Instagram by children and teenagers</strong>. California's Governor signed a <strong>sweeping Children's Online Safety Bill</strong>, requiring platforms to prioritize the safety of minors in their design decisions.</p>
+        </div>
+      </div>
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">USA</h2>
-<!-- /wp:heading -->
+      <div class="region-block">
+        <div class="region-header"><span class="region-name">Canada</span><div class="region-line"></div></div>
+        <div class="region-body">
+          <p>Canada passed the <strong>Online News Act</strong> in June 2023, joining a growing push by governments to force large social media companies to compensate news organizations. The law requires platforms and search engines to <strong>negotiate with news publishers to license their content</strong>. Both Meta and Google responded by blocking Canadian news from their platforms.</p>
+        </div>
+      </div>
 
-<!-- wp:paragraph -->
-<p>Utah Law Could Curb Use of TikTok and Instagram by Children and Teens</p>
-<!-- /wp:paragraph -->
+      <div class="region-block">
+        <div class="region-header"><span class="region-name">India & China</span><div class="region-line"></div></div>
+        <div class="region-body">
+          <p>Both countries have enacted significant tech regulation, though through very different frameworks — India through data protection legislation and content moderation rules, China through sweeping state controls over data, algorithms, and platform behavior. These remain active and evolving areas.</p>
+        </div>
+      </div>
+    </div>
 
-<!-- wp:paragraph -->
-<p>California Governor Signs Sweeping Children’s Online Safety Bill</p>
-<!-- /wp:paragraph -->
+  </div>
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Canada</h2>
-<!-- /wp:heading -->
+  <div class="post-conclusion reveal">
+    <p class="conclusion-text">"For two decades, tech platforms operated largely beyond the reach of traditional regulation — too new, too fast, too global for governments to keep up. That era is ending. The EU moved first and most aggressively, but the pattern is now global: governments are no longer asking platforms to self-regulate. They're legislating."</p>
+  </div>
 
-<!-- wp:paragraph -->
-<p>Canada passed the Online News Act in June, joining a push by numerous governments to force big social media companies to compensate news organizations. The Canadian bill requires the platforms and search engines to negotiate with news publishers to license their content.</p>
-<!-- /wp:paragraph -->
+  <div class="post-footer">
+    <a href="index.html#blog" class="back-link">← Back to Blog</a>
+    <span class="post-footer-tag">Tech & Policy · Regulation</span>
+  </div>
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">India</h2>
-<!-- /wp:heading -->
-
-<!-- wp:heading -->
-<h2 class="wp-block-heading">China</h2>
-<!-- /wp:heading -->
-
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Other countries</h2>
-<!-- /wp:heading -->
-
-<!-- wp:heading -->
-<h2 class="wp-block-heading">References</h2>
-<!-- /wp:heading -->
-
-<!-- wp:footnotes /-->
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 60); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
