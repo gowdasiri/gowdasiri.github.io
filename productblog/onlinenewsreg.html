@@ -1,171 +1,296 @@
-<!-- wp:paragraph -->
-<p>The <strong>relationship</strong> between news publishers and technology companies, perceived to be symbiotic in the early days of the internet, has shifted at an exponential rate to one of extreme imbalance in the power, with the platforms holding majority of the power. </p>
-<!-- /wp:paragraph -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News & Tech Platforms — Siri Gowda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ink: #111111; --white: #ffffff; --muted: #888888; --rule: rgba(0,0,0,.10); --mono: 'DM Mono', monospace; --serif: 'Cormorant Garamond', serif; --sans: 'Instrument Sans', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; cursor: none; }
+    #cursor { position: fixed; top: 0; left: 0; z-index: 9999; width: 10px; height: 10px; background: var(--ink); border-radius: 50%; pointer-events: none; transform: translate(-50%,-50%); transition: width .2s, height .2s, opacity .2s; }
+    #cursor.expand { width: 30px; height: 30px; opacity: .12; }
 
-<!-- wp:paragraph -->
-<p><strong>This wasn't always the case. </strong>When the internet boom began, the free news content provided the technology companies like Google credible information (lending a certain degree of credibility to the data on the platforms as a whole) to scrape, helping these companies attract users by presenting valuable information, insight and enabling them to improve to improve their recommendations - for both curated content and advertising. In return it served the news publishers well - with the larger organizations gaining additional traffic through links published on platforms and provided opportunities for lesser known publishers to be discovered (tech blogs or local news). </p>
-<!-- /wp:paragraph -->
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 52px; background: rgba(255,255,255,.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+    .nav-back { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .nav-back:hover { color: var(--ink); }
+    .nav-logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; letter-spacing: .04em; color: var(--ink); text-decoration: none; }
+    .nav-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
-<!-- wp:paragraph -->
-<p>However, <strong>as time progressed </strong>and as more and more users used online platforms to stay informed, connected and entertained, and as the recommendation algorithms grew smarter, learning from more and more data as time progressed, the <strong>dynamic shifted drastically</strong>. </p>
-<!-- /wp:paragraph -->
+    .post-hero { padding-top: 120px; max-width: 720px; margin: 0 auto; padding-left: 52px; padding-right: 52px; padding-bottom: 64px; border-bottom: 1px solid var(--rule); }
+    .post-category { font-family: var(--mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .post-category::before { content: ''; width: 24px; height: 1px; background: var(--rule); }
+    .post-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.2rem, 5.5vw, 4rem); line-height: 1.04; letter-spacing: -.02em; margin-bottom: 28px; }
+    .post-title em { font-style: italic; }
+    .post-meta { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+    .post-meta-item { font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
 
-<!-- wp:list {"ordered":true} -->
-<ol><!-- wp:list-item -->
-<li>Technology companies scrape the news publishers' content for free, providing valuable results to users without them having to click on the news/media links (make any effort)</li>
-<!-- /wp:list-item -->
+    .article-body { max-width: 720px; margin: 0 auto; padding: 0 52px; }
+    .post-section { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+    .post-section:last-child { border-bottom: none; }
+    .section-label { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .section-label-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); }
+    .section-label-line { flex: 1; height: 1px; background: var(--rule); }
 
-<!-- wp:list-item -->
-<li>Recommendation algorithms targeting users with curated content and advertising grew smarter with more user information to work with over time. For instance, a user would be more likely to click on a vacation ad link to a destination curated based on their preferences (read: prior search patterns), compared to the objective advertising of an item on the news site, resulting in more ad revenue for online website, even though it may have only made the connection due to a news article you searched previously with the term Bali in it </li>
-<!-- /wp:list-item -->
+    h2.post-h2 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 300; line-height: 1.2; margin-bottom: 20px; }
+    h4.post-h4 { font-family: var(--mono); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); margin-bottom: 12px; margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--rule); }
+    h4.post-h4:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
 
-<!-- wp:list-item -->
-<li>Tech company search/recommendation algorithms have the power of promoting or demoting a certain news publishers' news to a certain page, with even minute tweaks in their algorithms, resulting in a non-objective and unreliable dependency</li>
-<!-- /wp:list-item --></ol>
-<!-- /wp:list -->
+    .post-p { font-size: .93rem; line-height: 1.9; color: #333; margin-bottom: 18px; }
+    .post-p:last-child { margin-bottom: 0; }
+    .post-p strong { font-weight: 500; color: #111; }
+    .post-p em { font-style: italic; }
+    .post-p a { color: var(--ink); text-underline-offset: 3px; }
+    .post-p a:hover { opacity: .6; }
+    .post-lead { font-family: var(--serif); font-size: clamp(1.1rem, 2.2vw, 1.35rem); font-weight: 300; line-height: 1.75; color: #222; margin-bottom: 28px; }
 
-<!-- wp:paragraph -->
-<p>The <strong>thought has previously been</strong> (and tech companies still argue) that platforms like YouTube, Google Search,  Facebook, Instagram, etc. simply host content. They are a <strong>medium</strong> through which whoever (individual or organization) wants to share content to a wider audience, whether it be news, posts, videos, reels, etc., can do so for free. Like <strong>a queue in a publisher subscriber model</strong>. This seems intuitive to begin with. The technology companies do not request users to post content. They are simply the broadcasters, that enthusiastically and freely share the content made available to them. And this model worked well initially as the internet grew. It enabled the world to gain access to information for free. Google's mission, "to organize the world’s information and make it universally accessible and useful", seems to be a noble pursuit in that time context. </p>
-<!-- /wp:paragraph -->
+    .shift-list { display: flex; flex-direction: column; }
+    .shift-item { display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--rule); align-items: start; }
+    .shift-item:last-child { border-bottom: none; }
+    .shift-num { font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: #ddd; line-height: 1; }
+    .shift-body { font-size: .9rem; line-height: 1.85; color: #444; }
+    .shift-body strong { font-weight: 500; color: #111; }
+    .shift-body em { font-style: italic; }
 
-<!-- wp:paragraph -->
-<p>Things have however <strong>changed drastically and all too soon</strong>. With every passing year, the technology companies, like Google and Facebook, have leveraged free news links to train their recommendation algorithms, to better their customers' experience for searches, content recommendation, and most importantly to convert them to valuable advertising dollars. And this process only grew more seamless with more data over time. Next, <strong>they went even further</strong>, to optimize both the platform service and the advertising revenue, the content on news sites were scraped to present answers on the platform itself in snippets (for instance with Google Search), allowing users to have questions answered without having to explicitly move out of the platform to the news site. This further shifted the power dynamic where the platforms continued to increase their revenue and the news outlets felt the sting of severely decreased advertising revenue and page views. </p>
-<!-- /wp:paragraph -->
+    .callout { border-left: 2px solid var(--ink); padding: 20px 24px; margin: 32px 0; background: #fafafa; }
+    .callout p { font-size: .91rem; line-height: 1.8; color: #333; margin: 0; }
+    .callout p + p { margin-top: 10px; }
+    .callout p em { font-style: italic; }
+    .callout a { color: var(--ink); }
 
-<!-- wp:paragraph -->
-<p>It is undeniable that the <strong>journalism plays a pivotal role</strong> in society, but this remain true even in the context of online platforms. If all the content was subjective, these tech organizations would not have been able to become one stop information shops - allowing users to connect, share and stay informed all in the same platform, in case of platforms like YouTube or Facebook, or provide reliable results in case of Google Search. The news content also lends invaluable credibility to the results on these platforms (in tandem with research papers, books, etc.), for no cost. And most importantly, credible and good quality data is undeniably more valuable than simply volume of data when training any machine learning models used for everything from generating search results to feed recommendations to advertising. </p>
-<!-- /wp:paragraph -->
+    .callout.rebuttal { border-left-color: #ccc; background: #f5f5f5; }
+    .callout.rebuttal p { color: #555; font-style: italic; font-size: .88rem; }
 
-<!-- wp:paragraph -->
-<p>Today, news publishers are signing up to create content at an increasingly low benefit-cost ratio. The imbalance in the power dynamic is so high that no news publisher, however large, could <strong>demand fair compensation without repercussions</strong> of potentially having the platforms banning the news site or demoting it to the depths of search and recommendation results. And the world needs news publishers both large and small to stay in business! As much as we love the platforms we use abundantly more than the news apps, we can't rely on them to keep us informed. Additionally, we need smaller local publishers just as much as the larger organizations to keep the larger public informed of diverse perspectives and highlight voices of minorities and locals. </p>
-<!-- /wp:paragraph -->
+    .pull-quote { margin: 48px 0; padding: 36px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .pull-quote p { font-family: var(--serif); font-size: clamp(1.2rem, 2.8vw, 1.6rem); font-weight: 300; line-height: 1.55; color: #222; font-style: italic; }
 
-<!-- wp:paragraph -->
-<p>Anyone on either side of the debate would agree that it is no longer is feasible for news outlets to deny the impact of the internet on their journalism and to expose their content freely.</p>
-<!-- /wp:paragraph -->
+    .region-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); margin: 32px 0; }
+    .region-item { background: white; padding: 28px; }
+    .region-label { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .region-status { display: inline-block; font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px; margin-bottom: 12px; }
+    .region-status.passed { background: #111; color: #fff; }
+    .region-status.shelved { background: #eee; color: #888; }
+    .region-status.pending { background: #f5f0e8; color: #888; }
+    .region-body { font-size: .88rem; line-height: 1.8; color: #444; }
+    .region-body strong { font-weight: 500; color: #111; }
+    .region-body a { color: var(--ink); }
 
-<!-- wp:paragraph -->
-<p><strong>Enter regulations. </strong></p>
-<!-- /wp:paragraph -->
+    .opinion-item { padding: 24px 0; border-bottom: 1px solid var(--rule); }
+    .opinion-item:last-child { border-bottom: none; }
+    .opinion-source { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .opinion-point { font-size: .9rem; line-height: 1.85; color: #444; margin-bottom: 10px; display: flex; gap: 12px; }
+    .opinion-point::before { content: '—'; font-family: var(--mono); color: #ccc; font-size: .75rem; flex-shrink: 0; margin-top: 2px; }
+    .opinion-point span { flex: 1; }
+    .opinion-point strong { font-weight: 500; color: #111; }
 
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Canada</h4>
-<!-- /wp:heading -->
+    .ref-list { display: flex; flex-direction: column; }
+    .ref-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--rule); gap: 20px; }
+    .ref-item:last-child { border-bottom: none; }
+    .ref-label { font-size: .88rem; color: #444; }
+    .ref-link { font-family: var(--mono); font-size: .62rem; color: var(--muted); text-decoration: none; transition: color .2s; white-space: nowrap; }
+    .ref-link:hover { color: var(--ink); }
 
-<!-- wp:paragraph -->
-<p>The only real way to undo a lot of the damage at this point and to move to an era where publishers are compensated for the data bring used by platforms which will have to be enforced through regulations.  This is not all that simple either. Canada, most recently, introduced the Online News Act - holding Facebook and Google accountable, and forcing them to negotiate with publishers in Canada, in order to use their content. It was met with the expected resistance, resulting in both companies banning all Canadian news content on their platforms. In the coming years more countries are possibly going to adopt similar regulations to protect and save the decline of  journalism and publishing, which might be the point where these companies change their current stance or negotiate further to a more workable solution. </p>
-<!-- /wp:paragraph -->
+    .post-conclusion { max-width: 720px; margin: 0 auto; padding: 56px 52px; border-top: 1px solid var(--rule); }
+    .conclusion-text { font-family: var(--serif); font-size: clamp(1.1rem, 2.2vw, 1.45rem); font-weight: 300; line-height: 1.65; color: #333; font-style: italic; }
+    .post-footer { max-width: 720px; margin: 0 auto; padding: 40px 52px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rule); }
+    .back-link { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .back-link:hover { color: var(--ink); }
+    .post-footer-tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
 
-<!-- wp:paragraph -->
-<p>Briefly summarized, the Online News Act lets the government designate platforms as “digital news intermediaries,” or DNIs, if they fit certain criteria. It’s believed that only Google and Meta, which are massive and own the majority of the online advertising market, will qualify. DNIs will have to make payment agreements with eligible news outlets whose content they host, like Google search links or Facebook shares. If the two sides can’t come to an agreement, an arbitration panel will do it for them. They have a workaround *********</p>
-<!-- /wp:paragraph -->
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
 
-<!-- wp:paragraph -->
-<p>Official Online News Act : <a rel="noreferrer noopener" href="https://www.canada.ca/en/canadian-heritage/services/online-news.html" target="_blank">https://www.canada.ca/en/canadian-heritage/services/online-news.html</a></p>
-<!-- /wp:paragraph -->
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .post-hero, .article-body, .post-conclusion, .post-footer { padding-left: 24px; padding-right: 24px; }
+      .region-grid { grid-template-columns: 1fr; }
+      .shift-item { grid-template-columns: 32px 1fr; gap: 14px; }
+      .ref-item { flex-direction: column; align-items: flex-start; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
 
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Australia</h4>
-<!-- /wp:heading -->
+  <nav>
+    <a href="index.html#blog" class="nav-back">← Blog</a>
+    <a href="index.html" class="nav-logo">Siri Gowda</a>
+    <span class="nav-tag">Tech & Media</span>
+  </nav>
 
-<!-- wp:paragraph -->
-<p>The Canadian bill is modeled after a 2021 law passed in Australia, the first country to enact such legislation. At the time, Meta temporarily blocked sharing news links in Australia, before coming to a deal and lifting the ban. Google appeared to effectively capitulate by announcing a three-year global agreement with News Corp to pay for the publisher’s news content. </p>
-<!-- /wp:paragraph -->
+  <div class="post-hero">
+    <p class="post-category">Blog · Tech & Media</p>
+    <h1 class="post-title">News Publishers<br /><em>& Tech Platforms</em></h1>
+    <div class="post-meta">
+      <span class="post-meta-item">Power, money & regulation</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">Google · Meta · Journalism</span>
+    </div>
+  </div>
 
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">California</h4>
-<!-- /wp:heading -->
+  <div class="article-body">
 
-<!-- wp:paragraph -->
-<p>California lawmakers have been considering a bill that would require the tech giants to pay for news, but&nbsp;<a rel="noreferrer noopener" href="https://www.kcra.com/article/california-bill-google-meta-twitter-apple-pay-for-news-wont-move-forward-this-year/44476901#" target="_blank">said</a>&nbsp;last month that it had been shelved for a year. Meta has pushed back forcefully against the bill, known as the <strong>California Journalism Preservation Act</strong>. State Assembly voted to advance a bill to the State Senate that would&nbsp;<a rel="noreferrer noopener" href="https://www.sacbee.com/news/politics-government/capitol-alert/article275992871.html" target="_blank">tax tech companies for distributing news articles</a>. Meta&nbsp;<a rel="noreferrer noopener" href="https://twitter.com/andymstone/status/1663951770052067338" target="_blank">said</a>&nbsp;in response that it would be “forced” to remove news from Facebook and Instagram if the bill became law.</p>
-<!-- /wp:paragraph -->
+    <!-- INTRO -->
+    <div class="post-section reveal">
+      <p class="post-lead">The relationship between news publishers and technology companies — perceived to be symbiotic in the early days of the internet — has shifted to one of extreme imbalance, with platforms holding the majority of the power.</p>
+      <p class="post-p">When the internet boom began, free news content gave technology companies like Google credible information to scrape, helping attract users and improve recommendations — for both content and advertising. In return, larger news organizations gained additional traffic through platform links, while lesser-known publishers gained discovery they couldn't have achieved alone.</p>
+      <p class="post-p"><strong>This wasn't always the case.</strong> As more users came to rely on online platforms to stay informed and entertained, and as recommendation algorithms grew smarter with more data, the dynamic shifted drastically.</p>
+    </div>
 
-<!-- wp:paragraph -->
-<p>Parallel efforts to impose a “journalism usage fee” on tech platforms such as Meta and Google are under way in California. The bill, introduced by state assembly member Buffy Wicks, would provide what proponents describe as a “lifeline” for local news organizations by requiring tech firms to <strong>share portions of the advertising revenue it derives from sharing news articles with publishers</strong>. <a href="https://www.theguardian.com/us-news/2023/jun/01/california-news-publishers-law-meta-google">Meta has similarly threatened</a> to pull any news links from Facebook and Instagram if the legislation moves forward. Meta spokesperson <a href="https://twitter.com/andymstone/status/1663951770052067338">Andy Stone tweeted</a> that the bill would force the company to pay into a “slush fund that primarily benefits big, out-of-state media companies under the guise of aiding California publishers”.</p>
-<!-- /wp:paragraph -->
+    <!-- POWER SHIFT -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">The Shift</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">How the balance tipped</h2>
+      <div class="shift-list">
+        <div class="shift-item">
+          <div class="shift-num">01</div>
+          <div class="shift-body">Technology companies scrape news publishers' content for free, providing valuable results to users <strong>without them having to click through</strong> to the news site at all.</div>
+        </div>
+        <div class="shift-item">
+          <div class="shift-num">02</div>
+          <div class="shift-body">Recommendation algorithms grew smarter with more user data over time. A user is far more likely to click a curated vacation ad based on their prior search patterns than an objective ad on a news site — generating more ad revenue for the platform, <strong>even when the connection was originally made through a news article</strong>.</div>
+        </div>
+        <div class="shift-item">
+          <div class="shift-num">03</div>
+          <div class="shift-body">Tech company algorithms have the power to <strong>promote or demote a news publisher's content</strong> with minute tweaks — creating a non-objective, unreliable dependency that no publisher, however large, can safely challenge.</div>
+        </div>
+      </div>
+      <div class="callout">
+        <p>Platforms went even further: content on news sites began to be scraped to present answers directly in snippets — Google Search being the clearest example — allowing users to have questions answered <strong>without ever leaving the platform</strong>. Platforms continued to grow their revenue while news outlets felt the sting of severely decreased advertising revenue and page views.</p>
+      </div>
+    </div>
 
-<!-- wp:paragraph -->
-<p>And in the United States, the Justice Department and a group of eight states&nbsp;<a href="https://www.nytimes.com/2023/01/24/technology/google-ads-lawsuit.html">sued Google in January,</a>&nbsp;accusing the company of illegally abusing its monopoly over the technology that powers online advertising. The lawsuit was the department’s first antitrust lawsuit against a tech giant under President Biden.</p>
-<!-- /wp:paragraph -->
+    <!-- THE PLATFORM ARGUMENT -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">The Argument</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Platforms as neutral medium</h2>
+      <p class="post-p">The long-held argument — and one tech companies still make — is that platforms like YouTube, Google Search, Facebook, and Instagram simply <strong>host content</strong>. They are a medium through which anyone wanting to share content to a wider audience can do so for free. Like a queue in a publisher-subscriber model. The platforms do not request that users post content. They are simply broadcasters that freely share what is made available to them.</p>
+      <p class="post-p">This model worked well initially. It enabled the world to gain access to information for free. Google's stated mission — "to organize the world's information and make it universally accessible and useful" — seemed like a genuinely noble pursuit in that context.</p>
+      <div class="pull-quote">
+        <p>"If all the content was subjective, these tech organizations would not have been able to become one-stop information shops. The news content lends invaluable credibility to their results — for no cost."</p>
+      </div>
+      <p class="post-p">Today, news publishers sign up to create content at an increasingly low benefit-cost ratio. The imbalance is so high that no publisher, however large, could demand fair compensation without risk of being banned or demoted to the depths of search results. And the world needs both large and small news publishers to stay in business — not only for the major stories, but for local coverage, minority voices, and diverse perspectives that only smaller publishers can provide.</p>
+    </div>
 
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">European Union</h4>
-<!-- /wp:heading -->
+    <!-- REGULATIONS -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Regulation</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Enter regulations</h2>
+      <p class="post-p">The only real path forward — to undo damage and move to an era where publishers are compensated for their data being used — is through regulation. This is not simple. Platforms have consistently responded to proposed legislation with the threat of removing news content entirely.</p>
 
-<!-- wp:paragraph -->
-<p>In the European Union, countries have been trying to enforce <a href="https://www.nytimes.com/2019/03/26/business/eu-article-13-copyright.html">a copyright directive</a> that the bloc adopted in 2019 to force Google, Facebook and other platforms to compensate news organizations for their content.</p>
-<!-- /wp:paragraph -->
+      <div class="region-grid">
+        <div class="region-item">
+          <p class="region-label">Australia</p>
+          <span class="region-status passed">Passed — 2021</span>
+          <p class="region-body">The first country to enact such legislation. Meta temporarily blocked news sharing in Australia before coming to a deal and lifting the ban. <strong>Google announced a three-year global agreement with News Corp</strong> to pay for news content.</p>
+        </div>
+        <div class="region-item">
+          <p class="region-label">Canada</p>
+          <span class="region-status passed">Passed — 2023</span>
+          <p class="region-body">The <strong>Online News Act</strong> designates platforms as "digital news intermediaries" (DNIs) and requires payment agreements with eligible news outlets. If no agreement is reached, an arbitration panel decides. Both Google and Meta responded by <strong>banning all Canadian news content</strong> on their platforms.</p>
+        </div>
+        <div class="region-item">
+          <p class="region-label">California</p>
+          <span class="region-status shelved">Shelved — 2023</span>
+          <p class="region-body">The <strong>California Journalism Preservation Act</strong> would require tech firms to share advertising revenue derived from news articles with publishers. Meta stated it would be "forced" to remove news from Facebook and Instagram if the bill became law. Shelved for a year.</p>
+        </div>
+        <div class="region-item">
+          <p class="region-label">European Union</p>
+          <span class="region-status pending">Enforcement ongoing</span>
+          <p class="region-body">A <strong>copyright directive</strong> adopted in 2019 requires Google, Facebook, and other platforms to compensate news organizations for their content. Countries within the EU have been working to enforce it with varying degrees of success.</p>
+        </div>
+      </div>
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Opinions</h2>
-<!-- /wp:heading -->
+      <p class="post-p">Additionally, the US Justice Department and eight states <a href="https://www.nytimes.com/2023/01/24/technology/google-ads-lawsuit.html">sued Google in January 2023</a>, accusing the company of illegally abusing its monopoly over the technology that powers online advertising — the first antitrust lawsuit against a tech giant under President Biden.</p>
+    </div>
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Arguments raised by Meta</h3>
-<!-- /wp:heading -->
+    <!-- OPINIONS -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Opinions</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">What the platforms say</h2>
 
-<!-- wp:list -->
-<ul><!-- wp:list-item -->
-<li>Misrepresentation of the relationship between platforms and news publishers where Meta is projected to benefit unevenly </li>
-<!-- /wp:list-item -->
+      <h4 class="post-h4">Meta</h4>
+      <div class="opinion-item">
+        <div class="opinion-point"><span>The relationship between platforms and news publishers is being misrepresented — Meta is projected to benefit unevenly.</span></div>
+        <div class="opinion-point"><span>Posts with links to news articles make up <strong>less than 3% of what people see in their Facebook Feed</strong>. Meta doesn't solicit, need, or collect content from news websites. Users and publishers choose to share it themselves. Globally, more than 90% of organic views on article links are on links posted by the publishers themselves.</span></div>
+        <div class="opinion-point"><span>The Act would <strong>subsidize big broadcasters at the expense of independent publishers</strong>, skewing the playing field against smaller players.</span></div>
+        <div class="opinion-point"><span>"It makes no more sense to claim social media companies are taking money from publishers than to say car companies stole from the horse and cart industry."</span></div>
+      </div>
+      <div class="callout rebuttal">
+        <p>This is a weak analogy. Car companies didn't steal from the horse and cart industry because cars provided a genuinely superior alternative. But platforms don't have a journalism wing — they rely on news publishers to create the content that keeps users on their platforms, generating ad revenue from a creation they didn't pay to build, either directly (training algorithms) or indirectly (increasing time-on-platform).</p>
+      </div>
 
-<!-- wp:list-item -->
-<li>Meta does not scrape content or links to news content. Posts with links to news articles make up less than 3% of what people see in their Facebook Feed, and Canadians tell us they want to see less news and political content. Meta doesn’t solicit, need or collect content from news websites to put on our services. The users – and in this case news publishers – choose to share it themselves. Globally, more than 90% of organic views on article links from news publishers are on links posted by the publishers themselves.</li>
-<!-- /wp:list-item -->
+      <h4 class="post-h4">Google</h4>
+      <div class="opinion-item">
+        <div class="opinion-point"><span>Canada's Online News Act is broader than those in Australia and Europe — it <strong>puts a price on news story links</strong> in search results and can apply to outlets that don't produce news.</span></div>
+        <div class="opinion-point"><span>Google proposed the bill be revised to make the <strong>display of news content — rather than links — the basis for payment</strong>, and to specify that only businesses that produce news and adhere to journalistic standards are eligible.</span></div>
+      </div>
+    </div>
 
-<!-- wp:list-item -->
-<li>The Act would subsidize big broadcasters at the expense of independent publishers and digital news sites, skewing the playing field so it’s even harder for smaller players.</li>
-<!-- /wp:list-item -->
+    <!-- REFERENCES -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">References</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Further reading</h2>
+      <div class="ref-list">
+        <div class="ref-item">
+          <span class="ref-label">NYT — Facebook, Google and Australia's news law (2021)</span>
+          <a href="https://www.nytimes.com/2021/02/17/technology/facebook-google-australia-news.html" target="_blank" class="ref-link">nytimes.com →</a>
+        </div>
+        <div class="ref-item">
+          <span class="ref-label">NYT — Meta news in Canada (2023)</span>
+          <a href="https://www.nytimes.com/2023/08/02/business/media/meta-news-in-canada.html" target="_blank" class="ref-link">nytimes.com →</a>
+        </div>
+        <div class="ref-item">
+          <span class="ref-label">NYT — Meta, Google, Canada news act (2023)</span>
+          <a href="https://www.nytimes.com/2023/06/23/business/media/meta-google-canada-news-facebook-instagram.html" target="_blank" class="ref-link">nytimes.com →</a>
+        </div>
+        <div class="ref-item">
+          <span class="ref-label">Meta — Concerns with Canada's Online News Act</span>
+          <a href="https://about.fb.com/news/2022/10/metas-concerns-with-canadas-online-news-act/" target="_blank" class="ref-link">about.fb.com →</a>
+        </div>
+        <div class="ref-item">
+          <span class="ref-label">Google — Our concerns with Bill C-18</span>
+          <a href="https://blog.google/intl/en-ca/our-concerns-with-bill-c-18-the-online-news-act/" target="_blank" class="ref-link">blog.google →</a>
+        </div>
+        <div class="ref-item">
+          <span class="ref-label">Canada — Official Online News Act</span>
+          <a href="https://www.canada.ca/en/canadian-heritage/services/online-news.html" target="_blank" class="ref-link">canada.ca →</a>
+        </div>
+      </div>
+    </div>
 
-<!-- wp:list-item -->
-<li>It makes no more sense to claim social media companies are taking money from publishers than to say car companies stole from the horse and cart industry. <strong><em>This is a terrible analogy as analogies go. While the car companies did not steal from the horse and cart industry, a car gets a person or their things from point A to B more effectively than a horse or cart, resulting in the shift in user behavior. Online platforms like Facebook do not have a journalism wing to bring people news themselves (unlike a car), so they rely on news publishers to create content that can be shared and viewed on their platform.</em></strong> <strong><em>In this particular case they are generating ad revenue both directly  (scraping news content to train algorithms) and indirectly (increasing time spent on platform per user using news content and in turn adding to ad revenue as a result) from a creation they did not have to spend any money on to build.</em></strong></li>
-<!-- /wp:list-item --></ul>
-<!-- /wp:list -->
+  </div>
 
-<!-- wp:paragraph -->
-<p><em>References</em> : <a href="https://about.fb.com/news/2022/10/metas-concerns-with-canadas-online-news-act/">https://about.fb.com/news/2022/10/metas-concerns-with-canadas-online-news-act/</a>; <a href="https://about.fb.com/news/2023/05/metas-position-on-canadas-online-news-act/">https://about.fb.com/news/2023/05/metas-position-on-canadas-online-news-act/</a>;</p>
-<!-- /wp:paragraph -->
+  <div class="post-conclusion reveal">
+    <p class="conclusion-text">"Journalism is what gives platforms their credibility — and platforms have been extracting that value for free for two decades. Regulation is an imperfect fix, but the alternative — waiting for platforms to voluntarily compensate the industry they've been quietly dismantling — has clearly not worked."</p>
+  </div>
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Google's Opinion on Online News Act </h3>
-<!-- /wp:heading -->
+  <div class="post-footer">
+    <a href="index.html#blog" class="back-link">← Back to Blog</a>
+    <span class="post-footer-tag">Tech & Media · News & Platforms</span>
+  </div>
 
-<!-- wp:list -->
-<ul><!-- wp:list-item -->
-<li>The US technology companies have said the Canadian proposals are unsustainable for their businesses. Google has argued that Canada’s law is broader than those in Australia and Europe, saying it puts a price on news story links displayed in search results and can apply to outlets that do not produce news.</li>
-<!-- /wp:list-item -->
-
-<!-- wp:list-item -->
-<li>The search engine giant had proposed that the bill <strong>be revised to make the displaying of news content, rather than links, as basis for payment and to specify that only businesses that produce news and adhere to journalistic standards are eligible.</strong></li>
-<!-- /wp:list-item --></ul>
-<!-- /wp:list -->
-
-<!-- wp:paragraph -->
-<p><em>References</em> : <a href="https://blog.google/intl/en-ca/company-news/outreach-initiatives/an-update-on-canadas-bill-c-18-and-our-search-and-news-products/">https://blog.google/intl/en-ca/company-news/outreach-initiatives/an-update-on-canadas-bill-c-18-and-our-search-and-news-products/</a>; <a rel="noreferrer noopener" href="https://blog.google/intl/en-ca/our-concerns-with-bill-c-18-the-online-news-act/" target="_blank">https://blog.google/intl/en-ca/our-concerns-with-bill-c-18-the-online-news-act/</a>; <a rel="noreferrer noopener" href="https://blog.google/supportingnews/#overview" target="_blank">https://blog.google/supportingnews/#overview</a>; <a rel="noreferrer noopener" href="https://blog.google/outreach-initiatives/google-news-initiative/setting-record-straight-news/" target="_blank">https://blog.google/outreach-initiatives/google-news-initiative/setting-record-straight-news/</a>; <a href="https://blog.google/intl/en-ca/company-news/outreach-initiatives/our-senate-testimony-on-bill-c-18/">https://blog.google/intl/en-ca/company-news/outreach-initiatives/our-senate-testimony-on-bill-c-18/</a>; <a rel="noreferrer noopener" href="https://blog.google/intl/en-ca/company-news/outreach-initiatives/its-time-to-fix-bill-c-18/" target="_blank">https://blog.google/intl/en-ca/company-news/outreach-initiatives/its-time-to-fix-bill-c-18/</a>;</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Compensation</h2>
-<!-- /wp:heading -->
-
-<!-- wp:heading -->
-<h2 class="wp-block-heading">References </h2>
-<!-- /wp:heading -->
-
-<!-- wp:embed {"url":"https://www.nytimes.com/2021/02/17/technology/facebook-google-australia-news.html","type":"rich","providerNameSlug":"the-new-york-times"} -->
-<figure class="wp-block-embed is-type-rich is-provider-the-new-york-times wp-block-embed-the-new-york-times"><div class="wp-block-embed__wrapper">
-https://www.nytimes.com/2021/02/17/technology/facebook-google-australia-news.html
-</div></figure>
-<!-- /wp:embed -->
-
-<!-- wp:embed {"url":"https://www.nytimes.com/2023/08/02/business/media/meta-news-in-canada.html","type":"rich","providerNameSlug":"the-new-york-times"} -->
-<figure class="wp-block-embed is-type-rich is-provider-the-new-york-times wp-block-embed-the-new-york-times"><div class="wp-block-embed__wrapper">
-https://www.nytimes.com/2023/08/02/business/media/meta-news-in-canada.html
-</div></figure>
-<!-- /wp:embed -->
-
-<!-- wp:embed {"url":"https://www.nytimes.com/2023/06/23/business/media/meta-google-canada-news-facebook-instagram.html","type":"rich","providerNameSlug":"the-new-york-times"} -->
-<figure class="wp-block-embed is-type-rich is-provider-the-new-york-times wp-block-embed-the-new-york-times"><div class="wp-block-embed__wrapper">
-https://www.nytimes.com/2023/06/23/business/media/meta-google-canada-news-facebook-instagram.html
-</div></figure>
-<!-- /wp:embed -->
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 60); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
