@@ -1,75 +1,207 @@
-<!-- wp:paragraph -->
-<p>Threads, undeniably a Twitter clone, advertised as a safer cleaner Twitter had an incredibly <strong>high conversion rate</strong>. </p>
-<!-- /wp:paragraph -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Threads — Siri Gowda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ink: #111111; --white: #ffffff; --muted: #888888; --rule: rgba(0,0,0,.10); --mono: 'DM Mono', monospace; --serif: 'Cormorant Garamond', serif; --sans: 'Instrument Sans', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; cursor: none; }
+    #cursor { position: fixed; top: 0; left: 0; z-index: 9999; width: 10px; height: 10px; background: var(--ink); border-radius: 50%; pointer-events: none; transform: translate(-50%,-50%); transition: width .2s, height .2s, opacity .2s; }
+    #cursor.expand { width: 30px; height: 30px; opacity: .12; }
 
-<!-- wp:paragraph -->
-<p></p>
-<!-- /wp:paragraph -->
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 52px; background: rgba(255,255,255,.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+    .nav-back { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .nav-back:hover { color: var(--ink); }
+    .nav-logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; letter-spacing: .04em; color: var(--ink); text-decoration: none; }
+    .nav-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
-<!-- wp:paragraph -->
-<p>So far, I’m enjoying it. But it definitely feels like a stripped-down version of Twitter. No hashtags, heavy on the influencers — and the worst part is, a lot of the people in my replies don’t seem to get my jokes that usually do well on Twitter.</p>
-<!-- /wp:paragraph -->
+    .post-hero { padding-top: 120px; max-width: 720px; margin: 0 auto; padding-left: 52px; padding-right: 52px; padding-bottom: 64px; border-bottom: 1px solid var(--rule); }
+    .post-category { font-family: var(--mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .post-category::before { content: ''; width: 24px; height: 1px; background: var(--rule); }
+    .post-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.02; letter-spacing: -.02em; margin-bottom: 28px; }
+    .post-title em { font-style: italic; }
+    .post-meta { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+    .post-meta-item { font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: #ccc; }
 
-<!-- wp:paragraph -->
-<p>Threads is a Twitter clone, but Meta is introducing the concept to never-tweeters who have been on Instagram. So there’s going to be an awkward phase of acclimating.</p>
-<!-- /wp:paragraph -->
+    .article-body { max-width: 720px; margin: 0 auto; padding: 0 52px; }
+    .post-section { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+    .post-section:last-child { border-bottom: none; }
+    .section-label { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .section-label-tag { font-family: var(--mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); }
+    .section-label-line { flex: 1; height: 1px; background: var(--rule); }
 
-<!-- wp:paragraph -->
-<p></p>
-<!-- /wp:paragraph -->
+    h2.post-h2 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 300; line-height: 1.2; margin-bottom: 20px; }
 
-<!-- wp:paragraph -->
-<p>For one, Threads is algorithmically curated, just like Facebook or Instagram. That means when you come in, you see a bunch of different posts based on your interests, whether they were posted five hours ago or five minutes ago. (Is it posted, or is it threaded? Have we decided on the verbiage yet?)</p>
-<!-- /wp:paragraph -->
+    .post-p { font-size: .93rem; line-height: 1.9; color: #333; margin-bottom: 18px; }
+    .post-p:last-child { margin-bottom: 0; }
+    .post-p strong { font-weight: 500; color: #111; }
+    .post-p em { font-style: italic; }
+    .post-p a { color: var(--ink); text-underline-offset: 3px; }
+    .post-p a:hover { opacity: .6; }
+    .post-lead { font-family: var(--serif); font-size: clamp(1.1rem, 2.2vw, 1.35rem); font-weight: 300; line-height: 1.75; color: #222; margin-bottom: 28px; }
 
-<!-- wp:paragraph -->
-<p>That’s a departure from what we’re used to with Twitter, where the marquee feature is the reverse chronological timeline. That means you see every single post from people you follow in reverse order, which made Twitter indispensable for breaking news and live events.</p>
-<!-- /wp:paragraph -->
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); margin: 32px 0; }
+    .compare-item { background: white; padding: 28px; }
+    .compare-label { font-family: var(--mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
+    .compare-point { font-size: .88rem; line-height: 1.8; color: #444; margin-bottom: 10px; display: flex; gap: 10px; }
+    .compare-point::before { content: '·'; color: #ccc; flex-shrink: 0; }
+    .compare-point strong { font-weight: 500; color: #111; }
 
-<!-- wp:paragraph -->
-<p>One other big difference between Threads and Twitter: The character limit on Threads is 500 characters, whereas on Twitter it’s 280 characters for free accounts.</p>
-<!-- /wp:paragraph -->
+    .callout { border-left: 2px solid var(--ink); padding: 20px 24px; margin: 32px 0; background: #fafafa; }
+    .callout p { font-size: .91rem; line-height: 1.8; color: #333; margin: 0; }
+    .callout p + p { margin-top: 10px; }
 
-<!-- wp:paragraph -->
-<p>To me, Meta’s interest-based algorithm is a major turnoff. It’s made my Threads feed a pile of posts from accounts I don’t follow, primarily influencers and brands advertising their products. I see very few posts from my actual friends.</p>
-<!-- /wp:paragraph -->
+    .pull-quote { margin: 48px 0; padding: 36px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .pull-quote p { font-family: var(--serif); font-size: clamp(1.2rem, 2.8vw, 1.6rem); font-weight: 300; line-height: 1.55; color: #222; font-style: italic; }
+    .pull-quote cite { display: block; margin-top: 14px; font-family: var(--mono); font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-style: normal; }
 
-<!-- wp:paragraph -->
-<p>The truth is Twitter isn’t a social network, and neither is Threads. Both are broadcasting platforms for big brands, celebrities, politicians and media outlets to share information with their followers.</p>
-<!-- /wp:paragraph -->
+    .ref-list { display: flex; flex-direction: column; }
+    .ref-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+    .ref-item:last-child { border-bottom: none; }
+    .ref-label { font-size: .88rem; color: #444; }
+    .ref-link { font-family: var(--mono); font-size: .65rem; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .ref-link:hover { color: var(--ink); }
 
-<!-- wp:paragraph -->
-<p>This type of network isn’t conducive to how people actually socialize in communities. In social clubs, people congregate in smaller groups around shared interests. They don’t crowd into an enormous conference room and shout like we do on Twitter and now Threads.</p>
-<!-- /wp:paragraph -->
+    .post-conclusion { max-width: 720px; margin: 0 auto; padding: 56px 52px; border-top: 1px solid var(--rule); }
+    .conclusion-text { font-family: var(--serif); font-size: clamp(1.1rem, 2.2vw, 1.45rem); font-weight: 300; line-height: 1.65; color: #333; font-style: italic; }
+    .post-footer { max-width: 720px; margin: 0 auto; padding: 40px 52px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rule); }
+    .back-link { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .back-link:hover { color: var(--ink); }
+    .post-footer-tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
 
-<!-- wp:paragraph -->
-<p></p>
-<!-- /wp:paragraph -->
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
 
-<!-- wp:paragraph -->
-<p>Meta knows this, too. You reported a few years ago that Mark Zuckerberg said people were increasingly&nbsp;<a href="https://www.nytimes.com/2019/03/06/technology/mark-zuckerberg-facebook-privacy.html">shifting away from the big social media platform</a>&nbsp;toward smaller, more siloed networks. Those included private Facebook groups and messaging apps.</p>
-<!-- /wp:paragraph -->
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .post-hero, .article-body, .post-conclusion, .post-footer { padding-left: 24px; padding-right: 24px; }
+      .compare-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
 
-<!-- wp:paragraph -->
-<p>I do think there’s a sort of performative element to talking in the public sphere, where my conversations with you take on a different tone and meaning — sort of like we’re talking onstage in front of an audience. There’s something fun about that. But it often can get very unfun very quickly. Messaging, as you note, helps circumvent that.</p>
-<!-- /wp:paragraph -->
+  <nav>
+    <a href="index.html#blog" class="nav-back">← Blog</a>
+    <a href="index.html" class="nav-logo">Siri Gowda</a>
+    <span class="nav-tag">Product</span>
+  </nav>
 
-<!-- wp:embed {"url":"https://www.nytimes.com/2023/07/12/technology/personaltech/meta-threads-review.html?searchResultPosition=48","type":"rich","providerNameSlug":"the-new-york-times"} -->
-<figure class="wp-block-embed is-type-rich is-provider-the-new-york-times wp-block-embed-the-new-york-times"><div class="wp-block-embed__wrapper">
-https://www.nytimes.com/2023/07/12/technology/personaltech/meta-threads-review.html?searchResultPosition=48
-</div><figcaption class="wp-element-caption">Jack Dorsey Bias in algorithms is an important topic. Our responsibility is to understand, measure, and reduce accidental bias due to factors such as the quality of the data used to train our algorithms. This is an extremely complex challenge facing everyone applying artificial intelligence.<br><a rel="noreferrer noopener" href="https://twitter.com/jack/status/1037399180224987136?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1037399180224987136%7Ctwgr%5E6c49cc9054f5f5839c01615edab4ea6a8f9b427b%7Ctwcon%5Es1_&amp;ref_url=https%3A%2F%2Fwww.nytimes.com%2F2021%2F11%2F30%2Ftechnology%2Fdorsey-twitter-big-tech-ceos.html" target="_blank"><time datetime="2018-09-05T17:56:53.000Z">1:56 PM · Sep 5, 2018</time></a>&nbsp;from&nbsp;<a rel="noreferrer noopener" href="https://twitter.com/places/01fbe706f872cb32?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1037399180224987136%7Ctwgr%5E6c49cc9054f5f5839c01615edab4ea6a8f9b427b%7Ctwcon%5Es1_&amp;ref_url=https%3A%2F%2Fwww.nytimes.com%2F2021%2F11%2F30%2Ftechnology%2Fdorsey-twitter-big-tech-ceos.html" target="_blank">Washington, DC</a><br><a rel="noreferrer noopener" href="https://help.twitter.com/en/twitter-for-websites-ads-info-and-privacy" target="_blank"></a><br><a rel="noreferrer noopener" href="https://twitter.com/intent/like?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1037399180224987136%7Ctwgr%5E6c49cc9054f5f5839c01615edab4ea6a8f9b427b%7Ctwcon%5Es1_&amp;ref_url=https%3A%2F%2Fwww.nytimes.com%2F2021%2F11%2F30%2Ftechnology%2Fdorsey-twitter-big-tech-ceos.html&amp;tweet_id=1037399180224987136" target="_blank"><br></a>&nbsp;Twitter&nbsp;<a href="https://www.nytimes.com/2022/07/22/technology/twitter-earnings.html">disclosed</a>&nbsp;it had 237.8 million daily users last July, four months before Mr. Musk bought the company and took it private.</figcaption></figure>
-<!-- /wp:embed -->
+  <div class="post-hero">
+    <p class="post-category">Blog · Product</p>
+    <h1 class="post-title"><em>Threads</em></h1>
+    <div class="post-meta">
+      <span class="post-meta-item">Product breakdown</span>
+      <div class="post-meta-dot"></div>
+      <span class="post-meta-item">Social · Algorithm · Broadcasting</span>
+    </div>
+  </div>
 
-<!-- wp:paragraph -->
-<p>&nbsp;Twitter&nbsp;<a href="https://www.nytimes.com/2022/07/22/technology/twitter-earnings.html">disclosed</a>&nbsp;it had 237.8 million daily users last July, four months before Mr. Musk bought the company and took it private.</p>
-<!-- /wp:paragraph -->
+  <div class="article-body">
 
-<!-- wp:paragraph -->
-<p>References </p>
-<!-- /wp:paragraph -->
+    <!-- INTRO -->
+    <div class="post-section reveal">
+      <p class="post-lead">Threads — undeniably a Twitter clone, advertised as a safer, cleaner alternative — had an incredibly high conversion rate. It launched into a market of disaffected Twitter users and Instagram's existing billion-person network simultaneously.</p>
+      <p class="post-p">So far, I'm enjoying it. But it definitely feels like a stripped-down version of Twitter. No hashtags, heavy on the influencers — and the worst part is, a lot of the people in my replies don't seem to get the jokes that usually do well on Twitter. Threads is a Twitter clone, but Meta is introducing the concept to never-tweeters who have been on Instagram. So there's going to be an awkward phase of acclimating.</p>
+    </div>
 
-<!-- wp:embed {"url":"https://www.nytimes.com/2023/07/11/technology/threads-zuckerberg-meta-google-plus.html?action=click\u0026amp;module=RelatedLinks\u0026amp;pgtype=Article","type":"rich","providerNameSlug":"the-new-york-times"} -->
-<figure class="wp-block-embed is-type-rich is-provider-the-new-york-times wp-block-embed-the-new-york-times"><div class="wp-block-embed__wrapper">
-https://www.nytimes.com/2023/07/11/technology/threads-zuckerberg-meta-google-plus.html?action=click&amp;module=RelatedLinks&amp;pgtype=Article
-</div><figcaption class="wp-element-caption"><a href="https://medium.com/chris-messina/thoughts-on-google-8883844a9ca4" target="_blank" rel="noreferrer noopener">https://medium.com/chris-messina/thoughts-on-google-8883844a9ca4</a></figcaption></figure>
-<!-- /wp:embed -->
+    <!-- THREADS VS TWITTER -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">Comparison</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Threads vs. Twitter</h2>
+      <div class="compare-grid">
+        <div class="compare-item">
+          <p class="compare-label">Threads</p>
+          <div class="compare-point"><strong>Algorithmic feed</strong> — interest-based, like Facebook or Instagram. Posts can be 5 hours or 5 minutes old.</div>
+          <div class="compare-point"><strong>500 character limit</strong></div>
+          <div class="compare-point">No hashtags</div>
+          <div class="compare-point">Heavy on influencers and branded content</div>
+          <div class="compare-point">Draws from Instagram's existing social graph</div>
+        </div>
+        <div class="compare-item">
+          <p class="compare-label">Twitter</p>
+          <div class="compare-point"><strong>Reverse chronological timeline</strong> — every post from people you follow, in order.</div>
+          <div class="compare-point"><strong>280 character limit</strong> (free accounts)</div>
+          <div class="compare-point">Hashtags and trending topics</div>
+          <div class="compare-point">Indispensable for breaking news and live events</div>
+          <div class="compare-point">237.8 million daily active users (July 2022)</div>
+        </div>
+      </div>
+      <div class="callout">
+        <p>Meta's interest-based algorithm is a major turnoff for Twitter natives. It fills the feed with posts from accounts you don't follow — primarily influencers and brands — rather than the people you actually chose to connect with.</p>
+      </div>
+    </div>
+
+    <!-- BROADCASTING VS SOCIALIZING -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">The Bigger Picture</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Broadcasting platforms, not social networks</h2>
+      <p class="post-p">The truth is Twitter isn't a social network — and neither is Threads. Both are <strong>broadcasting platforms</strong> for big brands, celebrities, politicians, and media outlets to share information with followers. This type of network isn't conducive to how people actually socialize in communities.</p>
+      <div class="pull-quote">
+        <p>"In social clubs, people congregate in smaller groups around shared interests. They don't crowd into an enormous conference room and shout at each other."</p>
+      </div>
+      <p class="post-p">Meta knows this. Zuckerberg has said that people were increasingly shifting away from large public platforms toward smaller, more siloed networks — private Facebook groups and messaging apps. There's something fun about the performative element of talking in the public sphere, where conversations take on a different tone onstage in front of an audience. But it often gets very unfun very quickly.</p>
+      <p class="post-p">On algorithmic bias, Jack Dorsey framed it well:</p>
+      <div class="callout">
+        <p>"Bias in algorithms is an important topic. Our responsibility is to understand, measure, and reduce accidental bias due to factors such as the quality of the data used to train our algorithms. This is an extremely complex challenge facing everyone applying artificial intelligence."<br /><br /><em>— Jack Dorsey, Sep 5, 2018</em></p>
+      </div>
+    </div>
+
+    <!-- REFERENCES -->
+    <div class="post-section reveal">
+      <div class="section-label"><span class="section-label-tag">References</span><div class="section-label-line"></div></div>
+      <h2 class="post-h2">Further reading</h2>
+      <div class="ref-list">
+        <div class="ref-item">
+          <span class="ref-label">NYT — Meta's Threads Review (July 2023)</span>
+          <a href="https://www.nytimes.com/2023/07/12/technology/personaltech/meta-threads-review.html" target="_blank" class="ref-link">nytimes.com →</a>
+        </div>
+        <div class="ref-item">
+          <span class="ref-label">NYT — Threads, Zuckerberg, and the Google+ comparison</span>
+          <a href="https://www.nytimes.com/2023/07/11/technology/threads-zuckerberg-meta-google-plus.html" target="_blank" class="ref-link">nytimes.com →</a>
+        </div>
+        <div class="ref-item">
+          <span class="ref-label">Chris Messina — Thoughts on Google+</span>
+          <a href="https://medium.com/chris-messina/thoughts-on-google-8883844a9ca4" target="_blank" class="ref-link">medium.com →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="post-conclusion reveal">
+    <p class="conclusion-text">"Threads launched at exactly the right moment — into a Twitter user base that was frustrated and looking for an exit. High conversion was almost guaranteed. Whether it can hold those users once the novelty wears off is a different question entirely, and the algorithm is its biggest liability."</p>
+  </div>
+
+  <div class="post-footer">
+    <a href="index.html#blog" class="back-link">← Back to Blog</a>
+    <span class="post-footer-tag">Product · Threads</span>
+  </div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 60); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
