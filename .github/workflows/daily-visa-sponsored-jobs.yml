@@ -1,0 +1,36 @@
+name: Daily Visa Sponsored Job Discovery
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run discovery
+        env:
+          JOBS_API_KEY: ${{ secrets.JOBS_API_KEY }}
+          LINKEDIN_JOBS_API_URL: ${{ secrets.LINKEDIN_JOBS_API_URL }}
+          INDEED_JOBS_API_URL: ${{ secrets.INDEED_JOBS_API_URL }}
+          BUILTIN_JOBS_API_URL: ${{ secrets.BUILTIN_JOBS_API_URL }}
+          HIRED_JOBS_API_URL: ${{ secrets.HIRED_JOBS_API_URL }}
+          SENTIMENT_API_URL: ${{ secrets.SENTIMENT_API_URL }}
+          SENTIMENT_API_KEY: ${{ secrets.SENTIMENT_API_KEY }}
+        run: python job_discovery.py
+      - name: Commit daily output
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add outputs data/seen_job_ids.json
+          if git diff --cached --quiet; then
+            echo "No new jobs"
+            exit 0
+          fi
+          git commit -m "chore: add daily visa-sponsored jobs output"
+          git push
