@@ -1,6 +1,6 @@
 # projects-repo
 
-Starter repository scaffold for personal projects.
+Starter scaffold intended to become its **own standalone Git repository**.
 
 ## What's included
 
@@ -8,19 +8,25 @@ Starter repository scaffold for personal projects.
 - `tests/`: test files
 - `.gitignore`: common ignores for Python, Node, and editor artifacts
 - `LICENSE`: MIT license template
+- `init-standalone-repo.sh`: one-command repo initialization
 
-## Quick start
+## Create a standalone repo from this scaffold
 
 ```bash
-git init
-git add .
-git commit -m "Initial commit"
+cp -R projects-repo <your-new-repo-name>
+cd <your-new-repo-name>
+./init-standalone-repo.sh
 ```
 
-Optionally connect a remote:
+This script:
+
+1. Initializes a new Git repository
+2. Renames the default branch to `main`
+3. Creates the first commit
+
+## Optional: connect to GitHub
 
 ```bash
 git remote add origin <your-github-repo-url>
-git branch -M main
 git push -u origin main
 ```
