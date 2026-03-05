@@ -19,6 +19,18 @@ cd <your-new-repo-name>
 - `git branch --show-current` is `main`
 - Your remote is set correctly (if using GitHub): `git remote -v`
 
+## Fastest way to run once
+
+```bash
+cd projects-repo
+./run-once.sh
+```
+
+The script will:
+
+- create `job-search-config.json` from the example (first run only)
+- generate a timestamped CSV under `output/`
+
 ## Generate LinkedIn job links (click-and-apply workflow)
 
 This scaffold can generate **LinkedIn job search links** you can click directly.
